@@ -7,7 +7,7 @@ import java.io.*;
 public class WebScraper {
     public static void main(String[] args) throws IOException {
 
-
+        
 
     }
 }
