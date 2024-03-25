@@ -5,9 +5,9 @@ import "./SearchResult.css";
 export const SearchResult = ({result}) => {
     return (<div 
     className="search-result" 
-    onClick={(e) => alert(`You clicked on ${result.name}`)}
+    onClick={(e) => alert(`You clicked on ${result.Name}`)}
     >
-    {result.name}
+    {result.Name}
     </div>
     ); 
 };

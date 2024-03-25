@@ -7,15 +7,14 @@ export const SearchBar = ({ setResults }) => {
     const [input, setInput] = useState("");
 
     const fetchData = (value) => {
-        fetch("https://jsonplaceholder.typicode.com/users")
+        fetch("./Test_Data/Courses.json")
             .then((response) => response.json())
             .then(json => {
-            const results = json.filter((user) => {
+            const results = json.filter((course) => {
                 return (
                     value &&
-                    user && 
-                    user.name && 
-                    user.name.toLowerCase().includes(value)
+                    course.Name && 
+                    course.Name.toLowerCase().includes(value.toLowerCase())
                 );
             });
             setResults(results);
