@@ -1,56 +1,40 @@
 import './App.css';
-import { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 
 // PAGES
 import HomePage from "./Pages/HomePage";
+import LoginPage from "./Pages/LoginPage";
+import RegisterPage from "./Pages/RegisterPage";
 
 // COMPONENTS
-import { SearchBar } from './Components/SearchBar';
-import { SearchResultsList } from './Components/SearchResultList';
+import NavigationBar from "./Components/NavigationBar";
 
 
 function App() {
-  // state for search bar components
-  const [results, setResults] = useState([]);
-  const [filteredCourses, setFilteredCourses] = useState([]);
-
-  useEffect(() => {
-    const fetchAllCourses = async () => {
-      const response = await fetch("./Test_Data/Courses.json");
-      const jsonOfCourses = await response.json();
-
-      if (response.ok) {
-        setFilteredCourses(jsonOfCourses);
-      }
-    };
-
-    fetchAllCourses();
-  }, []);
-
   return (
     <div className="App">
 
-
-
-      <div className = "search-bar-container">
-        <SearchBar setResults={setResults} setFilteredCourses={setFilteredCourses} />
-        <SearchResultsList results={results}/>
-      </div>
-
-
       <BrowserRouter>
+      <NavigationBar />
+
         <div className="Pages">
           <Routes>
-
             <Route 
               path="/"
-              element={<HomePage filteredCourses={filteredCourses} />}
+              element={<HomePage/>}
             />
-
+            <Route 
+              path="/login"
+              element={<LoginPage/>}
+            />
+            <Route 
+              path="/register"
+              element={<RegisterPage/>}
+            />
           </Routes>
         </div>
+
       </BrowserRouter>
 
 
