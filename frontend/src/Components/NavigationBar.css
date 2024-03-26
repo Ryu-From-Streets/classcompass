@@ -1,0 +1,62 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+/* Adapted from: https://www.codevertiser.com/reactjs-responsive-navbar/ */
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins', sans-serif;
+}
+
+.NavigationBar {
+  height: 60px;
+  background-color: #881c1c;
+  position: relative;
+}
+
+.Logo {
+    display: flex;
+    color: #a2aaad;
+}
+
+.NavigationBarContainer {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 15px;
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.NavigationElements ul {
+  display: flex;
+  justify-content: space-between;
+  list-style-type: none;
+}
+
+.NavigationElements ul li:not(:last-child) {
+    margin-right: 60px;
+}
+
+.NavigationElements ul a {
+  font-size: 16px;
+  font-weight: 400;
+  color: #a2aaad;
+  text-decoration: none;
+}
+
+.NavigationElements ul a.active {
+  color: #574c4c;
+  font-weight: 500;
+  position: relative;
+}
+
+.NavigationElements ul a.active::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #574c4c;
+}
