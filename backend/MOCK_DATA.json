@@ -1,0 +1,99 @@
+[
+    {
+        "id": 1,
+        "code": "CS567",
+        "name": "Lodja Airport",
+        "credits": 3,
+        "description": "Revision of Intraluminal Device in Heart, Open Approach",
+        "prerequisites": [
+            "CS799",
+            "CS976",
+            "ENG542",
+            "CS766",
+            "ENG455",
+            "ENG040",
+            "CS012",
+            "ENG531",
+            "ENG100"
+        ]
+    },
+    {
+        "id": 2,
+        "code": "CS799",
+        "name": "Pomala Airport",
+        "credits": 4,
+        "description": "Repair Left Lower Lobe Bronchus, Via Natural or Artificial Opening Endoscopic",
+        "prerequisites": [
+            "CS766",
+            "ENG455",
+            "ENG040",
+            "CS012",
+            "ENG531",
+            "ENG100"
+        ]
+    },
+    {
+        "id": 3,
+        "code": "CS976",
+        "name": "Bethel Airport",
+        "credits": 3,
+        "description": "Reposition Thoracic Vertebra with Internal Fixation Device, Percutaneous Endoscopic Approach",
+        "prerequisites": ["CS012", "ENG531", "ENG100"]
+    },
+    {
+        "id": 4,
+        "code": "ENG542",
+        "name": "Košice Airport",
+        "credits": 3,
+        "description": "Reposition Right Carpal Joint, Percutaneous Endoscopic Approach",
+        "prerequisites": ["CS012", "ENG531"]
+    },
+    {
+        "id": 5,
+        "code": "CS766",
+        "name": "Bunyu Airport",
+        "credits": 4,
+        "description": "Restriction of Right Thyroid Artery with Intraluminal Device, Percutaneous Endoscopic Approach",
+        "prerequisites": []
+    },
+    {
+        "id": 6,
+        "code": "ENG455",
+        "name": "Kópasker Airport",
+        "credits": 3,
+        "description": "Aural Rehabilitation Status Assessment using Sound Field / Booth",
+        "prerequisites": []
+    },
+    {
+        "id": 7,
+        "code": "ENG040",
+        "name": "Taiwan Taoyuan International Airport",
+        "credits": 4,
+        "description": "Removal of Internal Fixation Device from Right Fibula, Open Approach",
+        "prerequisites": ["CS012", "ENG531"]
+    },
+    {
+        "id": 8,
+        "code": "CS012",
+        "name": "Darwin International Airport",
+        "credits": 4,
+        "description": "Drainage of Left Frontal Sinus, Open Approach, Diagnostic",
+        "prerequisites": ["CS012", "GEO100", "ENG531"]
+    },
+    {
+        "id": 9,
+        "code": "ENG531",
+        "name": "Sumburgh Airport",
+        "credits": 4,
+        "description": "Transfer Vagus Nerve to Vagus Nerve, Percutaneous Endoscopic Approach",
+        "prerequisites": []
+    },
+    {
+        "id": 10,
+        "code": "ENG100",
+        "name": "Capitan FAP Carlos Martinez De Pinillos International Airport",
+        "credits": 4,
+        "description": "Release Left Upper Extremity Lymphatic, Open Approach",
+        "prerequisites": []
+    }
+]
