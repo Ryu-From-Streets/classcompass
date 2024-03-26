@@ -1,7 +1,14 @@
 import { useEffect, useState } from "react";
 
-const HomePage = ({ filteredCourses }) => {
-    const [ courses, setCourses ] = useState(null);
+
+// COMPONENTS
+import { SearchBar } from '../Components/SearchBar';
+
+
+const HomePage = () => {
+    // state for search bar components
+    const [results, setResults] = useState([]);
+    const [filteredCourses, setFilteredCourses] = useState([]);
 
     useEffect(() => {
         const fetchAllCourses = async () => {
@@ -13,16 +20,21 @@ const HomePage = ({ filteredCourses }) => {
             const jsonOfCourses = await response.json();
 
             if (response.ok) {
-                setCourses(jsonOfCourses);
+                setFilteredCourses(jsonOfCourses);
             }
-        }
+        };
 
         fetchAllCourses();
     }, []);
+
     
     return (
         <div className="HomePage">
             <div className="Courses">
+
+                <div className = "search-bar-container">
+                    <SearchBar setResults={setResults} setFilteredCourses={setFilteredCourses} />
+                </div>
 
                 {filteredCourses && filteredCourses.map((course) => (
 
