@@ -1,5 +1,5 @@
 import './App.css';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 
@@ -14,6 +14,20 @@ import { SearchResultsList } from './Components/SearchResultList';
 function App() {
   // state for search bar components
   const [results, setResults] = useState([]);
+  const [filteredCourses, setFilteredCourses] = useState([]);
+
+  useEffect(() => {
+    const fetchAllCourses = async () => {
+      const response = await fetch("./Test_Data/Courses.json");
+      const jsonOfCourses = await response.json();
+
+      if (response.ok) {
+        setFilteredCourses(jsonOfCourses);
+      }
+    };
+
+    fetchAllCourses();
+  }, []);
 
   return (
     <div className="App">
@@ -21,7 +35,7 @@ function App() {
 
 
       <div className = "search-bar-container">
-        <SearchBar setResults={setResults}/>
+        <SearchBar setResults={setResults} setFilteredCourses={setFilteredCourses} />
         <SearchResultsList results={results}/>
       </div>
 
@@ -32,7 +46,7 @@ function App() {
 
             <Route 
               path="/"
-              element={<HomePage />}
+              element={<HomePage filteredCourses={filteredCourses} />}
             />
 
           </Routes>

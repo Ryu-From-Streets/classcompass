@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const HomePage = () => {
+const HomePage = ({ filteredCourses }) => {
     const [ courses, setCourses ] = useState(null);
 
     useEffect(() => {
@@ -24,7 +24,7 @@ const HomePage = () => {
         <div className="HomePage">
             <div className="Courses">
 
-                {courses && courses.map((course) => (
+                {filteredCourses && filteredCourses.map((course) => (
 
                     // Temporary visualization of course data
                     // TODO: Create component for an individual course node specifically
@@ -42,6 +42,8 @@ const HomePage = () => {
             </div>
         </div>
     );
+
+    
 }
 
 export default HomePage;
