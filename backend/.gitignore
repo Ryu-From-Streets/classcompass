@@ -1,1 +1,5 @@
+# Dependencies
 node_modules/
+
+# Micslaneous
+.DS_Store
