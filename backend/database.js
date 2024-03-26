@@ -10,6 +10,7 @@ const client = new MongoClient(uri,  {
         }
     }
 );
+
 async function run() {
   try {
     // Connect the client to the server (optional starting in v4.7)
@@ -22,4 +23,15 @@ async function run() {
     await client.close();
   }
 }
+
+async function getAll(collection) {
+  try {
+    const document = await collection.find().toArray();
+    return document;
+  } catch (err) {
+    console.error("Error fetching:", err);
+    throw err;
+  }
+}
+
 run().catch(console.dir);
