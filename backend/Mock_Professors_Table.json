@@ -1,0 +1,123 @@
+[
+    {
+      "id": 1,
+      "name": "John Smith",
+      "email": "john.smith@example.com",
+      "classes_taught": ["Computer Science 101", "Introduction to Biology", "Statistics for Business"]
+    },
+    {
+      "id": 2,
+      "name": "Emily Davis",
+      "email": "emily.davis@example.com",
+      "classes_taught": ["Computer Science 101", "Statistics for Business"]
+    },
+    {
+      "id": 3,
+      "name": "David Brown",
+      "email": "david.brown@example.com",
+      "classes_taught": ["English Literature Survey", "Statistics for Business", "Computer Science 101"]
+    },
+    {
+      "id": 4,
+      "name": "Michael Johnson",
+      "email": "michael.johnson@example.com",
+      "classes_taught": ["History of Art", "Introduction to Biology", "English Literature Survey"]
+    },
+    {
+      "id": 5,
+      "name": "Jane Smith",
+      "email": "jane.smith@example.com",
+      "classes_taught": ["Introduction to Biology", "Statistics for Business"]
+    },
+    {
+      "id": 6,
+      "name": "Robert Miller",
+      "email": "robert.miller@example.com",
+      "classes_taught": ["Computer Science 101", "Statistics for Business", "History of Art"]
+    },
+    {
+      "id": 7,
+      "name": "Laura Wilson",
+      "email": "laura.wilson@example.com",
+      "classes_taught": ["Introduction to Biology", "English Literature Survey"]
+    },
+    {
+      "id": 8,
+      "name": "Jessica Brown",
+      "email": "jessica.brown@example.com",
+      "classes_taught": ["History of Art", "English Literature Survey"]
+    },
+    {
+      "id": 9,
+      "name": "Daniel Thompson",
+      "email": "daniel.thompson@example.com",
+      "classes_taught": ["Statistics for Business", "Computer Science 101"]
+    },
+    {
+      "id": 10,
+      "name": "Sarah Wilson",
+      "email": "sarah.wilson@example.com",
+      "classes_taught": ["English Literature Survey", "History of Art"]
+    },
+    {
+      "id": 11,
+      "name": "James Anderson",
+      "email": "james.anderson@example.com",
+      "classes_taught": ["Introduction to Biology", "Computer Science 101"]
+    },
+    {
+      "id": 12,
+      "name": "Amanda Taylor",
+      "email": "amanda.taylor@example.com",
+      "classes_taught": ["History of Art", "Statistics for Business"]
+    },
+    {
+      "id": 13,
+      "name": "Christopher Lee",
+      "email": "christopher.lee@example.com",
+      "classes_taught": ["Computer Science 101", "Introduction to Biology"]
+    },
+    {
+      "id": 14,
+      "name": "Rachel Clark",
+      "email": "rachel.clark@example.com",
+      "classes_taught": ["Statistics for Business", "English Literature Survey"]
+    },
+    {
+      "id": 15,
+      "name": "Andrew White",
+      "email": "andrew.white@example.com",
+      "classes_taught": ["Introduction to Biology", "History of Art"]
+    },
+    {
+      "id": 16,
+      "name": "Stephanie Hall",
+      "email": "stephanie.hall@example.com",
+      "classes_taught": ["English Literature Survey", "Computer Science 101"]
+    },
+    {
+      "id": 17,
+      "name": "Mark Garcia",
+      "email": "mark.garcia@example.com",
+      "classes_taught": ["History of Art", "Statistics for Business"]
+    },
+    {
+      "id": 18,
+      "name": "Kelly Martinez",
+      "email": "kelly.martinez@example.com",
+      "classes_taught": ["Introduction to Biology", "English Literature Survey"]
+    },
+    {
+      "id": 19,
+      "name": "Rebecca Lewis",
+      "email": "rebecca.lewis@example.com",
+      "classes_taught": ["Computer Science 101", "History of Art"]
+    },
+    {
+      "id": 20,
+      "name": "Brian Turner",
+      "email": "brian.turner@example.com",
+      "classes_taught": ["Statistics for Business", "Introduction to Biology"]
+    }
+  ]
+  
