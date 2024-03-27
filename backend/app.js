@@ -1,6 +1,6 @@
 const express = require("express");
 const courses = require("./MOCK_DATA.json");
-const mongoose = require("./database");
+// const mongoose = require("./database");
 
 const app = express();
 const PORT = 8000;
