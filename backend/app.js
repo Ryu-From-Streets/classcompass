@@ -1,6 +1,6 @@
 import express from "express";
 import courses, { find } from "./MOCK_DATA.json";
-import mongoose from "./database";
+import {getAll, insertCourse, initialize} from "./database";
 
 const app = express();
 const PORT = 8000;
@@ -26,3 +26,6 @@ app.get("/api/courses/:id", (req, res) => {
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
+
+initialize();
+

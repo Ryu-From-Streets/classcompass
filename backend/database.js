@@ -1,6 +1,8 @@
+import exp from "constants";
 import { MongoClient, ServerApiVersion } from "mongodb";
 // Replace the placeholder with your Atlas connection string
-const uri = "mongodb+srv://ClassCompass:ClassCompass123@cluster0.v2vplda.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+const uri =
+  "mongodb+srv://ClassCompass:ClassCompass123@cluster0.v2vplda.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 
 const DATABASE_NAME = "class_compass";
 const COLLECTION_NAME = "courses";
@@ -24,7 +26,7 @@ async function initialize() {
         version: ServerApiVersion.v1,
         strict: true,
         deprecationErrors: true,
-      }
+      },
     });
 
     await client.connect();
@@ -58,14 +60,13 @@ async function insertCourse() {
     const newDoc = {
       name: "John Smith",
       start: "10:00",
-      end: "11:15"
-    }
+      end: "11:15",
+    };
     var foundDoc = await collection.find(newDoc);
     if (foundDoc == null) {
       await collection.insertOne(newDoc);
       console.log("Successful insert");
-    }
-    else {
+    } else {
       console.log("Document already exist");
     }
   } catch (err) {
@@ -79,14 +80,13 @@ async function deleteCourse() {
     const newDoc = {
       name: "John Smith",
       start: "10:00",
-      end: "11:15"
-    }
+      end: "11:15",
+    };
     var foundDoc = await collection.find(newDoc);
     if (foundDoc != null) {
       await collection.deleteOne(newDoc);
       console.log("Successful delete");
-    }
-    else {
+    } else {
       console.log("Document does not exist");
     }
   } catch (err) {
@@ -108,7 +108,4 @@ async function getAll() {
   }
 }
 
-initialize()
-  .then(() => insertCourse())
-  .catch(console.dir)
-  .finally(() => client.close());
+export{getAll, insertCourse, initialize}
