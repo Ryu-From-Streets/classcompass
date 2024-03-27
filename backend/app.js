@@ -9,16 +9,16 @@ const PORT = 8000;
 
 // Routes
 app.get("/api/courses", (req, res) => {
-  res.send(courses);
+  return res.json(courses);
 });
 
 app.get("/api/courses/:id", (req, res) => {
   const id = req.params.id;
-  const course = find((course) => course.id === parseInt(id));
+  const course = courses.find((course) => course.id === parseInt(id));
   if (!course) {
     return res.status(404).send("The course with the given ID was not found.");
   }
-  res.send(course);
+  return res.json(course);
 });
 
 // app.route("/api/courses").post((req, res) => {});
