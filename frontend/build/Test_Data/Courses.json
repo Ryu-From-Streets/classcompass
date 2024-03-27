@@ -1,0 +1,84 @@
+[
+    {
+        "Name": "CS1",
+        "Instructors": [
+            "Bob"
+        ],
+        "Description": "The first computer science course. like... ever. ig.",
+        "Prerequisites": [
+
+        ]
+    },
+    {
+        "Name": "CS2",
+        "Instructors": [
+            "Jim"
+        ],
+        "Description": "The second one. Of computer science that is.",
+        "Prerequisites": [
+
+        ]
+    },
+    {
+        "Name": "CS3",
+        "Instructors": [
+            "Bill"
+        ],
+        "Description": "The third computer science!",
+        "Prerequisites": [
+
+        ]
+    },
+    {
+        "Name": "CS50",
+        "Instructors": [
+            "Bob Again"
+        ],
+        "Description": "Wait what happened to the other 47?",
+        "Prerequisites": [
+            "CS1",
+            "CS2",
+            "CS3"
+        ]
+    },
+    {
+        "Name": "CS51",
+        "Instructors": [
+            "Rob"
+        ],
+        "Description": "This one comes after CS50.",
+        "Prerequisites": [
+            "CS50"
+        ]
+    },
+    {
+        "Name": "CS72",
+        "Instructors": [
+            "Adam"
+        ],
+        "Description": "You can take this one for fun. no prerequisites at all!",
+        "Prerequisites": [
+
+        ]
+    },
+    {
+        "Name": "Math1",
+        "Instructors": [
+            "Pythagoras"
+        ],
+        "Description": "Why is there a math course in this list of CS courses.",
+        "Prerequisites": [
+
+        ]
+    },
+    {
+        "Name": "CS100",
+        "Instructors": [
+            "Lambert"
+        ],
+        "Description": "Aw man thats why there's a math course in the list of CS courses",
+        "Prerequisites": [
+            "Math1"
+        ]
+    }
+]
