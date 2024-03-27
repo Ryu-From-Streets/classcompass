@@ -6,7 +6,7 @@ const courses = require("./Mock Data/Mock_Courses_table.json");
 const { get } = require("mongoose");
 
 const app = express();
-const PORT = 8000;
+const port = process.env.PORT || 8080;
 
 // Routes
 app.get("/api/courses", (req, res) => {
@@ -35,8 +35,8 @@ app.get("*", (req, res) => res.sendFile(__dirname + "/../frontend/build/index.ht
 
 
 
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
 });
 
 (async () => {
@@ -52,7 +52,7 @@ app.listen(PORT, () => {
       await getAll();
   
       // Start the server after the MongoDB operations are complete
-    //   app.listen(PORT, () => {
+    //   app.listen(port, () => {
     //     console.log(`Server is running on port ${PORT}`);
     //   });
     } catch (err) {
