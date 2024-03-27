@@ -1,0 +1,20 @@
+.CourseButton {
+    background-color: #dddddd;
+    font-size: 30px;
+    font-weight: bolder;
+    white-space: normal;
+    word-wrap: break-word;
+
+    margin: 10px;
+    height: 150px;
+    width: 150px;
+    border-radius: 10px;
+    border: 2px solid black;
+
+    transition: 0.2s;
+    cursor: pointer;
+}
+
+.CourseButton:hover {
+    background-color: #8b8b8b;
+}

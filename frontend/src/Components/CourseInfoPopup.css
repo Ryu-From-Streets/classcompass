@@ -1,0 +1,30 @@
+.CourseInfoPopup {
+    position:fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0,0,0,0.2);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.CourseInfoPopupInner {
+    position: relative;
+    padding: 32px;
+    width: 100%;
+    max-width: 640px;
+    border-radius: 20px;
+    border: 2px solid black;
+    background-color: white;
+    text-align: left;
+}
+
+.CourseInfoPopupInner .close-popup-button {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    cursor: pointer;
+}
