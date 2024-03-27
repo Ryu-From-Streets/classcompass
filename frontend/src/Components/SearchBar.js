@@ -7,7 +7,7 @@ export const SearchBar = ({ setResults, setFilteredCourses }) => {
     const [input, setInput] = useState("");
 
     const fetchData = (value) => {
-        fetch("./Test_Data/Courses.json")
+        fetch("/api/courses")
             .then((response) => response.json())
             .then(json => {
                 let results;
@@ -17,8 +17,8 @@ export const SearchBar = ({ setResults, setFilteredCourses }) => {
                     results = json.filter((course) => {
                         return (
                             course && 
-                            course.Name && 
-                            course.Name.toLowerCase().includes(value.toLowerCase())
+                            course.code && 
+                            course.code.toLowerCase().includes(value.toLowerCase())
                         );
                     });
                 }

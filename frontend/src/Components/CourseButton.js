@@ -15,14 +15,14 @@ const CourseButton = ({ course }) => {
                 className="CourseButton"
                 onClick={() => setPopupVisibility(true)}
             >
-                { course.Name }
+                { course.code }
             </button>
 
             <CourseInfoPopup trigger={popupVisibility} setTrigger={setPopupVisibility}>
                 <h1>{course.Name}</h1>
-                <p><strong>Instructor(s):</strong> {course.Instructors}</p>
-                <p><strong>Description:</strong> {course.Description}</p>
-                <p><strong>Prerequisites:</strong> {course.Prerequisites}</p>
+                <p><strong>Instructor(s):</strong> {course.name}</p>
+                <p><strong>Description:</strong> {course.description}</p>
+                <p><strong>Prerequisites:</strong> {course.prerequisites}</p>
 
                 {/* TODO: link this button to go to a page of that course and prerequisites as a tree */}
                 <button>See Prerequisite Tree</button>

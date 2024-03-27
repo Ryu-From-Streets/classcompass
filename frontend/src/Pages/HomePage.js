@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 // COMPONENTS
 import { SearchBar } from '../Components/SearchBar';
 import CourseButton from "../Components/CourseButton"
+import { json } from "react-router-dom";
 
 
 const HomePage = () => {
@@ -17,11 +18,14 @@ const HomePage = () => {
             // TODO: integrate with backend(Need backend to set up their api first)
             //       will probably be along the lines of fetch("http://localhost:PORT")
             //       where PORT is whatever port we end up using for backend
-            const response = await fetch("./Test_Data/Courses.json");
+            const response = await fetch("/api/courses");
             const jsonOfCourses = await response.json();
 
             if (response.ok) {
                 setFilteredCourses(jsonOfCourses);
+            }
+            if (!response.ok) {
+                console.log("ERROR FETCHING DATA");
             }
         };
 
