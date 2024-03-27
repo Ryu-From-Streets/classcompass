@@ -1,8 +1,9 @@
 const express = require("express");
 //import { courses, find } from "./MOCK_DATA.json";
-const {getAll, insertCourse, initialize } = require( "./database.js");
+const {getAll, insertCourse, initialize, deleteCourse } = require( "./database.js");
 
 const courses = require("./Mock Data/Mock_Courses_table.json");
+const { get } = require("mongoose");
 
 const app = express();
 const PORT = 8000;
@@ -34,6 +35,10 @@ app.listen(PORT, () => {
   
       // Then call the insertCourse function
       await insertCourse();
+
+      await deleteCourse();
+
+      await getAll();
   
       // Start the server after the MongoDB operations are complete
     //   app.listen(PORT, () => {

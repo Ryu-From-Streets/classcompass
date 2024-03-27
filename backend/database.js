@@ -75,6 +75,7 @@ async function getAll() {
       throw new Error("Collection is not initialized. Call initialize first.");
     }
     const documents = await collection.find().toArray();
+    console.log("Successfully got all documents")
     return documents;
   } catch (err) {
     console.error("Error fetching documents:", err);
