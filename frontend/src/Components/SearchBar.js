@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import "./SearchBar.css";
 
+// searchBar, SearchResult, and SearchResults lists adapted from https://www.youtube.com/watch?v=sWVgMcz8Q44&t=146s
+
 export const SearchBar = ({ setResults, setFilteredCourses }) => {
     const [input, setInput] = useState("");
 
