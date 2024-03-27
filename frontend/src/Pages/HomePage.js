@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 // COMPONENTS
 import { SearchBar } from '../Components/SearchBar';
 import CourseButton from "../Components/CourseButton"
-import { json } from "react-router-dom";
 
 
 const HomePage = () => {
