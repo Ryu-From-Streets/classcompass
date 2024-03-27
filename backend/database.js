@@ -53,6 +53,48 @@ async function initialize() {
 //   }
 // }
 
+async function insertCourse() {
+  try {
+    const newDoc = {
+      name: "John Smith",
+      start: "10:00",
+      end: "11:15"
+    }
+    var foundDoc = await collection.find(newDoc);
+    if (foundDoc == null) {
+      await collection.insertOne(newDoc);
+      console.log("Successful insert");
+    }
+    else {
+      console.log("Document already exist");
+    }
+  } catch (err) {
+    console.error("Error inserting document:", err);
+    throw err;
+  }
+}
+
+async function deleteCourse() {
+  try {
+    const newDoc = {
+      name: "John Smith",
+      start: "10:00",
+      end: "11:15"
+    }
+    var foundDoc = await collection.find(newDoc);
+    if (foundDoc != null) {
+      await collection.deleteOne(newDoc);
+      console.log("Successful delete");
+    }
+    else {
+      console.log("Document does not exist");
+    }
+  } catch (err) {
+    console.error("Error deleting document:", err);
+    throw err;
+  }
+}
+
 async function getAll() {
   try {
     if (!collection) {
@@ -67,5 +109,6 @@ async function getAll() {
 }
 
 initialize()
+  .then(() => insertCourse())
   .catch(console.dir)
   .finally(() => client.close());

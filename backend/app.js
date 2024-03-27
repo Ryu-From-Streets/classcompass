@@ -1,6 +1,6 @@
-const express = require("express");
-const courses = require("./MOCK_DATA.json");
-// const mongoose = require("./database");
+import express from "express";
+import courses, { find } from "./MOCK_DATA.json";
+import mongoose from "./database";
 
 const app = express();
 const PORT = 8000;
@@ -12,7 +12,7 @@ app.get("/api/courses", (req, res) => {
 
 app.get("/api/courses/:id", (req, res) => {
         const id = req.params.id;
-        const course = courses.find((course) => course.id === parseInt(id));
+        const course = find((course) => course.id === parseInt(id));
         if (!course) {
             return res
                 .status(404)
