@@ -5,7 +5,7 @@ import "./SearchBar.css";
 
 // searchBar, SearchResult, and SearchResults lists adapted from https://www.youtube.com/watch?v=sWVgMcz8Q44&t=146s
 
-export const SearchBar = ({ setResults, setFilteredCourses }) => {
+export const SearchBar = ({ setFilteredCourses }) => {
     const [input, setInput] = useState("");
 
     const fetchData = (value) => {
@@ -24,7 +24,6 @@ export const SearchBar = ({ setResults, setFilteredCourses }) => {
                         );
                     });
                 }
-                setResults(results);
                 setFilteredCourses(results);
             });
     }
