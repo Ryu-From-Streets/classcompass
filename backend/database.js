@@ -1,5 +1,4 @@
-import exp from "constants";
-import { MongoClient, ServerApiVersion } from "mongodb";
+const { MongoClient, ServerApiVersion } = require( "mongodb");
 // Replace the placeholder with your Atlas connection string
 const uri =
   "mongodb+srv://ClassCompass:ClassCompass123@cluster0.v2vplda.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
@@ -84,4 +83,4 @@ async function getAll() {
   }
 }
 
-export{getAll, insertCourse, initialize}
+module.exports = {getAll, insertCourse, initialize};
