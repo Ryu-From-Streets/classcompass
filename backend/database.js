@@ -5,7 +5,7 @@ const uri = "mongodb+srv://ClassCompass:ClassCompass123@cluster0.v2vplda.mongodb
 const DATABASE_NAME = "class_compass";
 const COLLECTION_NAME = "courses";
 
-var client, database, collection;
+var client, db, collection;
 
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
 // const client = new MongoClient(uri,  {
