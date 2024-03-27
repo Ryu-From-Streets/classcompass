@@ -1,12 +1,11 @@
 const { MongoClient, ServerApiVersion } = require( "mongodb");
 // Replace the placeholder with your Atlas connection string
-const uri =
-  "mongodb+srv://ClassCompass:ClassCompass123@cluster0.v2vplda.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+const uri = "mongodb+srv://ClassCompass:ClassCompass123@cluster0.v2vplda.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 
 const DATABASE_NAME = "class_compass";
 const COLLECTION_NAME = "courses";
 
-var client, db, collection;
+let client, db, collection;
 
 async function initialize() {
   try {
@@ -32,13 +31,13 @@ async function initialize() {
 
 async function insertCourse() {
   try {
-    const newDoc = {
-      name: "John Smith",
-      start: "10:00",
-      end: "11:15",
-    };
-    var foundDoc = await collection.find(newDoc);
-    if (foundDoc == null) {
+    if (!collection) {
+      throw new Error("Collection is not initialized. Call initialize first.");
+    }
+
+    const newDoc = { name: "John Smith", start: "10:00", end: "11:15" };
+    var foundDoc = await collection.findOne(newDoc);
+    if (!foundDoc) {
       await collection.insertOne(newDoc);
       console.log("Successful insert");
     } else {
@@ -52,13 +51,13 @@ async function insertCourse() {
 
 async function deleteCourse() {
   try {
-    const newDoc = {
-      name: "John Smith",
-      start: "10:00",
-      end: "11:15",
-    };
-    var foundDoc = await collection.find(newDoc);
-    if (foundDoc != null) {
+    if (!collection) {
+      throw new Error("Collection is not initialized. Call initialize first.");
+    }
+    
+    const newDoc = { name: "John Smith", start: "10:00", end: "11:15" };
+    var foundDoc = await collection.findOne(newDoc);
+    if (foundDoc) {
       await collection.deleteOne(newDoc);
       console.log("Successful delete");
     } else {
@@ -83,4 +82,4 @@ async function getAll() {
   }
 }
 
-module.exports = {getAll, insertCourse, initialize};
+module.exports = { getAll, insertCourse, deleteCourse, initialize };
