@@ -17,8 +17,8 @@ export const SearchBar = ({ setResults, setFilteredCourses }) => {
                     results = json.filter((course) => {
                         return (
                             course && 
-                            course.code && 
-                            course.code.toLowerCase().includes(value.toLowerCase())
+                            course.course_code && 
+                            course.course_code.toLowerCase().includes(value.toLowerCase())
                         );
                     });
                 }
