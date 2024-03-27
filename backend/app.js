@@ -2,7 +2,8 @@ const express = require("express");
 //import { courses, find } from "./MOCK_DATA.json";
 const {getAll, insertCourse, initialize } = require( "./database.js");
 
-const courses = require("./Mock_Courses_table.json");
+const courses = require("./Mock Data/Mock_Courses_table.json");
+
 const app = express();
 const PORT = 8000;
 
