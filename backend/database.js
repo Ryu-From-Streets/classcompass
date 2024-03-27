@@ -66,6 +66,6 @@ async function getAll() {
   }
 }
 
-initializeDatabase()
+initialize()
   .catch(console.dir)
   .finally(() => client.close());
