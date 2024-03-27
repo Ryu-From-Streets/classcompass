@@ -24,6 +24,17 @@ app.get("/api/courses/:id", (req, res) => {
 
 // app.route("/api/courses").post((req, res) => {});
 
+
+
+
+// USE THE CLIENT APP
+app.use(express.static("../frontend/build"));
+
+// RENDER FRONTEND FOR ANY PATH
+app.get("*", (req, res) => res.sendFile(__dirname + "/../frontend/build/index.html"));
+
+
+
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
