@@ -1,5 +1,5 @@
 import express from "express";
-import courses, { find } from "./MOCK_DATA.json";
+import { courses, find } from "./MOCK_DATA.json";
 import {getAll, insertCourse, initialize} from "./database";
 
 const app = express();
