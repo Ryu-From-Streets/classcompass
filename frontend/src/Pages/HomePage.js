@@ -8,7 +8,6 @@ import CourseButton from "../Components/CourseButton"
 
 const HomePage = () => {
     // state for search bar components
-    const [results, setResults] = useState([]);
     const [filteredCourses, setFilteredCourses] = useState([]);
 
     useEffect(() => {
@@ -37,7 +36,7 @@ const HomePage = () => {
             <div className="Courses">
 
                 <div className = "search-bar-container">
-                    <SearchBar setResults={setResults} setFilteredCourses={setFilteredCourses} />
+                    <SearchBar setFilteredCourses={setFilteredCourses} />
                 </div>
 
                 {filteredCourses && filteredCourses.map((course) => (
