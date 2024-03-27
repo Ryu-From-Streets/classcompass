@@ -5,45 +5,6 @@ const mongoose = require("./database");
 const app = express();
 const PORT = 8000;
 
-// Schema
-const userSchema = new mongoose.Schema({
-    firstName: {
-        type: String,
-        required: true,
-    },
-    lastName: {
-        type: String,
-        required: true,
-    },
-    email: {
-        type: String,
-        required: true,
-        unique: true,
-    },
-    courses: {
-        type: [String],
-        required: true,
-    },
-});
-
-const courseSchema = new mongoose.Schema({
-    id: {
-        type: Number,
-        required: true,
-    },
-    name: {
-        type: String,
-        required: true,
-    },
-    description: {
-        type: String,
-        required: true,
-    },
-    prerequisites: {
-        type: [String],
-    },
-});
-
 // Routes
 app.get("/api/courses", (req, res) => {
     res.send(courses);
