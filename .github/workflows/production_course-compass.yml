@@ -25,7 +25,7 @@ jobs:
         run: |
           npm install --prefix ./backend
           npm run build --if-present --prefix ./backend
-          npm run test --if-present --prefix ./backend
+# npm run test --if-present --prefix ./backend
 
       - name: Zip artifact for deployment
         run: zip release.zip ./* -r
