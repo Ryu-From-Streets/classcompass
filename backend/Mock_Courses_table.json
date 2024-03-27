@@ -1,1 +1,183 @@
-
+[
+    {
+      "id": 1,
+      "course_name": "English Literature Survey",
+      "course_code": "ENG101",
+      "credits": 3,
+      "instructors": "David Brown",
+      "description": "Computer Programming 101",
+      "prerequisites": ["English Composition", "British Literature", "World Literature"]
+    },
+    {
+      "id": 2,
+      "course_name": "Statistics for Business",
+      "course_code": "BUS202",
+      "credits": 4,
+      "instructors": "Emily Davis",
+      "description": "Computer Programming 101",
+      "prerequisites": ["Statistics for Social Sciences", "Probability and Statistics", "Statistical Methods"]
+    },
+    {
+      "id": 3,
+      "course_name": "English Literature Survey",
+      "course_code": "ENG102",
+      "credits": 3,
+      "instructors": "John Doe",
+      "description": "Mathematics for Beginners",
+      "prerequisites": ["Introductory Algebra", "Elementary Geometry", "College Algebra"]
+    },
+    {
+      "id": 4,
+      "course_name": "History of Art",
+      "course_code": "ART101",
+      "credits": 3,
+      "instructors": "Michael Johnson",
+      "description": "Introduction to Biology",
+      "prerequisites": ["Data Structures", "Algorithms", "Computer Architecture"]
+    },
+    {
+      "id": 5,
+      "course_name": "History of Art",
+      "course_code": "ART102",
+      "credits": 3,
+      "instructors": "Emily Davis",
+      "description": "Mathematics for Beginners",
+      "prerequisites": ["Calculus II", "Linear Algebra", "Discrete Mathematics"]
+    },
+    {
+      "id": 6,
+      "course_name": "English Literature Survey",
+      "course_code": "ENG103",
+      "credits": 3,
+      "instructors": "Michael Johnson",
+      "description": "History of Art",
+      "prerequisites": ["Multivariable Calculus", "Differential Equations", "Probability Theory"]
+    },
+    {
+      "id": 7,
+      "course_name": "Computer Science 101",
+      "course_code": "CS101",
+      "credits": 4,
+      "instructors": "Emily Davis",
+      "description": "Mathematics for Beginners",
+      "prerequisites": ["Introductory Algebra", "Elementary Geometry", "College Algebra"]
+    },
+    {
+      "id": 8,
+      "course_name": "Introduction to Biology",
+      "course_code": "BIO101",
+      "credits": 3,
+      "instructors": "Jane Smith",
+      "description": "Introduction to Biology",
+      "prerequisites": ["Data Structures", "Algorithms", "Computer Architecture"]
+    },
+    {
+      "id": 9,
+      "course_name": "Statistics for Business",
+      "course_code": "BUS203",
+      "credits": 4,
+      "instructors": "Jane Smith",
+      "description": "Computer Programming 101",
+      "prerequisites": ["Statistics for Social Sciences", "Probability and Statistics", "Statistical Methods"]
+    },
+    {
+      "id": 10,
+      "course_name": "History of Art",
+      "course_code": "ART103",
+      "credits": 3,
+      "instructors": "John Doe",
+      "description": "Literature and Film Studies",
+      "prerequisites": ["Calculus II", "Linear Algebra", "Discrete Mathematics"]
+    },
+    {
+      "id": 11,
+      "course_name": "History of Art",
+      "course_code": "ART104",
+      "credits": 3,
+      "instructors": "John Doe",
+      "description": "Literature and Film Studies",
+      "prerequisites": ["Calculus II", "Linear Algebra", "Discrete Mathematics"]
+    },
+    {
+      "id": 12,
+      "course_name": "Statistics for Business",
+      "course_code": "BUS204",
+      "credits": 4,
+      "instructors": "John Doe",
+      "description": "Literature and Film Studies",
+      "prerequisites": ["Calculus II", "Linear Algebra", "Discrete Mathematics"]
+    },
+    {
+      "id": 13,
+      "course_name": "Introduction to Biology",
+      "course_code": "BIO102",
+      "credits": 3,
+      "instructors": "Michael Johnson",
+      "description": "History of Art",
+      "prerequisites": ["Multivariable Calculus", "Differential Equations", "Probability Theory"]
+    },
+    {
+      "id": 14,
+      "course_name": "Computer Science 101",
+      "course_code": "CS102",
+      "credits": 4,
+      "instructors": "David Brown",
+      "description": "Literature and Film Studies",
+      "prerequisites": ["Calculus II", "Linear Algebra", "Discrete Mathematics"]
+    },
+    {
+      "id": 15,
+      "course_name": "English Literature Survey",
+      "course_code": "ENG104",
+      "credits": 3,
+      "instructors": "David Brown",
+      "description": "Literature and Film Studies",
+      "prerequisites": ["Calculus II", "Linear Algebra", "Discrete Mathematics"]
+    },
+    {
+      "id": 16,
+      "course_name": "Statistics for Business",
+      "course_code": "BUS205",
+      "credits": 4,
+      "instructors": "David Brown",
+      "description": "History of Art",
+      "prerequisites": ["Calculus II", "Linear Algebra", "Discrete Mathematics"]
+    },
+    {
+      "id": 17,
+      "course_name": "Introduction to Biology",
+      "course_code": "BIO103",
+      "credits": 3,
+      "instructors": "Jane Smith",
+      "description": "Mathematics for Beginners",
+      "prerequisites": ["Introductory Algebra", "Elementary Geometry", "College Algebra"]
+    },
+    {
+      "id": 18,
+      "course_name": "History of Art",
+      "course_code": "ART105",
+      "credits": 3,
+      "instructors": "John Doe",
+      "description": "Computer Programming 101",
+      "prerequisites": ["Calculus II", "Linear Algebra", "Discrete Mathematics"]
+    },
+    {
+      "id": 19,
+      "course_name": "Computer Science 101",
+      "course_code": "CS103",
+      "credits": 4,
+      "instructors": "David Brown",
+      "description": "Introduction to Biology",
+      "prerequisites": ["Data Structures", "Algorithms", "Computer Architecture"]
+    },
+    {
+      "id": 20,
+      "course_name": "Statistics for Business",
+      "course_code": "BUS206",
+      "credits": 4,
+      "instructors": "David Brown",
+      "description": "Mathematics for Beginners",
+      "prerequisites": ["Introductory Algebra", "Elementary Geometry", "College Algebra"]
+    }
+  ]
+  
