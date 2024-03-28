@@ -6,7 +6,7 @@ const courses = require("./Mock Data/Mock_Courses_table.json");
 const { get } = require("mongoose");
 
 const app = express();
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 1337;
 
 // Routes
 app.get("/api/courses", (req, res) => {
