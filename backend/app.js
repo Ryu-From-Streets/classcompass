@@ -39,22 +39,17 @@ app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
 
-(async () => {
+(() => {
     try {
       // Call the initialize function first, and wait for it to complete
-      await initialize();
+      initialize();
   
       // Then call the insertCourse function
-      await insertCourse();
+      insertCourse();
 
-      await deleteCourse();
+      deleteCourse();
 
-      await getAll();
-  
-      // Start the server after the MongoDB operations are complete
-    //   app.listen(port, () => {
-    //     console.log(`Server is running on port ${PORT}`);
-    //   });
+      getAll();
     } catch (err) {
       console.error("Error initializing or calling functions:", err);
     }
