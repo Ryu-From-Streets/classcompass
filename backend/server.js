@@ -1,11 +1,42 @@
-const app = require("./app");
-const PORT = 3000;
+const express = require("express");
+//import { courses, find } from "./MOCK_DATA.json";
+const {getAll, insertCourse, initialize, deleteCourse } = require( "./database.js");
 
-app.listen(PORT, (error) => {
-    if (!error)
-        console.log(
-            "Server is Successfully Running, and App is listening on port " +
-                PORT
-        );
-    else console.log("Error occurred, server can't start", error);
+const courses = require("./Mock Data/Mock_Courses_table.json");
+const { get } = require("mongoose");
+
+const app = express();
+const PORT = process.env.PORT || 1337;
+
+// Routes
+app.get("/api/courses", (req, res) => {
+  return res.json(courses);
+});
+
+app.get("/api/courses/:id", (req, res) => {
+  const id = req.params.id;
+  const course = courses.find((course) => course.id === parseInt(id));
+  if (!course) {
+    return res.status(404).send("The course with the given ID was not found.");
+  }
+  return res.json(course);
+});
+
+// USE THE CLIENT APP
+app.use(express.static("../frontend/build"));
+
+// RENDER FRONTEND FOR ANY PATH
+app.get("*", (req, res) => res.sendFile(__dirname + "/../frontend/build/index.html"));
+
+app.listen(PORT, async () => {
+  console.log(`Server is running on port ${PORT}`);
+
+  try {
+    await initialize();
+    await insertCourse();
+    await deleteCourse();
+    await getAll();
+  } catch (err) {
+    console.error("Error:", err);
+  }
 });
