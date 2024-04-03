@@ -1,4 +1,4 @@
-const mongoose = require("mongoose")
+const mongoose = require("mongoose");
 
 const courseSchema = new mongoose.Schema({
     code: {
@@ -27,4 +27,8 @@ const courseSchema = new mongoose.Schema({
         required: true,
         default: [],
     },
-})
+});
+
+const Course = mongoose.model("Course", courseSchema);
+
+module.exports = Course;
