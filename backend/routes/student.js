@@ -4,7 +4,7 @@ const {
     handleCreateStudent,
     handleUpdateStudentById,
     handleGetStudentById,
-    handleDeleteUserById,
+    handleDeleteStudentById,
     handleGetAllStudents,
 } = require("../controllers/student");
 
@@ -16,6 +16,6 @@ router
     .route("/:id")
     .get(handleGetStudentById)
     .put(handleUpdateStudentById)
-    .delete(handleDeleteUserById);
+    .delete(handleDeleteStudentById);
 
 module.exports = router;
