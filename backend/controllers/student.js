@@ -76,3 +76,11 @@ async function handleGetAllStudents(req, res) {
     const all_students = await Student.find({});
     return res.json(all_students);
 }
+
+module.exports = {
+    handleCreateStudent,
+    handleUpdateStudentById,
+    handleGetStudentById,
+    handleDeleteUserById,
+    handleGetAllStudents,
+};
