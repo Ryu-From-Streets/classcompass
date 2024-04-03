@@ -8,9 +8,9 @@ const course_router = require("./routes/course");
 const app = express();
 const PORT = 3000;
 
-connectMongoDB("mongodb://localhost:27017/express-mongo").then(() =>
-    console.log("MongoDB connected!")
-);
+connectMongoDB(
+    "mongodb+srv://ClassCompass:ClassCompass123@cluster0.v2vplda.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+).then(() => console.log("MongoDB connected!"));
 
 app.use(express.urlencoded({ extended: false }));
 
