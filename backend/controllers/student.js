@@ -61,7 +61,7 @@ async function handleGetStudentById(req, res) {
  * @param {*} res - Response object
  * @returns A JSON response with the status of the deletion
  */
-async function handleDeleteUserById(req, res) {
+async function handleDeleteStudentById(req, res) {
     await Student.findByIdAndDelete(req.params.id);
     return res.json({ status: "Success" });
 }
@@ -81,6 +81,6 @@ module.exports = {
     handleCreateStudent,
     handleUpdateStudentById,
     handleGetStudentById,
-    handleDeleteUserById,
+    handleDeleteStudentById,
     handleGetAllStudents,
 };

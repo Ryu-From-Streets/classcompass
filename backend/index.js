@@ -8,11 +8,15 @@ const course_router = require("./routes/course");
 const app = express();
 const PORT = 3000;
 
-connectMongoDB(
-    "mongodb+srv://ClassCompass:ClassCompass123@cluster0.v2vplda.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
-).then(() => console.log("MongoDB connected!"));
+const url =
+    "mongodb+srv://ClassCompass:ClassCompass123@cluster0.v2vplda.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 
-app.use(express.urlencoded({ extended: false }));
+connectMongoDB(url);
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static("../frontend/build"));
+app.get("*", (req, res) => res.sendFile(__dirname + "/../frontend/build/index.html"));
 
 app.use("/students", student_router);
 app.use("/courses", course_router);
