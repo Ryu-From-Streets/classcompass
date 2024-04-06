@@ -11,12 +11,16 @@ const PORT = 3000;
 const url =
     "mongodb+srv://ClassCompass:ClassCompass123@cluster0.v2vplda.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 
-connectMongoDB(url);
+connectMongoDB(url)
+    .then(() => console.log("Connected to MongoDB using Mongoose"))
+    .catch((err) => console.error("Could not connect to MongoDB:", err));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("../frontend/build"));
-app.get("*", (req, res) => res.sendFile(__dirname + "/../frontend/build/index.html"));
+app.get("*", (req, res) =>
+    res.sendFile(__dirname + "/../frontend/build/index.html")
+);
 
 app.use("/students", student_router);
 app.use("/courses", course_router);
