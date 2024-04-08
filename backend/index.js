@@ -18,9 +18,9 @@ connectMongoDB(url)
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("../frontend/build"));
-app.get("*", (req, res) =>
-    res.sendFile(__dirname + "/../frontend/build/index.html")
-);
+// app.get("*", (req, res) =>
+//     res.sendFile(__dirname + "/../frontend/build/index.html")
+// );
 
 app.use("/students", student_router);
 app.use("/courses", course_router);
