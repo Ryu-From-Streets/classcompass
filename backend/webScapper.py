@@ -13,7 +13,7 @@ courseDescriptions = [p.get_text() for p in soup.find_all('p') if not p.find('a'
 coursePrerequisite = []
 courseCredits = []
 
-for i in range(len(courseDescriptions) - 10):
+for i in range(len(courseDescriptions) - 1):
     info = courseDescriptions[i].split(':')[-1]
     if 'Prerequisite' in courseDescriptions[i]:
         for i in range(len(info) - 2, -1, -1):
@@ -35,5 +35,6 @@ for i in range(len(courseDescriptions) - 10):
         coursePrerequisite.append(None)
         courseCredits.append(credit)
 
-print(coursePrerequisite)
-print(courseCredits)
+with open('course.txt', 'w', encoding='utf-8') as f:
+    for i in range(len(courseTitles)):
+        f.write('Course Title: %s\nPrerequisite: %s\nCredits: %s\n\n' %(courseTitles[i], coursePrerequisite[i], courseCredits[i]))
