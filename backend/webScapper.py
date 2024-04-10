@@ -7,6 +7,5 @@ content = response.content
 
 soup = BeautifulSoup(content, 'html.parser')
 
-
 with open('course.txt', 'w', encoding='utf-8') as f:
     f.write('%s\n' %soup)
