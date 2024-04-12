@@ -13,7 +13,9 @@ const CourseButton = ({ course }) => {
     const [popupVisibility, setPopupVisibility] = useState(false);
     const navigate = useNavigate(); 
 
-    const handleTreeButtonClick = () => {navigate("/tree");};
+    const handleTreeButtonClick = () => {
+        navigate("/tree", { state: { course } });
+    };
 
     return (
         <>
