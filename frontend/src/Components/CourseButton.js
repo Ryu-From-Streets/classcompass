@@ -1,5 +1,8 @@
 import { useState } from "react";
+
 import "./CourseButton.css";
+
+import { useNavigate } from "react-router-dom"; 
 
 /* Course Button and CourseInfoPopup adapted from https://www.youtube.com/watch?v=i8fAO_zyFAM */
 
@@ -8,6 +11,9 @@ import CourseInfoPopup from "./CourseInfoPopup";
 
 const CourseButton = ({ course }) => {
     const [popupVisibility, setPopupVisibility] = useState(false);
+    const navigate = useNavigate(); 
+
+    const handleTreeButtonClick = () => {navigate("/tree");};
 
     return (
         <>
@@ -24,8 +30,7 @@ const CourseButton = ({ course }) => {
                 <p><strong>Description:</strong> {course.description}</p>
                 <p><strong>Prerequisites:</strong> {course.prerequisites}</p>
 
-                {/* TODO: link this button to go to a page of that course and prerequisites as a tree */}
-                <button>See Prerequisite Tree</button>
+                <button onClick={handleTreeButtonClick}>See Prerequisite Tree</button>
             </CourseInfoPopup>
         </>
     );

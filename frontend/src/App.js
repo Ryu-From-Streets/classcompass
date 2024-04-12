@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import HomePage from "./Pages/HomePage";
 import LoginPage from "./Pages/LoginPage";
 import RegisterPage from "./Pages/RegisterPage";
+import TreePage from "./Pages/TreePage";
 
 // COMPONENTS
 import NavigationBar from "./Components/NavigationBar";
@@ -31,6 +32,10 @@ function App() {
             <Route 
               path="/register"
               element={<RegisterPage/>}
+            />
+            <Route
+              path="/tree"
+              element={<TreePage/>}
             />
           </Routes>
         </div>
