@@ -9,7 +9,7 @@ export const SearchBar = ({ setFilteredCourses }) => {
     const [input, setInput] = useState("");
 
     const fetchData = (value) => {
-        fetch("/api/courses")
+        fetch("../Test_data/Courses.json")
             .then((response) => response.json())
             .then(json => {
                 let results;

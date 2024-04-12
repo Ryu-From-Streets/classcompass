@@ -12,11 +12,7 @@ const HomePage = () => {
 
     useEffect(() => {
         const fetchAllCourses = async () => {
-            // Currently fetching data from local files for test purposes
-            // TODO: integrate with backend(Need backend to set up their api first)
-            //       will probably be along the lines of fetch("http://localhost:PORT")
-            //       where PORT is whatever port we end up using for backend
-            const response = await fetch("/api/courses");
+            const response = await fetch("/Test_Data/Courses.json");
             const jsonOfCourses = await response.json();
 
             if (response.ok) {
