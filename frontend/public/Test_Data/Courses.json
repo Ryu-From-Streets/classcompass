@@ -178,6 +178,33 @@
       "instructors": "David Brown",
       "description": "Mathematics for Beginners",
       "prerequisites": ["Introductory Algebra", "Elementary Geometry", "College Algebra"]
+    },
+    {
+      "id": 21,
+      "course_name": "English Composition",
+      "course_code": "ENG201",
+      "credits": 4,
+      "instructors": "David Brown",
+      "description": "It's an English class",
+      "prerequisites": []
+    },
+    {
+      "id": 22,
+      "course_name": "British Literature",
+      "course_code": "BRI201",
+      "credits": 4,
+      "instructors": "British Guy",
+      "description": "It's a British class",
+      "prerequisites": []
+    },
+    {
+      "id": 23,
+      "course_name": "World Literature",
+      "course_code": "WOR201",
+      "credits": 4,
+      "instructors": "God",
+      "description": "It's a world class",
+      "prerequisites": []
     }
   ]
   
