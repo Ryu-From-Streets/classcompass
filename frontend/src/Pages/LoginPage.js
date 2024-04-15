@@ -10,6 +10,8 @@ const LoginPage = () => {
         if (email === "example@example.com" && password === "password") {
           // Successful login
           console.log("Login successful!");
+            // Redirect user to home page for now upon successful login
+          history.push("/");
           // You can redirect the user or perform any other actions here
         } else {
           // Failed login
