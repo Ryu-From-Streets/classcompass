@@ -1,4 +1,5 @@
 const express = require("express");
+require("dotenv").config();
 
 const { connectMongoDB } = require("./connection");
 
@@ -8,8 +9,7 @@ const course_router = require("./routes/course");
 const app = express();
 const PORT = 3000;
 
-const url =
-    "mongodb+srv://ClassCompass:ClassCompass123@cluster0.v2vplda.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+const url = process.env.MONGODB_URL;
 
 connectMongoDB(url)
     .then(() => console.log("Connected to MongoDB using Mongoose"))
