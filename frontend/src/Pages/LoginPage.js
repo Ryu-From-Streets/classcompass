@@ -1,9 +1,13 @@
 import React, {useState} from "react"
+import { useHistory } from "react-router-dom";
 
 
 const LoginPage = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [error, setError] = useState("");
+    const history = useHistory(); // Hook provided by React Router
+    
     const handleLogin = (e) => {
         e.preventDefault();
         // Simulated authentication logic
