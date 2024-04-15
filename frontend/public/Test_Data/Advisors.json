@@ -1,0 +1,49 @@
+[
+    {
+        "name": "Mario",
+        "title": "Academic Advisor",
+        "email": "mario@email.com"
+
+    },
+    {
+        "name": "Luigi",
+        "title": "Academic Advisor",
+        "email": "luigi@email.com"
+    },
+    {
+        "name": "Peach",
+        "title": "Academic Advisor",
+        "email": "peach@email.com"
+    },
+    {
+        "name": "Bowser",
+        "title": "Associate Director of Graduate Programs & PhD Advisor",
+        "email": "bowser@email.com"
+    },
+    {
+        "name": "Daisy",
+        "title": "Academic Advisor",
+        "email": "daisy@email.com"
+
+    },
+    {
+        "name": "Yoshi",
+        "title": "Academic Advisor - MS Program",
+        "email": "yoshi@email.com"
+    },
+    {
+        "name": "Wiggler",
+        "title": "Academic Advisor",
+        "email": "wiggler@gmail.com"
+    },
+    {
+        "name": "Wario",
+        "title": "Academic Advisor",
+        "email": "wario@email.com"
+    },
+    {
+        "name": "Waluigi",
+        "title": "Academic Advisor",
+        "email": "waluigi@email.com"
+    }
+]
