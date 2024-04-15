@@ -5,7 +5,17 @@ const LoginPage = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const handleLogin = (e) => {
-        //auth logic from backend
+        e.preventDefault();
+        // Simulated authentication logic
+        if (email === "example@example.com" && password === "password") {
+          // Successful login
+          console.log("Login successful!");
+          // You can redirect the user or perform any other actions here
+        } else {
+          // Failed login
+          setError("Invalid email or password");
+        }
+  };
     };
     return (
       <div className="LoginPage">
