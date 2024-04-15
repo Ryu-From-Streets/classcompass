@@ -186,7 +186,7 @@
       "credits": 4,
       "instructors": "David Brown",
       "description": "It's an English class",
-      "prerequisites": []
+      "prerequisites": ["English Composition II"]
     },
     {
       "id": 22,

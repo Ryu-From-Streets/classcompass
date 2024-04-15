@@ -27,11 +27,12 @@
   
   .node__line {
     border-left: 1px solid #ccc;
-    height: 20px;
+    height: 100px;
     margin-right: 10px;
   }
   
   .node__child .node__element {
+    margin-top: 10px;
     height: 25px;
     width: 50px; 
   }
