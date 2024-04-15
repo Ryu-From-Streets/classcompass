@@ -18,6 +18,11 @@ const studentSchema = new mongoose.Schema(
             trim: true,
             unique: true,
         },
+        major: {
+            type: Array,
+            required: true,
+            trim: true
+        },
         credits: {
             type: Number,
             required: true,
