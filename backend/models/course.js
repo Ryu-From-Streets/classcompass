@@ -22,6 +22,11 @@ const courseSchema = new mongoose.Schema({
         required: true,
         default: [],
     },
+    credits: {
+        type: Number,
+        required: true,
+        default: 3,
+    },
     prerequisites: {
         type: Array,
         required: true,
