@@ -10,14 +10,25 @@ const SignUpPage = ({ isShowLogin }) => {
   const [password, setPassword] = useState("");
   const [rePassword, setRePassword] = useState("");
   const [userType, setUserType] = useState("student");
+  const [numCredits, setCredits] = useState(0);
+
   const handleSignup= (e) => {
     e.preventDefault();
     if (password !== rePassword) {
       alert("Passwords do not match");
       return;
     }
+    if (isNaN(numCredits) || numCredits <= 0 || numCredits > 150) {
+      alert("Please enter a valid number of credits (1 to 150)");
+      return;
+    }
 
   };
+  const handleNumCreditsChange = (e) => {
+    const value = parseInt(e.target.value);
+    setCredits(isNaN(value) ? 0 : value); // Set numCredits to 0 if NaN is detected
+  };
+
   return (
     <div className="login-page">
       <h2>Sign Up</h2>
@@ -65,8 +76,8 @@ const SignUpPage = ({ isShowLogin }) => {
           <input
             type="text"
             placeholder="Enter number of credits"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            value={numCredits}
+            onChange={(e) => {handleNumCreditsChange(e)}}
             required
           />
           <HiOutlineAcademicCap className="icon" />
