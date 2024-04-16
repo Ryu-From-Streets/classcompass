@@ -1,24 +1,19 @@
-import React, {useState} from "react"
-import {
-  HiMail,
-  HiOutlineLockClosed,
-} from "react-icons/hi";
-
-import "./login.css"
+import React, { useState } from "react";
+import { HiMail, HiOutlineLockClosed } from "react-icons/hi";
+import "./login.css";
 import { Link } from "react-router-dom";
 
-const LoginPage = ({isShowLogin}) => {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [rememberMe, setRememberMe] = useState(false);
-    const [userType, setUserType] = useState("student");
-    const handleLogin = (e) => {
-       
-    };
-    return (
-      <div className="login-page">
-        <h2>Login</h2> 
-        <form onSubmit={handleLogin}>
+const LoginPage = ({ isShowLogin }) => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [rememberMe, setRememberMe] = useState(false);
+  const [userType, setUserType] = useState("student");
+  const handleLogin = (e) => {};
+
+  return (
+    <div className="login-page">
+      <form onSubmit={handleLogin}>
+        <div className="input-container">
           <div className="input-box">
             <select
               value={userType}
@@ -48,29 +43,29 @@ const LoginPage = ({isShowLogin}) => {
             />
             <HiOutlineLockClosed className="icon" />
           </div>
-          <div className="forgot">
-            <label>
-              <input
-                type="checkbox"
-                checked={rememberMe}
-                onChange={() => setRememberMe(!rememberMe)}
-              />
-              Remember me
-            </label>
-            <Link to="/forgot">Forgot Password?</Link>
-          </div>
-          <button type="submit" className="button">
-            {" "}
-            Login{" "}
-          </button>
-          <div className="register">
-            <p>
-              Don't have an account? <Link to="/register">Register</Link>
-            </p>
-          </div>
-        </form>
-      </div>
-    );
-}
+        </div>
+        <div className="forgot">
+          <label>
+            <input
+              type="checkbox"
+              checked={rememberMe}
+              onChange={() => setRememberMe(!rememberMe)}
+            />
+            Remember me
+          </label>
+          <Link to="/forgot">Forgot Password?</Link>
+        </div>
+        <button type="submit" className="button">
+          Login
+        </button>
+        <div className="register">
+          <p>
+            Don't have an account? <Link to="/register">Register</Link>
+          </p>
+        </div>
+      </form>
+    </div>
+  );
+};
 
 export default LoginPage;
