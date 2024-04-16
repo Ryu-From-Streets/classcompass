@@ -35,7 +35,7 @@ const SignUpPage = ({ isShowLogin }) => {
   };
   const handleNumCreditsChange = (e) => {
     const value = parseInt(e.target.value);
-    setCredits(isNaN(value) ? 0 : value); // Set numCredits to 0 if NaN is detected
+    setCredits(isNaN(value) ? "" : value); // Set numCredits to 0 if NaN is detected
   };
 
   const handleCoursesChange = (e) => {
