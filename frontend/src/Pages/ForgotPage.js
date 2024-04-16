@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { HiUser, HiOutlineLockClosed } from "react-icons/hi";
+import { HiMail, HiOutlineLockClosed } from "react-icons/hi";
 
 import "./login.css";
 
@@ -20,7 +20,7 @@ const LoginPage = ({ isShowLogin }) => {
             onChange={(e) => setEmail(e.target.value)}
             required
           />
-          <HiUser className="icon" />
+          <HiMail className="icon" />
         </div>
         <div className="input-box">
           <input

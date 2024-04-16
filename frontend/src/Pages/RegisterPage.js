@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import {
-  HiUser, HiOutlineLockClosed,
+  HiUser, HiOutlineLockClosed, HiMail,
   HiOutlineAcademicCap,
 } from "react-icons/hi";
 import "./login.css";
 
 const SignUpPage = ({ isShowLogin }) => {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rePassword, setRePassword] = useState("");
@@ -44,13 +45,23 @@ const SignUpPage = ({ isShowLogin }) => {
         </div>
         <div className="input-box">
           <input
+            type="text"
+            placeholder="Enter Your Name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+          />
+          <HiUser className="icon" />
+        </div>
+        <div className="input-box">
+          <input
             type="email"
             placeholder="Enter Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
           />
-          <HiUser className="icon" />
+          <HiMail className="icon" />
         </div>
         <div className="input-box">
           <input
@@ -77,7 +88,9 @@ const SignUpPage = ({ isShowLogin }) => {
             type="text"
             placeholder="Enter number of credits"
             value={numCredits}
-            onChange={(e) => {handleNumCreditsChange(e)}}
+            onChange={(e) => {
+              handleNumCreditsChange(e);
+            }}
             required
           />
           <HiOutlineAcademicCap className="icon" />
