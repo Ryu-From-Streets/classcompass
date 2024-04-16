@@ -7,7 +7,12 @@ const LoginPage = ({ isShowLogin }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rePassword, setRePassword] = useState("");
-  const handleReset = (e) => {};
+  const handleReset = (e) => {
+    if (password !== rePassword) {
+      alert("Passwords do not match");
+      return;
+    }
+  };
   return (
     <div className="login-page">
       <h2>Reset Password</h2>
