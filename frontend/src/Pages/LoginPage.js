@@ -2,31 +2,18 @@ import React, { useState } from "react";
 import { HiMail, HiOutlineLockClosed } from "react-icons/hi";
 import "./login.css";
 import { Link } from "react-router-dom";
-import axios from "axios";
 
-const LoginPage = ({isShowLogin}) => {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [rememberMe, setRememberMe] = useState(false);
-    const [userType, setUserType] = useState("student");
-    const handleLogin = async (e) => {
+const LoginPage = ({ isShowLogin }) => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [rememberMe, setRememberMe] = useState(false);
+  const [userType, setUserType] = useState("student");
+  const handleLogin = (e) => {};
 
-      try {
-      const response = await axios.post("/api/signin", {
-        email,
-        password,
-        userType,
-      });
-      console.log("Sign-in successful:", response.data);
-    } catch (error) {
-      console.error("Sign-in failed:", error.response.data.message);
-    }
-       
-    };
-    return (
-      <div className="login-page">
-        <h2>Login</h2> 
-        <form onSubmit={handleLogin}>
+  return (
+    <div className="login-page">
+      <form onSubmit={handleLogin}>
+        <div className="input-container">
           <div className="input-box">
             <select
               value={userType}
