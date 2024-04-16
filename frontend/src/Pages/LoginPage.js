@@ -1,6 +1,7 @@
 import React, {useState} from "react"
 import { CiUser, CiLock } from "react-icons/ci";
 import "./login.css"
+import { Link } from "react-router-dom";
 
 const LoginPage = ({isShowLogin}) => {
     const [email, setEmail] = useState("");
@@ -60,7 +61,7 @@ const LoginPage = ({isShowLogin}) => {
           </button>
           <div className="register">
             <p>
-              Don't have an account? <a href="#">Register</a>
+              Don't have an account? <Link to="/register">Register</Link>
             </p>
           </div>
         </form>
