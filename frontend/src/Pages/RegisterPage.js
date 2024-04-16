@@ -17,7 +17,7 @@ const SignUpPage = ({ isShowLogin }) => {
   const [password, setPassword] = useState("");
   const [rePassword, setRePassword] = useState("");
   const [userType, setUserType] = useState("student");
-  const [numCredits, setCredits] = useState(0);
+  const [numCredits, setCredits] = useState("");
   const [courses, setCourses] = useState([]);
   const [majors, setMajors] = useState([]);
 
