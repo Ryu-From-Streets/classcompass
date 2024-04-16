@@ -46,7 +46,7 @@ const LoginPage = ({isShowLogin}) => {
               onChange={(e) => setPassword(e.target.value)}
               required
             />
-            < HiOutlineLockClosed className="icon" />
+            <HiOutlineLockClosed className="icon" />
           </div>
           <div className="forgot">
             <label>
@@ -57,7 +57,7 @@ const LoginPage = ({isShowLogin}) => {
               />
               Remember me
             </label>
-            <a href="#">Forgot Password?</a>
+            <Link to="/forgot">Forgot Password?</Link>
           </div>
           <button type="submit" className="button">
             {" "}
