@@ -1,7 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
 
-/* Adapted from: https://www.codevertiser.com/reactjs-responsive-navbar/ */
-
 body {
   margin: 0;
   padding: 0;
@@ -15,8 +13,16 @@ body {
 }
 
 .Logo {
-    display: flex;
-    color: #a2aaad;
+  display: flex;
+  color: #a2aaad;
+}
+
+/* Apply styles to links inside .Logo */
+.Logo a {
+  font-size: 16px;
+  font-weight: 400;
+  color: #a2aaad;
+  text-decoration: none;
 }
 
 .NavigationBarContainer {
@@ -25,17 +31,17 @@ body {
   padding: 0 15px;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   height: 100%;
 }
 
 .NavigationElements ul {
   display: flex;
-  justify-content: space-between;
   list-style-type: none;
 }
 
 .NavigationElements ul li:not(:last-child) {
-    margin-right: 60px;
+  margin-right: 60px;
 }
 
 .NavigationElements ul a {
@@ -46,17 +52,10 @@ body {
 }
 
 .NavigationElements ul a.active {
-  color: #574c4c;
+  color: #fff;
   font-weight: 500;
-  position: relative;
 }
 
-.NavigationElements ul a.active::after {
-  content: '';
-  position: absolute;
-  bottom: -4px;
-  left: 0;
-  width: 100%;
-  height: 2px;
-  background-color: #574c4c;
+.icon {
+  font-size: 24px;
 }
