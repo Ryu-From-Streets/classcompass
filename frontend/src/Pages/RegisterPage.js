@@ -1,22 +1,34 @@
-import React, {useState} from "react"
+import React, { useState } from "react";
+import { CiUser, CiLock } from "react-icons/ci";
+import "./login.css";
 
+const SignUpPage = ({ isShowLogin }) => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [rePassword, setRePassword] = useState("");
+  const [userType, setUserType] = useState("student");
+  const handleSignup= (e) => {
+    e.preventDefault();
+    if (password !== rePassword) {
+      alert("Passwords do not match");
+      return;
+    }
 
-const RegisterPage = () => {
-    const [firstName, setFName] = useState("");
-    const [lastName, setLName] = useState("");
-    const [email, setEmail] = useState("");
-    const [major, setMajor] = useState("");
-    const [credits, setCredits] = useState(0); 
-    const [password, setPassword] = useState("");
-    const [re_password, setRePassword] = useState("");
-
-    const handleSignUp = (e) => {
-        //auth logic
-    };
-    return (
-      <div className="LoginPage">
-        <h2>Login</h2>
-        <form onSubmit={handleSignUp}>
+  };
+  return (
+    <div className="login-page">
+      <h2>Sign Up</h2>
+      <form onSubmit={handleSignup}>
+        <div className="input-box">
+          <select
+            value={userType}
+            onChange={(e) => setUserType(e.target.value)}
+          >
+            <option value="student"> I am a student </option>
+            <option value="advisor"> I am an advisor </option>
+          </select>
+        </div>
+        <div className="input-box">
           <input
             type="email"
             placeholder="Enter Email"
@@ -24,6 +36,9 @@ const RegisterPage = () => {
             onChange={(e) => setEmail(e.target.value)}
             required
           />
+          <CiUser className="icon" />
+        </div>
+        <div className="input-box">
           <input
             type="password"
             placeholder="Enter Password"
@@ -31,11 +46,26 @@ const RegisterPage = () => {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-          <button type = "submit"> Login </button>
-        </form>
-      </div>
-    );
-}
+          <CiLock className="icon" />
+        </div>
+        <div className="input-box">
+          <input
+            type="password"
+            placeholder="Re enter Password"
+            value={rePassword}
+            onChange={(e) => setRePassword(e.target.value)}
+            required
+          />
+          <CiLock className="icon" />
+        </div>
 
+        <button type="submit" className="button">
+          {" "}
+          Sign Up{" "}
+        </button>
+      </form>
+    </div>
+  );
+};
 
-export default RegisterPage;
+export default SignUpPage;
