@@ -1,5 +1,9 @@
 import React, {useState} from "react"
-import { CiUser, CiLock } from "react-icons/ci";
+import {
+  HiUser,
+  HiOutlineLockClosed,
+} from "react-icons/hi";
+
 import "./login.css"
 import { Link } from "react-router-dom";
 
@@ -32,7 +36,7 @@ const LoginPage = ({isShowLogin}) => {
               onChange={(e) => setEmail(e.target.value)}
               required
             />
-            <CiUser className="icon" />
+            <HiUser className="icon" />
           </div>
           <div className="input-box">
             <input
@@ -42,7 +46,7 @@ const LoginPage = ({isShowLogin}) => {
               onChange={(e) => setPassword(e.target.value)}
               required
             />
-            <CiLock className="icon" />
+            < HiOutlineLockClosed className="icon" />
           </div>
           <div className="forgot">
             <label>

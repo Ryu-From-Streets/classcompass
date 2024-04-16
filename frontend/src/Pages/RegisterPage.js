@@ -1,5 +1,8 @@
 import React, { useState } from "react";
-import { CiUser, CiLock } from "react-icons/ci";
+import {
+  HiUser, HiOutlineLockClosed,
+  HiOutlineAcademicCap,
+} from "react-icons/hi";
 import "./login.css";
 
 const SignUpPage = ({ isShowLogin }) => {
@@ -36,7 +39,7 @@ const SignUpPage = ({ isShowLogin }) => {
             onChange={(e) => setEmail(e.target.value)}
             required
           />
-          <CiUser className="icon" />
+          <HiUser className="icon" />
         </div>
         <div className="input-box">
           <input
@@ -46,7 +49,7 @@ const SignUpPage = ({ isShowLogin }) => {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-          <CiLock className="icon" />
+          <HiOutlineLockClosed className="icon" />
         </div>
         <div className="input-box">
           <input
@@ -56,9 +59,18 @@ const SignUpPage = ({ isShowLogin }) => {
             onChange={(e) => setRePassword(e.target.value)}
             required
           />
-          <CiLock className="icon" />
+          <HiOutlineLockClosed className="icon" />
         </div>
-
+        <div className="input-box">
+          <input
+            type="text"
+            placeholder="Enter number of credits"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+          <HiOutlineAcademicCap className="icon" />
+        </div>
         <button type="submit" className="button">
           {" "}
           Sign Up{" "}
