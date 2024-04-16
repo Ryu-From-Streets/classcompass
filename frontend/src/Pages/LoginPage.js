@@ -5,6 +5,8 @@ import "./login.css"
 const LoginPage = ({isShowLogin}) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [rememberMe, setRememberMe] = useState(false);
+    const [userType, setUserType] = useState("student");
     const handleLogin = (e) => {
        
     };
@@ -12,6 +14,15 @@ const LoginPage = ({isShowLogin}) => {
       <div className="login-page">
         <h2>Login</h2>
         <form onSubmit={handleLogin}>
+          <div className="input-box">
+            <select
+              value={userType}
+              onChange={(e) => setUserType(e.target.value)}
+            >
+              <option value="student">I am a student</option>
+              <option value="advisor">I am an advisor</option>
+            </select>
+          </div>
           <div className="input-box">
             <input
               type="email"
@@ -22,7 +33,6 @@ const LoginPage = ({isShowLogin}) => {
             />
             <CiUser className="icon" />
           </div>
-          <br></br>
           <div className="input-box">
             <input
               type="password"
@@ -35,14 +45,23 @@ const LoginPage = ({isShowLogin}) => {
           </div>
           <div className="forgot">
             <label>
-              <input type="checkbox" />
+              <input
+                type="checkbox"
+                checked={rememberMe}
+                onChange={() => setRememberMe(!rememberMe)}
+              />
               Remember me
             </label>
             <a href="#">Forgot Password?</a>
           </div>
-          <button type="submit"> Login </button>
+          <button type="submit" className="button">
+            {" "}
+            Login{" "}
+          </button>
           <div className="register">
-            <p>Don't have an account?</p> <a href="#">Register</a>
+            <p>
+              Don't have an account? <a href="#">Register</a>
+            </p>
           </div>
         </form>
       </div>
