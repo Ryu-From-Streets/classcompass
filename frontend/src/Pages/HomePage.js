@@ -9,9 +9,11 @@ import CourseButton from "../Components/CourseButton"
 const HomePage = () => {
     // state for search bar components
     const [filteredCourses, setFilteredCourses] = useState([]);
+    const [error, setError] = useState("");
 
     useEffect(() => {
         const fetchAllCourses = async () => {
+            setError("");
             const response = await fetch("/Test_Data/Courses.json");
             const jsonOfCourses = await response.json();
 
@@ -20,6 +22,7 @@ const HomePage = () => {
             }
             if (!response.ok) {
                 console.log("ERROR FETCHING DATA");
+                setError("Error fetching courses");
             }
         };
 
@@ -32,8 +35,10 @@ const HomePage = () => {
             <div className="Courses">
 
                 <div className = "search-bar-container">
-                    <SearchBar setFilteredCourses={setFilteredCourses} />
+                    <SearchBar setFilteredCourses={setFilteredCourses} setError={setError} />
                 </div>
+
+                <p>{error}</p>
 
                 {filteredCourses && filteredCourses.map((course) => (
 
