@@ -17,7 +17,7 @@ const LoginPage = ({isShowLogin}) => {
     };
     return (
       <div className="login-page">
-        <h2>Login</h2>
+        // <h2>Login</h2> 
         <form onSubmit={handleLogin}>
           <div className="input-box">
             <select
