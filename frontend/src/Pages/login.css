@@ -1,45 +1,41 @@
-.login-page{
+.login-page {
     margin: 100px auto;
     width: 400px;
     padding: 30px;
-    
-}
-.login-page h1 {
+  }
+  
+  .input-container {
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    padding: 10px;
+  }
+  
+  .login-page h1 {
     font-size: 36px;
     text-align: center;
-}
-
-.login-page .input-box {
+  }
+  
+  .login-page .input-box {
     position: relative;
     width: 100%;
     height: 50px;
-    margin: 30 px 0;
+    margin: 20px 0;
     display: flex;
-}
-
-.input-box select {
+  }
+  
+  .input-box select {
     width: 100%;
     height: 100%;
     background: #fff;
     border: none;
     outline: none;
     border: 2px solid rgba(255, 255, 255, 0.2);
+    text-align-last: center;
     border-radius: 40px;
     padding-right: 30px;
-}
-
-.input-box select {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    background-size: 20px;
-    padding-right: 40px;
-    text-align-last: center;
-    font-size: 16px;
-    font-weight: 500;
-}
-
-.input-box input {
+  }
+  
+  .input-box input {
     width: 100%;
     height: 100%;
     background: transparent;
@@ -48,69 +44,72 @@
     border: 2px solid rgba(255, 255, 255, 0.2);
     border-radius: 40px;
     padding-right: 30px;
-}
-
-.input-box .icon {
+  }
+  
+  .input-box .icon {
     position: absolute;
     right: 0;
     top: 50%;
     transform: translateY(-50%);
     font-size: 20px;
-}
-
-.login-page .forgot{
+  }
+  
+  .login-page .forgot {
     display: flex;
     justify-content: space-between;
     font-size: 14px;
-    margin: -15px 0 15 px;
+    margin: -15px 0 15px;
     margin-top: 10px;
-}
-.forgot label {
+  }
+  
+  .forgot label {
     display: flex;
     align-items: center;
-}
-
-.forgot label input[type="checkbox"] {
+  }
+  
+  .forgot label input[type="checkbox"] {
     margin-right: 5px;
-}
-
-
-.forgot label input{
+  }
+  
+  .forgot label input {
     margin-right: 4px;
-}
-.forgot a{
+  }
+  
+  .forgot a {
     text-decoration: none;
-}
-
-.forgot a:hover{
+  }
+  
+  .forgot a:hover {
     text-decoration: underline;
-}
-
-.login-page .button {
+  }
+  
+  .login-page .button {
     margin-top: 10px;
     width: 100%;
     height: 45px;
-    background: #fff;
+    background: #881c1c;
     border: none;
     outline: none;
     border-radius: 40px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     cursor: pointer;
     font-size: 16px;
-    color: #333;
+    color: #fff;
     font-weight: 700;
-}
-
-.login-page .register{
+  }
+  
+  .login-page .register {
     font-size: 14px;
     text-align: center;
     margin-top: 20px;
-}
-
-.register  a{
+  }
+  
+  .register a {
     text-decoration: none;
     font-weight: 600;
-}
-.register  a:hover {
+  }
+  
+  .register a:hover {
     text-decoration: underline;
-}
+  }
+  
