@@ -8,28 +8,41 @@ const Student = require("../models/student");
  */
 async function handleCreateStudent(req, res) {
     const body = req.body;
-    if (
-        !body ||
-        !body.first_name ||
-        !body.email ||
-        !body.credits ||
-        !body.courses_taken
-    ) {
-        return res
-            .status(400)
-            .json({ message: "Missing required information" });
+    if (!first_name || !email || !major || !credits|| !password ) {
+        return res.status(400).json({ message: "Missing required information" });
     }
 
     const result = await Student.create({
         first_name: body.first_name,
-        last_name: body.last_name,
+        last_name: last_name || "",
         email: body.email,
         credits: body.credits,
-        courses_taken: body.courses_taken,
-        password: body.password || "",
+        courses_taken: Array.isArray(courses_taken) ? courses_taken : [],
+        password: body.password
     });
 
     return res.status(201).json({ msg: "Success", id: result._id });
+}
+
+async function handleSignIn(req, res) {
+  const { email, password } = req.body;
+
+  try {
+    const user = await Student.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    const isPasswordMatch = await bcrypt.compare(password, user.password);
+
+    if (!isPasswordMatch) {
+      return res.status(401).json({ message: "Invalid password" });
+    }
+    return res.status(200).json({ message: "Sign-in successful", user });
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ message: "Internal server error", error: error.message });
+  }
 }
 
 /**
@@ -83,4 +96,5 @@ module.exports = {
     handleGetStudentById,
     handleDeleteStudentById,
     handleGetAllStudents,
+    handleSignIn,
 };

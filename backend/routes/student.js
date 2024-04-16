@@ -6,11 +6,14 @@ const {
     handleGetStudentById,
     handleDeleteStudentById,
     handleGetAllStudents,
+    handleSignIn,
+
 } = require("../controllers/student");
 
 const router = express.Router();
 
-router.route("/").get(handleGetAllStudents).post(handleCreateStudent);
+router.route("/signup").get(handleGetAllStudents).post(handleCreateStudent);
+router.route("/signin").post(handleSignIn);
 
 router
     .route("/:id")
