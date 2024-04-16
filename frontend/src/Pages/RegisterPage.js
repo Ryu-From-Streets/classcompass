@@ -1,9 +1,15 @@
 import React, { useState } from "react";
 import {
-  HiUser, HiOutlineLockClosed, HiMail,
+  HiUser,
+  HiOutlineLockClosed,
+  HiMail,
   HiOutlineAcademicCap,
+  HiBookOpen,
+  HiOutlineGlobe,
 } from "react-icons/hi";
 import "./login.css";
+
+
 
 const SignUpPage = ({ isShowLogin }) => {
   const [name, setName] = useState("");
@@ -12,6 +18,8 @@ const SignUpPage = ({ isShowLogin }) => {
   const [rePassword, setRePassword] = useState("");
   const [userType, setUserType] = useState("student");
   const [numCredits, setCredits] = useState(0);
+  const [courses, setCourses] = useState([]);
+  const [majors, setMajors] = useState([]);
 
   const handleSignup= (e) => {
     e.preventDefault();
@@ -29,6 +37,20 @@ const SignUpPage = ({ isShowLogin }) => {
     const value = parseInt(e.target.value);
     setCredits(isNaN(value) ? 0 : value); // Set numCredits to 0 if NaN is detected
   };
+
+  const handleCoursesChange = (e) => {
+    const coursesList = e.target.value
+      .split(",")
+      .map((course) => course.trim());
+    setCourses(coursesList);
+  };
+
+  const handleMajors = (e) => {
+    const majorList = e.target.value
+    .split(",")
+    .map((course) => course.trim());
+  setMajors(majorList);
+ };
 
   return (
     <div className="login-page">
@@ -95,6 +117,27 @@ const SignUpPage = ({ isShowLogin }) => {
           />
           <HiOutlineAcademicCap className="icon" />
         </div>
+        <div className="input-box">
+          <input
+            type="text"
+            placeholder="Enter courses"
+            value={courses.join(",")}
+            onChange={handleCoursesChange}
+            required
+          />
+          <HiBookOpen className="icon" />
+        </div>
+        <div className="input-box">
+          <input
+            type="text"
+            placeholder="Enter Majors"
+            value={majors.join(",")}
+            onChange={handleMajors}
+            required
+          />
+          <HiOutlineGlobe className="icon" />
+        </div>
+
         <button type="submit" className="button">
           {" "}
           Sign Up{" "}
