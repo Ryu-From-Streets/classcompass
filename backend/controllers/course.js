@@ -1,3 +1,4 @@
+const { default: mongoose } = require("mongoose");
 const Course = require("../models/course");
 
 /**
@@ -32,7 +33,23 @@ async function handleCreateCourse(req, res) {
  * @param {*} res - Response object
  * @returns A JSON response with the status of the update
  */
-async function handleUpdateCourseById(req, res) {}
+async function handleUpdateCourseById(req, res) {
+    const { id } = req.params
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(404).json({error: 'No such course'})
+    }
+
+    const course = await Course.findOneAndUpdate({_id: id}, {
+        ...req.body
+    })
+
+    if (!course) {
+        return res.status(404).json({error: 'No such course'})
+    }
+
+    res.status(200).json(course)
+}
 
 /**
  * Handles the request to get a course by ID
@@ -40,7 +57,21 @@ async function handleUpdateCourseById(req, res) {}
  * @param {*} res - Response object
  * @returns A JSON response with the course information
  */
-async function handleGetCourseById(req, res) {}
+async function handleGetCourseById(req, res) {
+    const { id } = req.params
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(404).json({error: 'No such course'})
+    }
+
+    const course = await Course.findById(id)
+
+    if (!course) {
+        return res.status(404).json({error: 'No such course'})
+    }
+
+    res.status(200).json(course)
+}
 
 /**
  * Handles the request to delete a course by ID
@@ -48,7 +79,21 @@ async function handleGetCourseById(req, res) {}
  * @param {*} res - Response object
  * @returns A JSON response with the status of the deletion
  */
-async function handleDeleteCourseById(req, res) {}
+async function handleDeleteCourseById(req, res) {
+    const { id } = req.params
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(404).json({error: 'No such course'})
+    }
+
+    const course = await Course.findOneAndDelete({_id: id})
+
+    if (!course) {
+        return res.status(404).json({error: 'No such course'})
+    }
+
+    res.status(200).json(course)
+}
 
 /**
  * Handles the request to get all courses
@@ -58,7 +103,7 @@ async function handleDeleteCourseById(req, res) {}
  */
 async function handleGetAllCourses(req, res) {
     const courses = await Course.find();
-    return res.status(200).json(courses);
+    res.status(200).json(courses);
 }
 
 module.exports = {
