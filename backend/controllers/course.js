@@ -8,8 +8,16 @@ const Course = require("../models/course");
  * @returns The response object indicating the success or failure of the operation
  */
 async function handleCreateCourse(req, res) {
-    const { code, name, credits, instructors, description, prerequisites } = req.body;
-    if (!code || !name || !credits || !instructors || !description || !prerequisites) {
+    const { code, name, credits, instructors, description, prerequisites } =
+        req.body;
+    if (
+        !code ||
+        !name ||
+        !credits ||
+        !instructors ||
+        !description ||
+        !prerequisites
+    ) {
         return res
             .status(400)
             .json({ message: "Missing required information" });
@@ -25,6 +33,21 @@ async function handleCreateCourse(req, res) {
     });
 
     return res.status(201).json({ msg: "Success", id: result._id });
+}
+
+/**
+ * Handles the request to get a course by code
+ * @param {*} req - Request object
+ * @param {*} res - Response object
+ * @returns A JSON response with the course information
+ */
+async function handleGetCourseByCode(req, res) {
+    const { code } = req.params;
+    const course = await Course.findOne({ code: code });
+    if (!course) {
+        return res.status(404).json({ message: "Course not found" });
+    }
+    return res.status(200).json(course);
 }
 
 /**
@@ -109,7 +132,8 @@ async function handleGetAllCourses(req, res) {
 module.exports = {
     handleCreateCourse,
     handleUpdateCourseById,
-    handleGetCourseById, 
+    handleGetCourseById,
     handleDeleteCourseById,
     handleGetAllCourses,
-}
+    handleGetCourseByCode,
+};
