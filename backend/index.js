@@ -4,8 +4,11 @@ require("dotenv").config();
 const { connectMongoDB } = require("./connection");
 const { spawn } = require('child_process');
 
+// Use your python interpreter here - python or python3 
+// and comment out the other one
 function runScrapper() {
     const pythonProcess = spawn('python', ['./webScapper.py']);
+    // const pythonProcess = spawn('python3', ['./webScapper.py']);
 
     pythonProcess.stdout.on('data', (data) => {
         console.log('Done Scrapping');
