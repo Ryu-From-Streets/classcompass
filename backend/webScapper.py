@@ -3,6 +3,16 @@ import requests
 import pprint
 import json
 
+def getInt(x):
+    num_dict = {
+        'one': 1,
+        'two': 2,
+        'three': 3,
+        'four': 4,
+        'six': 6,
+    }
+    return num_dict.get(x)
+
 url = 'https://www.cics.umass.edu/content/fall-24-course-descriptions'
 response = requests.get(url)
 content = response.content
@@ -23,7 +33,7 @@ offset = 0
 
 for i in range(len(courseHeader)):
     header = courseHeader[i].split(':')
-    code.append(header[0])
+    code.append(header[0].replace(' ', ''))
     name.append(header[1].strip())
 
     description.append(courseBody[i])
@@ -51,10 +61,20 @@ for i in range(len(courseHeader)):
                 prereq_start = False
         
         if 'credit' in body_split[n] or 'credits' in body_split[n]:
-            credit.append(body_split[n - 1].strip('('))
+            if body_split[n - 1].strip('(') in '123456789':
+                credit.append(int(body_split[n - 1].strip('(')))
+            elif body_split[n - 1].strip('(') in ['one', 'two', 'three', 'four', 'six']:
+                credit.append(getInt(body_split[n - 1].strip('(')))
+
     
     prerequisites.append(' '.join(prereq_content).strip().strip('.') if prereq_content else 'None')
-    credits.append(list(set(credit)))
+
+    if header[0] in ['COMPSCI 701', 'COMPSCI 701Y']:
+        credits.append(6)
+    elif header[0] == 'COMPSCI 240':
+        credits.append(4)
+    else:
+        credits.extend(list(set(credit)))
 
 courses = []
 for i in range(len(code)):
@@ -68,6 +88,6 @@ for i in range(len(code)):
     }
     courses.append(course)
 
-with open('course.json', 'w') as f:
+with open('course.JSON', 'w+') as f:
     data = {'courses': courses}
     json.dump(data, f)
