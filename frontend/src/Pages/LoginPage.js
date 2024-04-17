@@ -12,6 +12,7 @@ const LoginPage = ({ isShowLogin }) => {
 
   return (
     <div className="login-page">
+      <h2>Welcome!</h2>
       <form onSubmit={handleLogin}>
         <div className="input-container">
           <div className="input-box">

@@ -56,6 +56,7 @@ const SignUpPage = ({ isShowLogin }) => {
     <div className="login-page">
       <h2>Sign Up</h2>
       <form onSubmit={handleSignup}>
+       <div className="input-container">
         <div className="input-box">
           <select
             value={userType}
@@ -142,6 +143,7 @@ const SignUpPage = ({ isShowLogin }) => {
           {" "}
           Sign Up{" "}
         </button>
+      </div>
       </form>
     </div>
   );
