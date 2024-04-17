@@ -2,25 +2,51 @@ const express = require("express");
 require("dotenv").config();
 
 const { connectMongoDB } = require("./connection");
-const { spawn } = require('child_process');
+const { spawn } = require("child_process");
 
-// Use your python interpreter here - python or python3 
-// and comment out the other one
+/**
+ * Run the Python web scrapper script
+ * @returns None
+ */
 function runScrapper() {
-    const pythonProcess = spawn('python', ['./webScapper.py']);
-    // const pythonProcess = spawn('python3', ['./webScapper.py']);
+    // Attempt to use 'python' first
+    let pythonProcess = spawn("python", ["./webScrapper.py"]);
 
-    pythonProcess.stdout.on('data', (data) => {
-        console.log('Done Scrapping');
-      });
+    pythonProcess.on("error", (err) => {
+        if (err.code === "ENOENT") {
+            console.log("'python' not found, trying 'python3' instead...");
 
-    pythonProcess.stderr.on('data', (data) => {
+            // If 'python' is not found - try 'python3'
+            pythonProcess = spawn("python3", ["./webScrapper.py"]);
+
+            setupProcessHandlers(pythonProcess);
+
+            pythonProcess.on("error", (err) => {
+                if (err.code === "ENOENT") {
+                    console.error("Neither 'python' nor 'python3' could be found - \nPlease install Python first.");
+                    exit();
+                }
+            });
+        }
+    });
+
+    setupProcessHandlers(pythonProcess);
+}
+
+
+function setupProcessHandlers(pythonProcess) {
+    pythonProcess.stdout.on("data", (data) => {
+        console.log("Done Scrapping");
+    });
+
+    pythonProcess.stderr.on("data", (data) => {
         console.error(`Python script error: ${data}`);
     });
 }
 
 const student_router = require("./routes/student");
 const course_router = require("./routes/course");
+const { exit } = require("process");
 
 const app = express();
 const PORT = 1337;
@@ -45,4 +71,4 @@ app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
 
-runScrapper()
+runScrapper();
