@@ -40,7 +40,7 @@ const NodeTree = ({ node, courses }) => {
     if (courses.length > 0) {
       renderTreeData();
     }
-  }, [node, courses]);
+  });
 
 
   return treeData ? (
