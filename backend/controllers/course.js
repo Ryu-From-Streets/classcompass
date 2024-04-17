@@ -15,12 +15,12 @@ async function handleCreateCourse(req, res) {
     }
 
     const result = await Course.create({
-        code: body.code,
-        name: body.name,
-        credits: body.credits,
-        instructors: Array.isArray(instructors) ? instructors : [],
-        description: body.description,
-        prerequisites: Array.isArray(prerequisites) ? prerequisites : [],
+        code: code,
+        name: name,
+        credits: credits,
+        instructors: instructors,
+        description: description,
+        prerequisites: prerequisites,
     });
 
     return res.status(201).json({ msg: "Success", id: result._id });

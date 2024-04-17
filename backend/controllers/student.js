@@ -8,17 +8,17 @@ const Student = require("../models/student");
  */
 async function handleCreateStudent(req, res) {
     const { first_name, last_name, email, major, credits, courses_taken, password } = req.body;
-    if (!first_name || !email || !major || !credits || !password) {
+    if (!first_name || !email || !credits || !password) {
         return res
             .status(400)
             .json({ message: "Missing required information" });
     }
 
     const result = await Student.create({
-        first_name: body.first_name,
+        first_name: first_name,
         last_name: last_name || "",
-        email: body.email,
-        credits: body.credits,
+        email: email,
+        credits: credits,
         courses_taken: Array.isArray(courses_taken) ? courses_taken : [],
         password: body.password,
     });
