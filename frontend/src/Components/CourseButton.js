@@ -31,7 +31,7 @@ const CourseButton = ({ course }) => {
                 <h2>{course.name}</h2>
                 <p><strong>Instructor(s):</strong> {course.professors}</p>
                 <p><strong>Description:</strong> {course.description}</p>
-                <p><strong>Prerequisites:</strong> {course.prerequisites}</p>
+                <p><strong>Prerequisites:</strong> {course.prerequisites.flat().join(" ")}</p>
 
                 <button onClick={handleTreeButtonClick}>See Prerequisite Tree</button>
             </CourseInfoPopup>

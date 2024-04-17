@@ -1,7 +1,9 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-const NodeTree = ({ node }) => {
+// Some parts of NodeTree.js and NodeTree.css were adapted with the assistance of ChatGPT
+
+const NodeTree = ({ node, courses }) => {
     const navigate = useNavigate();
 
     const handleNodeClick = (course) => {
@@ -9,7 +11,7 @@ const NodeTree = ({ node }) => {
     };
 
     const renderNode = (node) => {
-        const { course_code, prerequisites } = node;
+        const { code, prerequisites } = node;
 
         const handleMouseEnter = (event) => {
             event.target.style.color = "red";
@@ -31,17 +33,24 @@ const NodeTree = ({ node }) => {
                     onMouseEnter={handleMouseEnter}
                     onMouseLeave={handleMouseLeave}
                 >
-                    {course_code}
+                    {code}
                 </div>
                 {prerequisites && prerequisites.length > 0 && (
                     <div className="node__children">
                         <div className="node__connection">
-                            {prerequisites.map((prerequisite, index) => (
-                                <div className="node__child" key={index}>
-                                    <div className="node__line"></div>
-                                    <NodeTree node={prerequisite} />
-                                </div>
-                            ))}
+                            {prerequisites.map((prerequisite, index) => {
+                                const prerequisiteCourse = courses.find(course => course.code === prerequisite[0]);
+                                if (prerequisiteCourse) {
+                                    return (
+                                        <div className="node__child" key={index}>
+                                            <div className="node__line"></div>
+                                            <NodeTree node={prerequisiteCourse} courses={courses} />
+                                        </div>
+                                    );
+                                } else {
+                                    return null;
+                                }
+                            })}
                         </div>
                     </div>
                 )}
