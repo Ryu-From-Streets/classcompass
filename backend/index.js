@@ -33,7 +33,11 @@ function runScrapper() {
     setupProcessHandlers(pythonProcess);
 }
 
-
+/**
+ * Setup the event handlers for the Python process
+ * @param {ChildProcess} pythonProcess - The Python process
+ * @returns None
+ */
 function setupProcessHandlers(pythonProcess) {
     pythonProcess.stdout.on("data", (data) => {
         console.log("Done Scrapping");
