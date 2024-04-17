@@ -1,38 +1,10 @@
-.node {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.node__root > circle {
+    fill: #881c1c;
   }
   
-  .node__element {
-    border: 1px solid #ccc;
-    padding: 5px 10px;
-    border-radius: 5px;
-    background-color: #f0f0f0;
+  .node__branch > circle {
+    fill: rgb(116, 116, 116);
   }
   
-  .node__children {
-    display: flex;
-  }
+ 
   
-  .node__connection {
-    display: flex;
-    justify-content: space-between;
-  }
-  
-  .node__child {
-    display: flex;
-    align-items: center;
-  }
-  
-  .node__line {
-    border-left: 1px solid #ccc;
-    height: 100px;
-    margin-right: 10px;
-  }
-  
-  .node__child .node__element {
-    margin-top: 10px;
-    height: 35px;
-    width: 70px; 
-  }
