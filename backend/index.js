@@ -7,6 +7,10 @@ const { spawn } = require('child_process');
 function runScrapper() {
     const pythonProcess = spawn('python', ['./webScapper.py']);
 
+    pythonProcess.stdout.on('data', (data) => {
+        console.log('Done Scrapping');
+      });
+
     pythonProcess.stderr.on('data', (data) => {
         console.error(`Python script error: ${data}`);
     });
@@ -35,6 +39,7 @@ app.use("/students", student_router);
 app.use("/courses", course_router);
 
 app.listen(PORT, () => {
-    runScrapper()
     console.log(`Server is running on port ${PORT}`);
 });
+
+runScrapper()
