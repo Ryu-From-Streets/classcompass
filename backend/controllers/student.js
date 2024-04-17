@@ -8,8 +8,10 @@ const Student = require("../models/student");
  */
 async function handleCreateStudent(req, res) {
     const body = req.body;
-    if (!first_name || !email || !major || !credits|| !password ) {
-        return res.status(400).json({ message: "Missing required information" });
+    if (!first_name || !email || !major || !credits || !password) {
+        return res
+            .status(400)
+            .json({ message: "Missing required information" });
     }
 
     const result = await Student.create({
@@ -18,31 +20,37 @@ async function handleCreateStudent(req, res) {
         email: body.email,
         credits: body.credits,
         courses_taken: Array.isArray(courses_taken) ? courses_taken : [],
-        password: body.password
+        password: body.password,
     });
 
     return res.status(201).json({ msg: "Success", id: result._id });
 }
 
+/**
+ * 
+ * @param {*} req The request object
+ * @param {*} res The response object
+ * @returns Handles the sign-in request for a student
+ */
 async function handleSignIn(req, res) {
-  const { email, password } = req.body;
+    const { email, password } = req.body;
 
-  try {
-    const user = await Student.findOne({ email });
-    if (!user) {
-      return res.status(404).json({ message: "User not found" });
-    }
-    const isPasswordMatch = await bcrypt.compare(password, user.password);
+    try {
+        const user = await Student.findOne({ email });
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+        const isPasswordMatch = await bcrypt.compare(password, user.password);
 
-    if (!isPasswordMatch) {
-      return res.status(401).json({ message: "Invalid password" });
+        if (!isPasswordMatch) {
+            return res.status(401).json({ message: "Invalid password" });
+        }
+        return res.status(200).json({ message: "Sign-in successful", user });
+    } catch (error) {
+        return res
+            .status(500)
+            .json({ message: "Internal server error", error: error.message });
     }
-    return res.status(200).json({ message: "Sign-in successful", user });
-  } catch (error) {
-    return res
-      .status(500)
-      .json({ message: "Internal server error", error: error.message });
-  }
 }
 
 /**
