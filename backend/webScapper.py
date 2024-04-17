@@ -1,6 +1,7 @@
 from bs4 import BeautifulSoup
 import requests
 import pprint
+import json
 
 url = 'https://www.cics.umass.edu/content/fall-24-course-descriptions'
 response = requests.get(url)
@@ -8,33 +9,65 @@ content = response.content
 soup = BeautifulSoup(content, 'html.parser')
 
 # Getting course titles from h2 with anchor with id in it
-courseTitles = [h2.a.get_text() for h2 in soup.find_all('h2') if h2.a]
-courseDescriptions = [p.get_text() for p in soup.find_all('p') if not p.find('a')]
-coursePrerequisite = []
-courseCredits = []
+courseHeader = [h2.a.get_text() for h2 in soup.find_all('h2') if h2.a]
+courseInstructors = [h3.get_text().split(':')[1].lstrip() for h3 in soup.find_all('h3')]
+courseBody = [p.get_text() for p in soup.find_all('p') if not p.find('a')]
 
-for i in range(len(courseDescriptions) - 1):
-    info = courseDescriptions[i].split(':')[-1]
-    if 'Prerequisite' in courseDescriptions[i]:
-        for i in range(len(info) - 2, -1, -1):
-            if info[i] == '.':
-                prerequisite = info[:i].strip()
-                credit = info[i + 1:].strip()
-                break
-        coursePrerequisite.append(prerequisite)
-        courseCredits.append(credit)
+code = []
+name = []
+credits = []
+instructors = []
+description = []
+prerequisites = []
+offset = 0
+
+for i in range(len(courseHeader)):
+    header = courseHeader[i].split(':')
+    code.append(header[0])
+    name.append(header[1].strip())
+
+    description.append(courseBody[i])
+
+    if header[0] in ['COMPSCI 701', 'COMPSCI 701Y']:
+        instructors.append('None')
+        offset += 1
     else:
-        
-        for i in range(len(info) - 2, -1, -1):
-            if info[i] in '23456789':
-                credit = info[i : i + 9]
-                break
-            elif info[i] == '1':
-                credit = info[i : i + 8]
-                break
-        coursePrerequisite.append(None)
-        courseCredits.append(credit)
+        instructors.append(courseInstructors[i - offset])
+    
+    body_split = courseBody[i].split()
+    prereq_start = False
+    credit = []
+    prereq_content = []
 
-with open('course.txt', 'w', encoding='utf-8') as f:
-    for i in range(len(courseTitles)):
-        f.write('Course Title: %s\nPrerequisite: %s\nCredits: %s\n\n' %(courseTitles[i], coursePrerequisite[i], courseCredits[i]))
+    for n in range(len(body_split)):
+        if 'Prerequisite' in body_split[n] or 'Prerequisites' in body_split[n]:
+            prereq_start = True
+            continue
+        
+        if prereq_start:
+            if body_split[n] not in '123456789':
+                prereq_content.append(body_split[n])
+            else:
+                prereq_start = False
+        
+        if 'credit' in body_split[n] or 'credits' in body_split[n]:
+            credit.append(body_split[n - 1].strip('('))
+    
+    prerequisites.append(' '.join(prereq_content).strip().strip('.') if prereq_content else 'None')
+    credits.append(list(set(credit)))
+
+courses = []
+for i in range(len(code)):
+    course = {
+        'code': code[i],
+        'name': name[i],
+        'credits': credits[i],
+        'instructors': instructors[i],
+        'description': description[i],
+        'prerequisites': prerequisites[i]
+    }
+    courses.append(course)
+
+with open('course.json', 'w') as f:
+    data = {'courses': courses}
+    json.dump(data, f)
