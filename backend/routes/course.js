@@ -21,6 +21,6 @@ router
     .delete(handleDeleteCourseById);
 
 // Use code to get a course
-router.route("/:code").get(handleGetCourseByCode);
+router.route("/code/:code").get(handleGetCourseByCode);
 
 module.exports = router;
