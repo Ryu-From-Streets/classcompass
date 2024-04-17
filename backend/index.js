@@ -2,6 +2,15 @@ const express = require("express");
 require("dotenv").config();
 
 const { connectMongoDB } = require("./connection");
+const { spawn } = require('child_process');
+
+function runScrapper() {
+    const pythonProcess = spawn('python', ['./webScapper.py']);
+
+    pythonProcess.stderr.on('data', (data) => {
+        console.error(`Python script error: ${data}`);
+    });
+}
 
 const student_router = require("./routes/student");
 const course_router = require("./routes/course");
@@ -26,5 +35,6 @@ app.use("/students", student_router);
 app.use("/courses", course_router);
 
 app.listen(PORT, () => {
+    runScrapper()
     console.log(`Server is running on port ${PORT}`);
 });

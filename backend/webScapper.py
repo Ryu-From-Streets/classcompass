@@ -2,6 +2,7 @@ from bs4 import BeautifulSoup
 import requests
 import pprint
 import json
+import os
 
 def getInt(x):
     num_dict = {
@@ -42,7 +43,16 @@ for i in range(len(courseHeader)):
         instructors.append('None')
         offset += 1
     else:
-        instructors.append(courseInstructors[i - offset])
+        people = courseInstructors[i - offset].split(',')
+        staff = False
+        for n in range(len(people)):
+            if 'STAFF' in people[n]:
+                staff = True
+            people[n] = people[n].strip()
+        if staff:
+            instructors.append(people[:-1])
+        else:
+            instructors.append(people)
     
     body_split = courseBody[i].split()
     prereq_start = False
@@ -88,6 +98,13 @@ for i in range(len(code)):
     }
     courses.append(course)
 
-with open('course.JSON', 'w+') as f:
+filename = 'course.JSON'
+folder_path = '../backend'
+
+file_path = os.path.join(folder_path, filename)
+
+with open(file_path, 'w', encoding='utf-8') as f:
     data = {'courses': courses}
     json.dump(data, f)
+
+print('Done Scrapping')
