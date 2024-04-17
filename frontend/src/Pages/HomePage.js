@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 
 // COMPONENTS
 import { SearchBar } from '../Components/SearchBar';
-import CourseButton from "../Components/CourseButton"
+import CourseButton from "../Components/CourseButton";
 
 
 const HomePage = () => {
@@ -19,6 +19,9 @@ const HomePage = () => {
 
             if (response.ok) {
                 setFilteredCourses(jsonOfCourses);
+                if (response.length === 0) {
+                    setError("No courses found");
+                }
             }
             if (!response.ok) {
                 console.log("ERROR FETCHING DATA");
