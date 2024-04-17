@@ -7,7 +7,7 @@ const Student = require("../models/student");
  * @returns The response object indicating the success or failure of the operation
  */
 async function handleCreateStudent(req, res) {
-    const body = req.body;
+    const { first_name, last_name, email, major, credits, courses_taken, password } = req.body;
     if (!first_name || !email || !major || !credits || !password) {
         return res
             .status(400)
