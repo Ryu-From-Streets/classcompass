@@ -16,7 +16,7 @@ const student_router = require("./routes/student");
 const course_router = require("./routes/course");
 
 const app = express();
-const PORT = 3000;
+const PORT = 1337;
 
 const url = process.env.MONGODB_URL;
 
