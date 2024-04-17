@@ -1,5 +1,5 @@
 const Student = require("../models/student");
-
+const bcrypt = require("bcrypt");
 /**
  * Handles the creation of a new student in the database if the required information is provided
  * @param {*} req - Request object
@@ -13,14 +13,14 @@ async function handleCreateStudent(req, res) {
             .status(400)
             .json({ message: "Missing required information" });
     }
-
+    const hashedPassword = await bcrypt.hash(password, 10);
     const result = await Student.create({
         first_name: first_name,
         last_name: last_name || "",
         email: email,
         credits: credits,
         courses_taken: Array.isArray(courses_taken) ? courses_taken : [],
-        password: body.password,
+        password: hashedPassword,
     });
 
     return res.status(201).json({ msg: "Success", id: result._id });

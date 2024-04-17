@@ -8,7 +8,9 @@ const LoginPage = ({ isShowLogin }) => {
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
   const [userType, setUserType] = useState("student");
-  const handleLogin = (e) => {};
+  const handleLogin = (e) => {
+    
+  };
 
   return (
     <div className="login-page">
@@ -18,8 +20,7 @@ const LoginPage = ({ isShowLogin }) => {
           <div className="input-box">
             <select
               value={userType}
-              onChange={(e) => setUserType(e.target.value)}
-            >
+              onChange={(e) => setUserType(e.target.value)}>
               <option value="student">I am a student</option>
               <option value="advisor">I am an advisor</option>
             </select>
