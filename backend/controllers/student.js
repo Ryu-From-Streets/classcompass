@@ -60,8 +60,24 @@ async function handleSignIn(req, res) {
  * @returns A JSON response with the status of the update
  */
 async function handleUpdateStudentById(req, res) {
-    await Student.findByIdAndUpdate(req.params.id, req.body);
-    return res.json({ status: "Success" });
+    // await Student.findByIdAndUpdate(req.params.id, req.body);
+    // return res.json({ status: "Success" });
+
+    const {id} = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(404).json({error: 'No such student'})
+    }
+
+    const student = await Student.findByIdAndUpdate(id, {
+        ...req.body
+    })
+
+    if (!student) {
+        return res.status(404).json({error: 'No such student'})
+    }
+
+    res.status(200).json(student)
 }
 
 /**
@@ -71,9 +87,23 @@ async function handleUpdateStudentById(req, res) {
  * @returns A JSON response with the student information
  */
 async function handleGetStudentById(req, res) {
-    const student = await Student.findById(req.params.id);
-    if (!student) return res.status(404).json({ error: "Student not found" });
-    return res.json(student);
+    // const student = await Student.findById(req.params.id);
+    // if (!student) return res.status(404).json({ error: "Student not found" });
+    // return res.json(student);
+
+    const {id} = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(404).json({error: 'No such student'})
+    }
+
+    const student = await Student.findById(id)
+
+    if (!student) {
+        return res.status(404).json({error: 'No such student'})
+    }
+
+    res.status(200).json(student)
 }
 
 /**
@@ -83,8 +113,22 @@ async function handleGetStudentById(req, res) {
  * @returns A JSON response with the status of the deletion
  */
 async function handleDeleteStudentById(req, res) {
-    await Student.findByIdAndDelete(req.params.id);
-    return res.json({ status: "Success" });
+    // await Student.findByIdAndDelete(req.params.id);
+    // return res.json({ status: "Success" });
+
+    const {id} = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(404).json({error: 'No such student'})
+    }
+
+    const student = await Student.findByIdAndDelete(id)
+
+    if (!student) {
+        return res.status(404).json({error: 'No such student'})
+    }
+
+    res.status(200).json(student)
 }
 
 /**
@@ -95,7 +139,7 @@ async function handleDeleteStudentById(req, res) {
  */
 async function handleGetAllStudents(req, res) {
     const all_students = await Student.find({});
-    return res.json(all_students);
+    return res.status(200).json(all_students);
 }
 
 module.exports = {
