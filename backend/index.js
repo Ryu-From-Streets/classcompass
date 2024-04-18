@@ -3,8 +3,8 @@ require("dotenv").config();
 
 const { connectMongoDB } = require("./connection");
 const { spawn } = require("child_process");
-const { handleCreateCourse } = require("./controllers/course");
-const Course = require("./models/course");
+// const { handleCreateCourse } = require("./controllers/course");
+// const Course = require("./models/course");
 
 /**
  * Run the Python web scrapper script
@@ -70,6 +70,10 @@ app.use(express.static("../frontend/build"));
 //     res.sendFile(__dirname + "/../frontend/build/index.html")
 // );
 
+app.use((req, res, next) => {
+    console.log(req.path, req.method)
+    next()
+});
 app.use("/students", student_router);
 app.use("/courses", course_router);
 
