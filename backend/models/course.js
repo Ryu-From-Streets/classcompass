@@ -17,7 +17,7 @@ const courseSchema = new mongoose.Schema({
         required: false,
         trim: true,
     },
-    professors: {
+    instructors: {
         type: Array,
         required: true,
         default: [],
