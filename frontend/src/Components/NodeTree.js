@@ -15,16 +15,31 @@ const NodeTree = ({ node, courses }) => {
           ? prerequisite.map((prereq) => {
               const prerequisiteCourse = courses.find((course) => course.code === prereq);
               if (prerequisiteCourse) {
+                console.log("hello");
                 return renderNode(prerequisiteCourse);
               }
-              return null;
+              return {
+                code: prereq,
+                name: prereq,
+                credits: null,
+                instructors: [],
+                description: "",
+                prerequisites: []
+              };
             })
           : [prerequisite].map((prereq) => {
               const prerequisiteCourse = courses.find((course) => course.code === prereq);
               if (prerequisiteCourse) {
                 return renderNode(prerequisiteCourse);
               }
-              return null;
+              return {
+                code: prereq,
+                name: prereq,
+                credits: null,
+                instructors: [],
+                description: "",
+                prerequisites: []
+              };;
             });
         return childNodes.length > 1 ? { name: 'Any Of', children: childNodes } : childNodes[0];
       }),
