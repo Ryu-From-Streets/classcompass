@@ -13,7 +13,7 @@ const TreePage = () => {
   useEffect(() => {
     const fetchCourses = async () => {
       try {
-        const response = await fetch('/Test_Data/Courses.json');
+        const response = await fetch('/courses');
         if (!response.ok) {
           throw new Error('Failed to fetch courses');
         }
