@@ -43,21 +43,35 @@ const SignUpPage = ({ isShowLogin }) => {
       first_name = name;
       last_name = "";
     }
+    if (userType === "student") {
       try {
-        const response = await axios.post("/api/signup", {
+        const response = await axios.post("/students/signup", {
           first_name,
           last_name,
           email,
           password,
-          userType,
           numCredits,
           courses,
           majors,
         });
-        console.log("User signed up successfully", response.data);
+        console.log("Student signed up successfully", response.data);
       } catch (error) {
-        console.error("Failed to sign up user", error.response.data);
+        console.error("Failed to sign up student", error.response.data);
       }
+    }
+    else {
+      try {
+        const response = await axios.post("/advisors/signup", {
+          first_name,
+          last_name,
+          email,
+          password,
+        });
+        console.log("Advisor signed up successfully", response.data);
+      } catch (error) {
+        console.error("Failed to sign up advisor", error.response.data);
+      }
+    }
 
 
   };
