@@ -23,13 +23,15 @@ const CourseButton = ({ course }) => {
                 className="CourseButton"
                 onClick={() => setPopupVisibility(true)}
             >
-                { course.code }
+                <p className="class-code">{ course.code }</p>
+                <p className="class-name">{ course.name }</p>
             </button>
 
             <CourseInfoPopup trigger={popupVisibility} setTrigger={setPopupVisibility}>
                 <h1>{course.code}</h1>
                 <h2>{course.name}</h2>
-                <p><strong>Instructor(s):</strong> {course.professors}</p>
+                <p><strong>Credits:</strong> {course.credits}</p>
+                <p><strong>Instructor(s):</strong> {course.instructors}</p>
                 <p><strong>Description:</strong> {course.description}</p>
                 <p><strong>Prerequisites:</strong> {course.prerequisites.flat().join(" ")}</p>
 
