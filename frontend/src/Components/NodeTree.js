@@ -15,7 +15,6 @@ const NodeTree = ({ node, courses }) => {
           ? prerequisite.map((prereq) => {
               const prerequisiteCourse = courses.find((course) => course.code === prereq);
               if (prerequisiteCourse) {
-                console.log("hello");
                 return renderNode(prerequisiteCourse);
               }
               return {
