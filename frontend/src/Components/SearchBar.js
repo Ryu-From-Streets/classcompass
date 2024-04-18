@@ -9,7 +9,7 @@ export const SearchBar = ({ setFilteredCourses, setError }) => {
     const [input, setInput] = useState("");
 
     const fetchData = (value) => {
-        fetch("../Test_data/Courses.json")
+        fetch("/courses", { method: "GET" })
             .then((response) => response.json())
             .then(json => {
                 setError("");
@@ -19,9 +19,12 @@ export const SearchBar = ({ setFilteredCourses, setError }) => {
                 } else {
                     results = json.filter((course) => {
                         return (
-                            course && 
+                            (course && 
                             course.code && 
-                            course.code.toLowerCase().includes(value.toLowerCase())
+                            course.code.toLowerCase().includes(value.toLowerCase())) ||
+                            (course &&
+                            course.name &&
+                            course.name.toLowerCase().includes(value.toLowerCase()))
                         );
                     });
                     if (results.length === 0) {
