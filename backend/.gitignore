@@ -2,4 +2,7 @@
 node_modules/
 
 # Micslaneous
-.DS_Store
+**/.DS_Store
+
+# Environment variables
+.env

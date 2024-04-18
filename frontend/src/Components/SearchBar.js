@@ -5,24 +5,31 @@ import "./SearchBar.css";
 
 // searchBar, SearchResult, and SearchResults lists adapted from https://www.youtube.com/watch?v=sWVgMcz8Q44&t=146s
 
-export const SearchBar = ({ setFilteredCourses }) => {
+export const SearchBar = ({ setFilteredCourses, setError }) => {
     const [input, setInput] = useState("");
 
     const fetchData = (value) => {
-        fetch("/api/courses")
+        fetch("/courses", { method: "GET" })
             .then((response) => response.json())
             .then(json => {
+                setError("");
                 let results;
                 if (value.trim() === "") {
                     results = json;
                 } else {
                     results = json.filter((course) => {
                         return (
-                            course && 
-                            course.course_code && 
-                            course.course_code.toLowerCase().includes(value.toLowerCase())
+                            (course && 
+                            course.code && 
+                            course.code.toLowerCase().includes(value.toLowerCase())) ||
+                            (course &&
+                            course.name &&
+                            course.name.toLowerCase().includes(value.toLowerCase()))
                         );
                     });
+                    if (results.length === 0) {
+                        setError("Course not found");
+                    }
                 }
                 setFilteredCourses(results);
             });

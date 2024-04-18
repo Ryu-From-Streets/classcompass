@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const request = require("supertest");
 
-const app = require("../app");
+const index = require("../index");
 
 require("dotenv").config();

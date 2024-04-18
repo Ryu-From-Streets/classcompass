@@ -1,7 +1,21 @@
 .App {
   text-align: center;
-  background-color: #eee;
+  background-attachment: scroll;
+  background-color: #eeeeee;
   height: 100vh;
+}
+
+.HomPage {
+  background-color: #eeeeee;
+}
+
+.AdvisorsPage {
+  background-color: #eeeeee;
+}
+
+.AdvisorsPage .advisor {
+  line-height: 5px;
+  margin-top: 50px;
 }
 
 .search-bar-container {

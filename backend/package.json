@@ -2,22 +2,26 @@
   "name": "backend",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "index.js",
   "scripts": {
     "test": "cross-env NODE_ENV=test jest --testTimeout=5000",
-    "start": "node app.js",
+    "start": "node index.js",
+    "dev": "nodemon --ignore course.JSON --watch index.js",
     "build": "npm install --prefix ../frontend && npm run build --prefix ../frontend && npm install"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "axios": "^1.6.7",
+    "bcrypt": "^5.1.1",
+    "bcryptjs": "^2.4.3",
     "cross-env": "^7.0.3",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "jest": "^29.7.0",
     "mongodb": "^6.5.0",
-    "mongoose": "^8.2.3",
+    "mongoose": "^8.3.0",
+    "nodemon": "^3.1.0",
     "supertest": "^6.3.4"
   }
 }

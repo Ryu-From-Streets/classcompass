@@ -1,11 +1,15 @@
 import './App.css';
+import './Components/NodeTree.css';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 
 // PAGES
 import HomePage from "./Pages/HomePage";
+import AdvisorsPage from './Pages/AdvisorsPage';
 import LoginPage from "./Pages/LoginPage";
 import RegisterPage from "./Pages/RegisterPage";
+import TreePage from "./Pages/TreePage";
+import ForgotPage from "./Pages/ForgotPage";
 
 // COMPONENTS
 import NavigationBar from "./Components/NavigationBar";
@@ -14,31 +18,20 @@ import NavigationBar from "./Components/NavigationBar";
 function App() {
   return (
     <div className="App">
-
       <BrowserRouter>
-      <NavigationBar />
+        <NavigationBar />
 
         <div className="Pages">
           <Routes>
-            <Route 
-              path="/"
-              element={<HomePage/>}
-            />
-            <Route 
-              path="/login"
-              element={<LoginPage/>}
-            />
-            <Route 
-              path="/register"
-              element={<RegisterPage/>}
-            />
+            <Route path="/" element={<HomePage />} />
+            <Route path="/advisors" element={<AdvisorsPage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/register" element={<RegisterPage />} />
+            <Route path="/tree" element={<TreePage />} />
+            <Route path="/forgot" element={<ForgotPage />} />
           </Routes>
         </div>
-
       </BrowserRouter>
-
-
-
     </div>
   );
 }

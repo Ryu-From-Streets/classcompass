@@ -1,0 +1,320 @@
+Course Title: CICS 110: Foundations of Programming  
+Prerequisite: MATH 101&102 or MATH 104 or MATH 127 or MATH 128 or MATH 131 or MATH 132
+Credits: 4 credits.
+
+Course Title: CICS 160: Object-Oriented Programming  
+Prerequisite: CICS 110 (previously INFO 190S) or COMPSCI 121
+Credits: 4 credits.
+
+Course Title: CICS 208: Defending Democracy in a Digital World  
+Prerequisite: None
+Credits: 3 credits
+
+Course Title: CICS 210: Data Structures  
+Prerequisite: CICS 160 (previously INFO 190T)
+Credits: 4 credits.
+
+Course Title: CICS 237: Introduction to Research in the Discipline  
+Prerequisite: None
+Credits: 2 credits
+
+Course Title: CICS 256: Make: A Hands-on Introduction to Physical Computing  
+Prerequisite: CICS 210 (or COMPSCI 187) and Basic Math Skills (R1)
+Credits: 4 credits.
+
+Course Title: CICS 291T: Seminar - CICS Transfer Success  
+Prerequisite: None
+Credits: 1 credit
+
+Course Title: CICS 298A: Practicum - Leadership: Communicating Across Expertise  
+Prerequisite: CICS 160 (previously INFO 190T or COMPSCI 186 or 187)
+Credits: 1 credit.
+
+Course Title: CICS 305: Social Issues in Computing  
+Prerequisite: ENGLWRIT 112 (or English Writing waiver) and INFO 248
+Credits: 3 credits.
+
+Course Title: CICS 580: Introduction to Numerical Computing with Python  
+Prerequisite: None
+Credits: 1 credit
+
+Course Title: COMPSCI 119: Introduction to Programming  
+Prerequisite: None
+Credits: 3 credits
+
+Course Title: COMPSCI 198C: Practicum - Introduction to the C Programming Language  
+Prerequisite: CICS 160 (previously INFO 190T or COMPSCI 186) or COMPSCI 121 with a grade of B or better
+Credits: 1 credit.
+
+Course Title: COMPSCI 220: Programming Methodology  
+Prerequisite: CICS 210 (or COMPSCI 187)
+Credits: 4 credits.
+
+Course Title: COMPSCI 230: Computer Systems Principles  
+Prerequisite: CICS 210 (or COMPSCI 187) and COMPSCI 198C
+Credits: 4 credits.
+
+Course Title: COMPSCI 240: Reasoning Under Uncertainty  
+Prerequisite: CICS 160 (previously INFO 190T or COMPSCI 187) and MATH 132
+Credits: 4 credits.
+
+Course Title: COMPSCI 250: Introduction to Computation  
+Prerequisite: CICS 160 (previously INFO 190T or COMPSCI 187 or ECE 241) and MATH 132
+Credits: 4 credits.
+
+Course Title: COMPSCI 311: Introduction to Algorithms  
+Prerequisite: CICS 210 or COMPSCI 187, and either COMPSCI 250 or MATH 455
+Credits: 4 credits.
+
+Course Title: COMPSCI 320: Introduction to Software Engineering  
+Prerequisite: COMPSCI 220
+Credits: 4 credits.
+
+Course Title: COMPSCI 325: Introduction to Human Computer Interaction  
+Prerequisite: INFO 248 and CICS 160 (previously INFO 190T or COMPSCI 186 or COMPSCI 187)
+Credits: 3 credits.
+
+Course Title: COMPSCI 326: Web Programming  
+Prerequisite: as the name  web programming  denotes, programming is a key component of this class.  Previous background in JavaScript is strongly recommended
+Credits: 4 credits.
+
+Course Title: COMPSCI 328: Mobile Health Sensing and Analytics  
+Prerequisite: INFO 248 and CICS 160 (previously INFO 190T or COMPSCI 186 or COMPSCI 187)
+Credits: 3 credits.
+
+Course Title: COMPSCI 335: Inside the Box: How Computers Work  
+Prerequisite: COMPSCI 220 (or COMPSCI 230)
+Credits: 3 credits.
+
+Course Title: COMPSCI 345: Practice and Applications of Data Management  
+Prerequisite: INFO 248 and CICS 160 (previously INFO 190T or COMPSCI 186 or COMPSCI 187)
+Credits: 3 credits.
+
+Course Title: COMPSCI 360: Introduction to Computer and Network Security  
+Prerequisite: COMPSCI 230
+Credits: 3 credits.
+
+Course Title: COMPSCI 363: Computer Crime Law  
+Prerequisite: COMPSCI 230 and ENGLWRIT 112
+Credits: 3 credits.
+
+Course Title: COMPSCI 377: Operating Systems  
+Prerequisite: COMPSCI 230
+Credits: 4 credits.
+
+Course Title: COMPSCI 383: Artificial Intelligence  
+Prerequisite: COMPSCI 220 (or COMPSCI 230) and COMPSCI 240 (or STATISTC 515)
+Credits: 3 credits.
+
+Course Title: COMPSCI 410: Compiler Techniques  
+Prerequisite: COMPSCI 230 and either COMPSCI 250 (or MATH 455)
+Credits: 3 credits.
+
+Course Title: COMPSCI 420: Software Entrepreneurship  
+Prerequisite: COMPSCi 320 (or COMPSCI 326)
+Credits: 3 credits.
+
+Course Title: COMPSCI 429: Software Engineering Project Management  
+Prerequisite: None
+Credits: 3 credits
+
+Course Title: COMPSCI 445: Information Systems  
+Prerequisite: COMPSCI 220 (or 230) and COMPSCI 311 and COMPSCI 345
+Credits: 3 credits.
+
+Course Title: COMPSCI 446: Search Engines  
+Prerequisite: COMPSCI 240 or COMPSCI 383
+Credits: 3 credits.
+
+Course Title: COMPSCI 453: Computer Networks  
+Prerequisite: Experience programming; COMPSCI 230 or COMPSCI 377
+Credits: 3 credits.
+
+Course Title: COMPSCI 461: Secure Distributed Systems  
+Prerequisite: COMPSCI 326, COMPSCI 345, COMPSCI 377, COMPSCI 453, or COMPSCI 497P
+Credits: 3 credits.
+
+Course Title: COMPSCI 490Q: Quantum Information Science  
+Prerequisite: MATH 132, MATH 235, and either COMPSCI 240 or STATISTC 515
+Credits: 3 credits.
+
+Course Title: COMPSCI 514: Algorithms for Data Science  
+Prerequisite: COMPSCI 240 (or STATISTCS 515) and COMPSCI 311 both with a grade of B+ or better, OR (COMPSCI 240 and STATISTCS 515 and COMPSCI 311 and MATH 233 and MATH 235, all with a C or better)
+Credits: 3 credits
+
+Course Title: COMPSCI 515: Algorithms, Game Theory and Fairness  
+Prerequisite: COMPSCI 240 and COMPSCI 250
+Credits: 3 credits.
+
+Course Title: COMPSCI 520: Theory and Practice of Software Engineering  
+Prerequisite: COMPSCI 320 (or COMPSCI 220 and COMPSCI 326)
+Credits: 3 credits.
+
+Course Title: COMPSCI 528: Mobile and Ubiquitous Computing  
+Prerequisite: COMPSCI 230 and COMPSCI 240
+Credits: 3 credits.
+
+Course Title: COMPSCI 532: Systems for Data Science  
+Prerequisite: COMPSCI 377 and COMPSCI 445
+Credits: 3 credits.
+
+Course Title: COMPSCI 560: Introduction to Computer and Network Security  
+Prerequisite: COMPSCI 453 or E&C-ENG 374
+Credits: 3 credits.
+
+Course Title: COMPSCI 563: Internet Law and Policy  
+Prerequisite: COMPSCI 311, COMPSCI 383, or COMPSCI 360 (previously 460)
+Credits: 3 credits.
+
+Course Title: COMPSCI 575: Combinatorics and Graph Theory  
+Prerequisite: mathematical maturity; calculus; linear algebra; strong performance in some discrete mathematics class, such as COMPSCI 250 or MATH 455.  Modern Algebra - MATH 411 - is helpful but not required
+Credits: 3 credits.
+
+Course Title: COMPSCI 576: Game Programming  
+Prerequisite: COMPSCI 220 and MATH 235 and COMPSCI 311 (or COMPSCI 250)
+Credits: 3 credits.
+
+Course Title: COMPSCI 589: Machine Learning  
+Prerequisite: MATH 545 and COMPSCI 240 and STATISTC 515 C or better.  MATH 545 can be skipped by students who have taken MATH 235 and MATH 233 both with B+ or better. STATISTC 515 can be skipped by students who have taken COMPSCI 240 with a B+ or better
+Credits: 3 credits.
+
+Course Title: COMPSCI 590X: Decarbonization and Data Science  
+Prerequisite: Either COMPSCI 240 (or STATISTC 515) and CICS 210 (or COMPSCI 187), or INFORM 348
+Credits: 3 credits.
+
+Course Title: COMPSCI 596E: Independent Study - Machine Learning Applied to Child Rescue  
+Prerequisite: None
+Credits: 3 credits
+
+Course Title: COMPSCI 602: Research Methods in Empirical Computer Science  
+Prerequisite: None
+Credits: 3 credits
+
+Course Title: COMPSCI 610: Compiler Techniques  
+Prerequisite: None
+Credits: 3 credits
+
+Course Title: COMPSCI 611: Advanced Algorithms  
+Prerequisite: The mathematical maturity expected of incoming Computer Science graduate students, knowledge of algorithms at the level of COMPSCI 311
+Credits: 3 credits.
+
+Course Title: COMPSCI 646: Information Retrieval  
+Prerequisite: None
+Credits: 3 credits
+
+Course Title: COMPSCI 648: Quantum Information Systems  
+Prerequisite: None
+Credits: 3 credits
+
+Course Title: COMPSCI 653: Computer Networking  
+Prerequisite: Introductory (undergraduate level) courses in computer networks (e.g., COMPSCI 453), and algorithms (e.g., COMPSCI 311).  Some familiarity with probability, optimization theory, and operating systems will be helpful
+Credits: 3 credits.
+
+Course Title: COMPSCI 655: Performance Evaluation  
+Prerequisite: None
+Credits: 3 credits
+
+Course Title: COMPSCI 660: Advanced Information Assurance  
+Prerequisite: None
+Credits: 3 credits
+
+Course Title: COMPSCI 661: Secure Distributed Systems  
+Prerequisite: None
+Credits: 3 credits
+
+Course Title: COMPSCI 666: Theory and Practice of Cryptography  
+Prerequisite: None
+Credits: 3 credits
+
+Course Title: COMPSCI 670: Computer Vision  
+Prerequisite: None
+Credits: 3 credits
+
+Course Title: COMPSCI 677: Distributed and Operating Systems  
+Prerequisite: Students should be able to easily program in a high-level language such as Java, C++ or Python, have had a course on data structures, be familiar with elements of computer architecture and have had previous exposure to the operating system concepts of processes, virtual memory, and scheduling. A previous course on uniprocessor operating systems (e.g., COMPSCI 377) will be helpful but not required
+Credits: 3 credits.
+
+Course Title: COMPSCI 682: Neural Networks: A Modern Introduction  
+Prerequisite: None
+Credits: 3 credits
+
+Course Title: COMPSCI 687: Reinforcement Learning  
+Prerequisite: None
+Credits: 3 credits
+
+Course Title: COMPSCI 688: Probabilistic Graphical Models  
+Prerequisite: None
+Credits: 3 credits
+
+Course Title: COMPSCI 689: Machine Learning  
+Prerequisite: undergraduate level probability and statistics, linear algebra, calculus, AI; computer programming in some high level language
+Credits: 3 credits.
+
+Course Title: COMPSCI 690K: Advanced Robot Dynamics and Control  
+Prerequisite: None
+Credits: 3 credits
+
+Course Title: COMPSCI 692P: Seminar- Hot Topics in Software Engineering Research  
+Prerequisite: None
+Credits: 1 credit
+
+Course Title: COMPSCI 692X: Seminar - Machine Learning on Biological Sequence Data  
+Prerequisite: None
+Credits: 1 credit
+
+Course Title: COMPSCI 698W: Practicum - CS Research Writing Practicum  
+Prerequisite: None
+Credits: 1 credit
+
+Course Title: COMPSCI 701: Advanced Topics in Computer Science  
+Prerequisite: None
+Credits: 6 credit 
+
+Course Title: COMPSCI 701Y: Advanced Topics in Computer Science (1st Semester)  
+Prerequisite: None
+Credits: 3 credits
+
+Course Title: COMPSCI 879: Teaching Assistants as Tomorrow's Faculty  
+Prerequisite: None
+Credits: 2 credits
+
+Course Title: COMPSCI 891M: Seminar - Theory of Computation  
+Prerequisite: None
+Credits: 1 credit
+
+Course Title: COMPSCI H335: Honors Colloquium for Inside the Box: How Computers Work  
+Prerequisite: Students must be enrolled in COMPSCI 335
+Credits: 1 credit.
+
+Course Title: COMPSCI H446: Honors Colloquium for Search Engines  
+Prerequisite: None
+Credits: 1 credit
+
+Course Title: INFO 101: Introduction to Informatics  
+Prerequisite: None
+Credits: 3 credits
+
+Course Title: INFO 150: A Mathematical Foundation for Informatics  
+Prerequisite: R1 math skills recommended.  Not intended for Computer Science majors   students interested in a majors-level treatment of this material should see COMPSCI 240 and 250 (or MATH 455)
+Credits: 3 credits.
+
+Course Title: INFO 203: A Networked World  
+Prerequisite: None
+Credits: 3 credits
+
+Course Title: INFO 248: Introduction to Data Science  
+Prerequisite: CICS 110 (or CICS 160 or COMPSCI 119 or COMPSCI 121) and either PSYCH 240, OIM 240, STATISTIC 240, RES-ECON 212, SOCIOL 212, or STATISTC 515
+Credits: 4 credits.
+
+Course Title: INFO 324: Introduction to Clinical Health Informatics  
+Prerequisite: INFO 248 (or STATISTCS 515 or COMPSCI 240)
+Credits: 4 credits.
+
+Course Title: INFO 348: Data Analytics with Python  
+Prerequisite: INFO 248 and CICS 210 (or COMPSCI 186 or COMPSCI 187)
+Credits: 3 credits.
+
+Course Title: INFO 390C: Introduction to Computational Biology and Bioinformatics  
+Prerequisite: INFO 248 (or CICS 210 and COMPSCI 240)
+Credits: 3 credits.
+
