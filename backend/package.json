@@ -7,7 +7,8 @@
     "test": "cross-env NODE_ENV=test jest --testTimeout=5000",
     "start": "node index.js",
     "dev": "nodemon --ignore course.JSON --watch index.js",
-    "build": "npm install --prefix ../frontend && npm run build --prefix ../frontend && npm install"
+    "build": "npm install --prefix ../frontend && npm run build --prefix ../frontend && npm install && pip install beautifulsoup4 && pip install requests",
+    "pyInstall": "pip install beautifulsoup4 && pip install requests"
   },
   "author": "",
   "license": "ISC",

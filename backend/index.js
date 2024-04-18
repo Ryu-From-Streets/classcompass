@@ -55,7 +55,7 @@ const course_router = require("./routes/course");
 const { exit } = require("process");
 
 const app = express();
-const PORT = 1337;
+const PORT = 8080;
 
 const url = process.env.MONGODB_URL;
 
