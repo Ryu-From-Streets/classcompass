@@ -79,16 +79,16 @@ app.listen(PORT, () => {
 
 runScrapper();
 
-const courseData = require('./course.json');
-const courses = courseData.courses;
-courses.forEach(async course => {
-    const { code, name, credits, instructors, description, prerequisites } = course;
-    const newCourse = await Course.create({
-        code, 
-        name, 
-        credits, 
-        instructors, 
-        description, 
-        prerequisites});
-});
-console.log(courses.length);
+// const courseData = require('./course.json');
+// const courses = courseData.courses;
+// courses.forEach(async course => {
+//     const { code, name, credits, instructors, description, prerequisites } = course;
+//     const newCourse = await Course.create({
+//         code, 
+//         name, 
+//         credits, 
+//         instructors, 
+//         description, 
+//         prerequisites});
+// });
+// console.log(courses.length);
