@@ -14,7 +14,7 @@ const HomePage = () => {
     useEffect(() => {
         const fetchAllCourses = async () => {
             setError("");
-            const response = await fetch("/Test_Data/Courses.json");
+            const response = await fetch("/courses", { method: "GET" });
             const jsonOfCourses = await response.json();
 
             if (response.ok) {
