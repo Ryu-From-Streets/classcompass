@@ -3,8 +3,6 @@ import requests
 import json
 import os
 
-# README: USE PYTHON, NOT PYTHON3
-
 class Scrapper:
 
     def __init__(self) -> None:
@@ -43,10 +41,12 @@ class Scrapper:
 
         for i in range(len(courseHeader)):
             header = courseHeader[i].split(':')
+            if header[0].replace(' ', '') in code:
+                continue
             code.append(header[0].replace(' ', ''))
             name.append(header[1].strip())
 
-            description.append(courseBody[i])
+            # description.append(courseBody[i])
 
             if header[0] in ['COMPSCI 701', 'COMPSCI 701Y']:
                 instructors.append('None')
@@ -67,10 +67,12 @@ class Scrapper:
             prereq_start = False
             credit = []
             prereq_content = []
+            body_index = -1
 
             for n in range(len(body_split)):
                 if 'Prerequisite' in body_split[n] or 'Prerequisites' in body_split[n]:
                     prereq_start = True
+                    body_index = n
                     continue
                 
                 if prereq_start:
@@ -78,13 +80,17 @@ class Scrapper:
                         prereq_content.append(body_split[n])
                     else:
                         prereq_start = False
-                
+
                 if 'credit' in body_split[n] or 'credits' in body_split[n]:
                     if body_split[n - 1].strip('(') in '123456789':
                         credit.append(int(body_split[n - 1].strip('(')))
                     elif body_split[n - 1].strip('(') in ['one', 'two', 'three', 'four', 'six']:
                         credit.append(self.getInt(body_split[n - 1].strip('(')))
-
+            
+            if body_index == -1:
+                description.append(' '.join(body_split))
+            else:
+                description.append(' '.join(body_split[:body_index]))
             
             prerequisites.append(' '.join(prereq_content).strip().strip('.') if prereq_content else 'None')
 
@@ -110,7 +116,7 @@ class Scrapper:
         return courses
     
     def store_content(self, courses):
-        filename = 'course.JSON'
+        filename = 'course.json'
         folder_path = '../backend'
         file_path = os.path.join(folder_path, filename)
 
