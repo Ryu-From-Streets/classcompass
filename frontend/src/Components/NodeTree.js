@@ -1,55 +1,76 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from 'react';
+import Tree from 'react-d3-tree';
 
-const NodeTree = ({ node }) => {
-    const navigate = useNavigate();
+// Some parts of NodeTree.js were adapted with the assistance of ChatGPT
 
-    const handleNodeClick = (course) => {
-        navigate("/tree", { state: { course } });
+const NodeTree = ({ node, courses }) => {
+  const [treeData, setTreeData] = useState(null);
+
+  const renderNode = (courseNode) => {
+    const { code, prerequisites } = courseNode;
+    return {
+      name: code,
+      children: prerequisites.map((prerequisite) => {
+        const childNodes = Array.isArray(prerequisite)
+          ? prerequisite.map((prereq) => {
+              const prerequisiteCourse = courses.find((course) => course.code === prereq);
+              if (prerequisiteCourse) {
+                return renderNode(prerequisiteCourse);
+              }
+              return {
+                code: prereq,
+                name: prereq,
+                credits: null,
+                instructors: [],
+                description: "",
+                prerequisites: []
+              };
+            })
+          : [prerequisite].map((prereq) => {
+              const prerequisiteCourse = courses.find((course) => course.code === prereq);
+              if (prerequisiteCourse) {
+                return renderNode(prerequisiteCourse);
+              }
+              return {
+                code: prereq,
+                name: prereq,
+                credits: null,
+                instructors: [],
+                description: "",
+                prerequisites: []
+              };;
+            });
+        return childNodes.length > 1 ? { name: 'Any Of', children: childNodes } : childNodes[0];
+      }),
+    };
+  };
+
+  useEffect(() => {
+    const renderTreeData = () => {
+      const data = renderNode(node);
+      setTreeData(data);
     };
 
-    const renderNode = (node) => {
-        const { course_code, prerequisites } = node;
+    if (courses.length > 0) {
+      renderTreeData();
+    }
+  });
 
-        const handleMouseEnter = (event) => {
-            event.target.style.color = "red";
-            event.target.style.textDecoration = "underline";
-            event.target.style.cursor = "pointer";
-        };
 
-        const handleMouseLeave = (event) => {
-            event.target.style.color = "";
-            event.target.style.textDecoration = "";
-            event.target.style.cursor = "";
-        };
-
-        return (
-            <div className="node">
-                <div
-                    className="node__element"
-                    onClick={() => handleNodeClick(node)}
-                    onMouseEnter={handleMouseEnter}
-                    onMouseLeave={handleMouseLeave}
-                >
-                    {course_code}
-                </div>
-                {prerequisites && prerequisites.length > 0 && (
-                    <div className="node__children">
-                        <div className="node__connection">
-                            {prerequisites.map((prerequisite, index) => (
-                                <div className="node__child" key={index}>
-                                    <div className="node__line"></div>
-                                    <NodeTree node={prerequisite} />
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                )}
-            </div>
-        );
-    };
-
-    return renderNode(node);
+  return treeData ? (
+    <div style={{ width: '100%', height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'flex-start' }}>
+      <Tree
+        data={treeData}
+        orientation="vertical"
+        translate={{ x: window.innerWidth / 2, y: window.innerHeight / 10 }}
+        collapsible={false}
+        zoomable={true}
+        separation={{ siblings: 2, nonSiblings: 2 }}
+        rootNodeClassName="node__root"
+        branchNodeClassName="node__branch"
+      />
+    </div>
+  ) : null;
 };
 
 export default NodeTree;

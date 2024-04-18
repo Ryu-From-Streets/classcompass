@@ -7,7 +7,7 @@ const AdvisorsPage = () => {
 
     useEffect(() => {
         const fetchAllAdvisors = async () => {
-            const response = await fetch("/Test_Data/Advisors.json");
+            const response = await fetch("/getAdvisorsList");
             const jsonOfCourses = await response.json();
 
             if (response.ok) {

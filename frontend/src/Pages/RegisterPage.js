@@ -9,6 +9,7 @@ import {
 } from "react-icons/hi";
 import "./login.css";
 
+import axios from "axios";
 
 
 const SignUpPage = ({ isShowLogin }) => {
@@ -21,7 +22,7 @@ const SignUpPage = ({ isShowLogin }) => {
   const [courses, setCourses] = useState([]);
   const [majors, setMajors] = useState([]);
 
-  const handleSignup= (e) => {
+  const handleSignup= async (e) => {
     e.preventDefault();
     if (password !== rePassword) {
       alert("Passwords do not match");
@@ -31,6 +32,47 @@ const SignUpPage = ({ isShowLogin }) => {
       alert("Please enter a valid number of credits (1 to 150)");
       return;
     }
+    const spaceIndex = name.indexOf(" ");
+
+    let first_name, last_name;
+
+    if (spaceIndex !== -1) {
+      first_name = name.slice(0, spaceIndex);
+      last_name = name.slice(spaceIndex + 1);
+    } else {
+      first_name = name;
+      last_name = "";
+    }
+    if (userType === "student") {
+      try {
+        const response = await axios.post("/students/signup", {
+          first_name,
+          last_name,
+          email,
+          password,
+          numCredits,
+          courses,
+          majors,
+        });
+        console.log("Student signed up successfully", response.data);
+      } catch (error) {
+        console.error("Failed to sign up student", error.response.data);
+      }
+    }
+    else {
+      try {
+        const response = await axios.post("/advisors/signup", {
+          first_name,
+          last_name,
+          email,
+          password,
+        });
+        console.log("Advisor signed up successfully", response.data);
+      } catch (error) {
+        console.error("Failed to sign up advisor", error.response.data);
+      }
+    }
+
 
   };
   const handleNumCreditsChange = (e) => {
@@ -56,6 +98,7 @@ const SignUpPage = ({ isShowLogin }) => {
     <div className="login-page">
       <h2>Sign Up</h2>
       <form onSubmit={handleSignup}>
+       <div className="input-container">
         <div className="input-box">
           <select
             value={userType}
@@ -142,6 +185,7 @@ const SignUpPage = ({ isShowLogin }) => {
           {" "}
           Sign Up{" "}
         </button>
+      </div>
       </form>
     </div>
   );

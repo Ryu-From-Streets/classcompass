@@ -1,18 +1,25 @@
 .CourseButton {
     background-color: #dddddd;
-    font-size: 30px;
-    font-weight: bolder;
     white-space: normal;
     word-wrap: break-word;
 
-    margin: 10px;
-    height: 150px;
-    width: 150px;
+    margin: 20px;
+    height: 300px;
+    width: 300px;
     border-radius: 10px;
     border: 2px solid black;
 
     transition: 0.2s;
     cursor: pointer;
+}
+
+.CourseButton .class-code {
+    font-weight: bolder;
+    font-size: 40px;
+}
+
+.CourseButton .class-name {
+    font-size: 20px;
 }
 
 .CourseButton:hover {

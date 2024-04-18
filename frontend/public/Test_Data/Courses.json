@@ -1,210 +1,93 @@
 [
     {
       "id": 1,
-      "course_name": "English Literature Survey",
-      "course_code": "ENG101",
+      "code": "Math100",
+      "name": "Basic Math",
+      "description": "Addition! Subtraction! Multiplication! Even division! Ever wondered what 2 + 2 equals? Learn all the basics of math right here, right now.",
+      "professors": "Bright Noa",
       "credits": 3,
-      "instructors": "David Brown",
-      "description": "Computer Programming 101",
-      "prerequisites": ["English Composition", "British Literature", "World Literature"]
+      "prerequisites": []
     },
     {
       "id": 2,
-      "course_name": "Statistics for Business",
-      "course_code": "BUS202",
-      "credits": 4,
-      "instructors": "Emily Davis",
-      "description": "Computer Programming 101",
-      "prerequisites": ["Statistics for Social Sciences", "Probability and Statistics", "Statistical Methods"]
+      "code": "Math101",
+      "name": "Intermediate Math",
+      "description": "You'll learn PEMDAS!",
+      "professors": "Marcella Greenstar",
+      "credits": 3,
+      "prerequisites": [["Math100"]]
     },
     {
       "id": 3,
-      "course_name": "English Literature Survey",
-      "course_code": "ENG102",
+      "code": "CS100",
+      "name": "Intro to programming",
+      "description": "Learn how to program",
+      "professors": "David Brown",
       "credits": 3,
-      "instructors": "John Doe",
-      "description": "Mathematics for Beginners",
-      "prerequisites": ["Introductory Algebra", "Elementary Geometry", "College Algebra"]
+      "prerequisites": []
     },
     {
       "id": 4,
-      "course_name": "History of Art",
-      "course_code": "ART101",
+      "code": "CS101",
+      "name": "Basic Programming Techniques",
+      "description": "Learn how to program just a bit better. Only a little bit though.",
+      "professors": "Jim Brown",
       "credits": 3,
-      "instructors": "Michael Johnson",
-      "description": "Introduction to Biology",
-      "prerequisites": ["Data Structures", "Algorithms", "Computer Architecture"]
+      "prerequisites": [["CS100", "Math100"]]
     },
     {
       "id": 5,
-      "course_name": "History of Art",
-      "course_code": "ART102",
-      "credits": 3,
-      "instructors": "Emily Davis",
-      "description": "Mathematics for Beginners",
-      "prerequisites": ["Calculus II", "Linear Algebra", "Discrete Mathematics"]
+      "code": "CS102",
+      "name": "Advanced Programming Techniques",
+      "description": "Learn how to program like, pretty good. Better than average even!",
+      "professors": "Sayla Mass",
+      "credits": 4,
+      "prerequisites": [["CS101"], ["CS100", "Math101"]]
     },
     {
       "id": 6,
-      "course_name": "English Literature Survey",
-      "course_code": "ENG103",
+      "code": "CS150",
+      "name": "Computer Systems",
+      "description": "Learn how a computer works!",
+      "professors": "Rebecca Parker",
       "credits": 3,
-      "instructors": "Michael Johnson",
-      "description": "History of Art",
-      "prerequisites": ["Multivariable Calculus", "Differential Equations", "Probability Theory"]
+      "prerequisites": [["CS100", "Math101"]]
     },
     {
       "id": 7,
-      "course_name": "Computer Science 101",
-      "course_code": "CS101",
-      "credits": 4,
-      "instructors": "Emily Davis",
-      "description": "Mathematics for Beginners",
-      "prerequisites": ["Introductory Algebra", "Elementary Geometry", "College Algebra"]
+      "code": "CS170",
+      "name": "Basics of Operating Systems",
+      "description": "Learn how an operating system works!",
+      "professors": "Amuro Ray",
+      "credits": 3,
+      "prerequisites": [["CS150"]]
     },
     {
       "id": 8,
-      "course_name": "Introduction to Biology",
-      "course_code": "BIO101",
+      "code": "CS200",
+      "name": "Advanced Operating Systems",
+      "description": "Learn how operating systems works but even better!",
+      "professors": "Hank Hill",
       "credits": 3,
-      "instructors": "Jane Smith",
-      "description": "Introduction to Biology",
-      "prerequisites": ["Data Structures", "Algorithms", "Computer Architecture"]
+      "prerequisites": [["CS170"]]
     },
     {
       "id": 9,
-      "course_name": "Statistics for Business",
-      "course_code": "BUS203",
-      "credits": 4,
-      "instructors": "Jane Smith",
-      "description": "Computer Programming 101",
-      "prerequisites": ["Statistics for Social Sciences", "Probability and Statistics", "Statistical Methods"]
+      "code": "CS222",
+      "name": "Binary",
+      "description": "Learn all about binary",
+      "professors": "Mario Mario",
+      "credits": 3,
+      "prerequisites": [["CS100", "Math101"]]
     },
     {
       "id": 10,
-      "course_name": "History of Art",
-      "course_code": "ART103",
+      "code": "CS300",
+      "name": "Ultimate Programming",
+      "description": "Really hard",
+      "professors": "Luigi Mario",
       "credits": 3,
-      "instructors": "John Doe",
-      "description": "Literature and Film Studies",
-      "prerequisites": ["Calculus II", "Linear Algebra", "Discrete Mathematics"]
-    },
-    {
-      "id": 11,
-      "course_name": "History of Art",
-      "course_code": "ART104",
-      "credits": 3,
-      "instructors": "John Doe",
-      "description": "Literature and Film Studies",
-      "prerequisites": ["Calculus II", "Linear Algebra", "Discrete Mathematics"]
-    },
-    {
-      "id": 12,
-      "course_name": "Statistics for Business",
-      "course_code": "BUS204",
-      "credits": 4,
-      "instructors": "John Doe",
-      "description": "Literature and Film Studies",
-      "prerequisites": ["Calculus II", "Linear Algebra", "Discrete Mathematics"]
-    },
-    {
-      "id": 13,
-      "course_name": "Introduction to Biology",
-      "course_code": "BIO102",
-      "credits": 3,
-      "instructors": "Michael Johnson",
-      "description": "History of Art",
-      "prerequisites": ["Multivariable Calculus", "Differential Equations", "Probability Theory"]
-    },
-    {
-      "id": 14,
-      "course_name": "Computer Science 101",
-      "course_code": "CS102",
-      "credits": 4,
-      "instructors": "David Brown",
-      "description": "Literature and Film Studies",
-      "prerequisites": ["Calculus II", "Linear Algebra", "Discrete Mathematics"]
-    },
-    {
-      "id": 15,
-      "course_name": "English Literature Survey",
-      "course_code": "ENG104",
-      "credits": 3,
-      "instructors": "David Brown",
-      "description": "Literature and Film Studies",
-      "prerequisites": ["Calculus II", "Linear Algebra", "Discrete Mathematics"]
-    },
-    {
-      "id": 16,
-      "course_name": "Statistics for Business",
-      "course_code": "BUS205",
-      "credits": 4,
-      "instructors": "David Brown",
-      "description": "History of Art",
-      "prerequisites": ["Calculus II", "Linear Algebra", "Discrete Mathematics"]
-    },
-    {
-      "id": 17,
-      "course_name": "Introduction to Biology",
-      "course_code": "BIO103",
-      "credits": 3,
-      "instructors": "Jane Smith",
-      "description": "Mathematics for Beginners",
-      "prerequisites": ["Introductory Algebra", "Elementary Geometry", "College Algebra"]
-    },
-    {
-      "id": 18,
-      "course_name": "History of Art",
-      "course_code": "ART105",
-      "credits": 3,
-      "instructors": "John Doe",
-      "description": "Computer Programming 101",
-      "prerequisites": ["Calculus II", "Linear Algebra", "Discrete Mathematics"]
-    },
-    {
-      "id": 19,
-      "course_name": "Computer Science 101",
-      "course_code": "CS103",
-      "credits": 4,
-      "instructors": "David Brown",
-      "description": "Introduction to Biology",
-      "prerequisites": ["Data Structures", "Algorithms", "Computer Architecture"]
-    },
-    {
-      "id": 20,
-      "course_name": "Statistics for Business",
-      "course_code": "BUS206",
-      "credits": 4,
-      "instructors": "David Brown",
-      "description": "Mathematics for Beginners",
-      "prerequisites": ["Introductory Algebra", "Elementary Geometry", "College Algebra"]
-    },
-    {
-      "id": 21,
-      "course_name": "English Composition",
-      "course_code": "ENG201",
-      "credits": 4,
-      "instructors": "David Brown",
-      "description": "It's an English class",
-      "prerequisites": ["English Composition II"]
-    },
-    {
-      "id": 22,
-      "course_name": "British Literature",
-      "course_code": "BRI201",
-      "credits": 4,
-      "instructors": "British Guy",
-      "description": "It's a British class",
-      "prerequisites": []
-    },
-    {
-      "id": 23,
-      "course_name": "World Literature",
-      "course_code": "WOR201",
-      "credits": 4,
-      "instructors": "God",
-      "description": "It's a world class",
-      "prerequisites": []
+      "prerequisites": [["CS170", "CS222", "Math101"]]
     }
   ]
   
