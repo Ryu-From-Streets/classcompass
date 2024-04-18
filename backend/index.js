@@ -66,6 +66,13 @@ connectMongoDB(url)
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("../frontend/build"));
+
+const advisorsList = require("./Mock_Data/advisors.json");
+
+app.get("/getAdvisorsList", (req, res) => {
+    return res.json(advisorsList);
+  });
+
 // app.get("*", (req, res) =>
 //     res.sendFile(__dirname + "/../frontend/build/index.html")
 // );

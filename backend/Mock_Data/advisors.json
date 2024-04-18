@@ -1,0 +1,49 @@
+[
+    {
+        "name": "Broyles, Lyndsey",
+        "title": "Academic Advisor",
+        "email": "lbroyles@cics.umass.edu"
+
+    },
+    {
+        "name": "Gallers, Anita",
+        "title": "Academic Advisor",
+        "email": "agallers@cics.umass.edu"
+    },
+    {
+        "name": "Goldstein, Isaac",
+        "title": "Academic Advisor",
+        "email": "imgoldstein@umass.edu"
+    },
+    {
+        "name": "Hamel, Eileen",
+        "title": "Associate Director of Graduate Programs & PhD Advisor",
+        "email": "ehamel@cs.umass.edu"
+    },
+    {
+        "name": "Hunter, Laura",
+        "title": "Academic Advisor",
+        "email": "lmelbin@umass.edu"
+
+    },
+    {
+        "name": "Parolski, Elizabeth",
+        "title": "Academic Advisor - MS Program",
+        "email": "eparolski@umass.edu"
+    },
+    {
+        "name": "Quinn, Kayla",
+        "title": "Academic Advisor",
+        "email": "kaylaquinn@umass.edu"
+    },
+    {
+        "name": "Ruhmkorff, Samuel",
+        "title": "Academic Advisor",
+        "email": "sruhmkorff@umass.edu"
+    },
+    {
+        "name": "Stawasz, Pamela",
+        "title": "Academic Advisor",
+        "email": "pstawasz@umass.edu"
+    }
+]
