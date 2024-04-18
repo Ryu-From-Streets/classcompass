@@ -15,7 +15,7 @@ const TreePage = () => {
       try {
         const response = await fetch('/courses');
         if (!response.ok) {
-          throw new Error('Failed to fetch courses');
+          throw new Error('Failed to fetch courses', { method: "GET" });
         }
         const data = await response.json();
         setCourses(data);

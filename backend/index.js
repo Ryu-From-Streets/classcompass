@@ -65,7 +65,6 @@ connectMongoDB(url)
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static("../frontend/build"));
 
 const advisorsList = require("./Mock_Data/advisors.json");
 
@@ -73,9 +72,6 @@ app.get("/getAdvisorsList", (req, res) => {
     return res.json(advisorsList);
   });
 
-// app.get("*", (req, res) =>
-//     res.sendFile(__dirname + "/../frontend/build/index.html")
-// );
 
 app.use((req, res, next) => {
     console.log(req.path, req.method)
@@ -83,6 +79,12 @@ app.use((req, res, next) => {
 });
 app.use("/students", student_router);
 app.use("/courses", course_router);
+
+
+app.use(express.static("../frontend/build"));
+app.get("*", (req, res) =>
+    res.sendFile(__dirname + "/../frontend/build/index.html")
+);
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
