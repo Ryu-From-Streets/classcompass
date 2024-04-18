@@ -2,7 +2,7 @@
   "name": "class-compass",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:1337",
+  "proxy": "http://localhost:8080",
   "dependencies": {
     "@reduxjs/toolkit": "^2.2.3",
     "@testing-library/jest-dom": "^5.17.0",
