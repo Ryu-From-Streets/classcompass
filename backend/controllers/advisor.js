@@ -40,4 +40,48 @@ async function handleSignIn(req, res) {
     }
 }
 
-module.exports = { handleCreateAdvisor, handleSignIn };
+/**
+ * This function handles the retrieval of all advisors
+ * @param {*} req The request object
+ * @param {*} res The response object
+ * @returns The response object with the list of advisors
+ */
+async function handleGetAllAdvisors(req, res) {
+    try {
+        const advisors = await Advisor.find();
+        return res.status(200).json(advisors);
+    } catch (error) {
+        return res
+            .status(500)
+            .json({ message: "Internal server error", error: error.message });
+    }
+}
+
+/**
+ * This function handles the retrieval of all current students for an advisor
+ * @param {*} req The request object
+ * @param {*} res The response object
+ * @returns The response object with the list of current students for the advisor
+ */
+async function handleGetAdvisorCurrentStudents(req, res) {
+    const { email } = req.params;
+
+    try {
+        const advisor = await Advisor.findById(email);
+        if (!advisor) {
+            return res.status(404).json({ message: "Advisor not found" });
+        }
+        return res.status(200).json(advisor.current_students);
+    } catch (error) {
+        return res
+            .status(500)
+            .json({ message: "Internal server error", error: error.message });
+    }
+}
+
+module.exports = {
+    handleCreateAdvisor,
+    handleSignIn,
+    handleGetAllAdvisors,
+    handleGetAdvisorCurrentStudents,
+};
