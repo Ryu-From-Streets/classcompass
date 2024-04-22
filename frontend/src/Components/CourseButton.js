@@ -31,7 +31,7 @@ const CourseButton = ({ course }) => {
                 <h1>{course.code}</h1>
                 <h2>{course.name}</h2>
                 <p><strong>Credits:</strong> {course.credits}</p>
-                <p><strong>Instructor(s):</strong> {course.instructors}</p>
+                <p><strong>Instructor(s):</strong> {course.instructors.join(", ")}</p>
                 <p><strong>Description:</strong> {course.description}</p>
                 <p><strong>Prerequisites:</strong> {course.prerequisites.flat().join(" ")}</p>
 
