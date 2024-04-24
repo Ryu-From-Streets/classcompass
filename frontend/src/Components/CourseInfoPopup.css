@@ -20,13 +20,21 @@
     border-radius: 20px;
     border: 2px solid black;
     background-color: white;
-    text-align: left;
-    overflow-y: auto;
 }
 
 .CourseInfoPopupInner .close-popup-button {
     position: absolute;
     top: 16px;
     right: 16px;
+    margin-bottom: 10px;
     cursor: pointer;
+}
+
+.CourseInfoPopupInner .course-content {
+    position: relative;
+    margin-top: 20px;
+    max-width: 640px;
+    max-height: 550px;
+    text-align: left;
+    overflow-y: auto;
 }
