@@ -12,7 +12,7 @@ const {
 
 const router = express.Router();
 
-router.route("/signup").get(handleGetAllStudents).post(handleCreateStudent);
+router.route("/signup").post(handleCreateStudent);
 router.route("/signin").post(handleSignIn);
 
 router
@@ -20,5 +20,7 @@ router
     .get(handleGetStudentById)
     .put(handleUpdateStudentById)
     .delete(handleDeleteStudentById);
+
+router.route("/").get(handleGetAllStudents);
 
 module.exports = router;
