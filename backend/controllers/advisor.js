@@ -1,4 +1,6 @@
 const Advisor = require("../models/advisor");
+const bcrypt = require("bcrypt");
+const { generateToken } = require("../middleware/auth");
 
 /**
  * This function handles the creation of a new advisor
@@ -7,23 +9,42 @@ const Advisor = require("../models/advisor");
  * @returns The response object with the status of the advisor creation
  */
 async function handleCreateAdvisor(req, res) {
-    const body = req.body;
+    const { first_name, last_name, email, password } = req.body;
     if (!first_name || !email || !password) {
         return res
             .status(400)
             .json({ message: "Missing required information" });
     }
 
-    const result = await Advisor.create({
-        first_name: body.first_name,
-        last_name: last_name || "",
-        email: body.email,
-        password: body.password,
-    });
+    try {
+        const existingAdvisor = await Advisor.findOne({ email });
+        if (existingAdvisor) {
+            return res
+                .status(409)
+                .json({ message: "User already exists with this email." });
+        }
+        const advisor = await Advisor.create({
+            first_name: first_name,
+            last_name: last_name || "",
+            email: email,
+            password: password,
+        });
 
-    return res.status(201).json({ msg: "Success", id: result._id });
+        const token = await generateToken(advisor);
+
+        return res
+            .status(201)
+            .json({
+                msg: "Advisor created successfully",
+                id: advisor._id,
+                token,
+            });
+    } catch (error) {
+        return res
+            .status(500)
+            .json({ message: "Internal server error", error: error.message });
+    }
 }
-
 /**
  * This function handles the sign-in of an advisor
  * @param {*} req The request object
@@ -44,7 +65,10 @@ async function handleSignIn(req, res) {
             return res.status(401).json({ message: "Invalid password" });
         }
 
-        return res.status(200).json({ message: "Sign-in successful", user });
+        const token = await generateToken(user);
+        return res
+            .status(200)
+            .json({ message: "Sign-in successful", user, token });
     } catch (error) {
         return res
             .status(500)
