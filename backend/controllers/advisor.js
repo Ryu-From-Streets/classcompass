@@ -1,5 +1,11 @@
 const Advisor = require("../models/advisor");
 
+/**
+ * This function handles the creation of a new advisor
+ * @param {*} req The request object
+ * @param {*} res The response object
+ * @returns The response object with the status of the advisor creation
+ */
 async function handleCreateAdvisor(req, res) {
     const body = req.body;
     if (!first_name || !email || !password) {
@@ -18,6 +24,12 @@ async function handleCreateAdvisor(req, res) {
     return res.status(201).json({ msg: "Success", id: result._id });
 }
 
+/**
+ * This function handles the sign-in of an advisor
+ * @param {*} req The request object
+ * @param {*} res The response object
+ * @returns The response object with the status of the sign-in
+ */
 async function handleSignIn(req, res) {
     const { email, password } = req.body;
 

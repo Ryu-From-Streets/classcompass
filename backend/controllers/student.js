@@ -1,5 +1,7 @@
 const Student = require("../models/student");
 const bcrypt = require("bcrypt");
+const { generateToken } = require("../middleware/auth");
+
 /**
  * Handles the creation of a new student in the database if the required information is provided
  * @param {*} req - Request object
@@ -7,7 +9,15 @@ const bcrypt = require("bcrypt");
  * @returns The response object indicating the success or failure of the operation
  */
 async function handleCreateStudent(req, res) {
-    const { first_name, last_name, email, major, credits, courses_taken, password } = req.body;
+    const {
+        first_name,
+        last_name,
+        email,
+        major,
+        credits,
+        courses_taken,
+        password,
+    } = req.body;
     if (!first_name || !email || !credits || !password) {
         return res
             .status(400)
@@ -27,7 +37,7 @@ async function handleCreateStudent(req, res) {
 }
 
 /**
- * 
+ *
  * @param {*} req The request object
  * @param {*} res The response object
  * @returns Handles the sign-in request for a student
@@ -45,7 +55,11 @@ async function handleSignIn(req, res) {
         if (!isPasswordMatch) {
             return res.status(401).json({ message: "Invalid password" });
         }
-        return res.status(200).json({ message: "Sign-in successful", user });
+
+        const token = await generateToken(user);
+        return res
+            .status(200)
+            .json({ message: "Sign-in successful", token, user });
     } catch (error) {
         return res
             .status(500)
@@ -63,21 +77,21 @@ async function handleUpdateStudentById(req, res) {
     // await Student.findByIdAndUpdate(req.params.id, req.body);
     // return res.json({ status: "Success" });
 
-    const {id} = req.params;
+    const { id } = req.params;
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
-        return res.status(404).json({error: 'No such student'})
+        return res.status(404).json({ error: "No such student" });
     }
 
     const student = await Student.findByIdAndUpdate(id, {
-        ...req.body
-    })
+        ...req.body,
+    });
 
     if (!student) {
-        return res.status(404).json({error: 'No such student'})
+        return res.status(404).json({ error: "No such student" });
     }
 
-    res.status(200).json(student)
+    res.status(200).json(student);
 }
 
 /**
@@ -91,19 +105,19 @@ async function handleGetStudentById(req, res) {
     // if (!student) return res.status(404).json({ error: "Student not found" });
     // return res.json(student);
 
-    const {id} = req.params;
+    const { id } = req.params;
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
-        return res.status(404).json({error: 'No such student'})
+        return res.status(404).json({ error: "No such student" });
     }
 
-    const student = await Student.findById(id)
+    const student = await Student.findById(id);
 
     if (!student) {
-        return res.status(404).json({error: 'No such student'})
+        return res.status(404).json({ error: "No such student" });
     }
 
-    res.status(200).json(student)
+    res.status(200).json(student);
 }
 
 /**
@@ -116,19 +130,19 @@ async function handleDeleteStudentById(req, res) {
     // await Student.findByIdAndDelete(req.params.id);
     // return res.json({ status: "Success" });
 
-    const {id} = req.params;
+    const { id } = req.params;
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
-        return res.status(404).json({error: 'No such student'})
+        return res.status(404).json({ error: "No such student" });
     }
 
-    const student = await Student.findByIdAndDelete(id)
+    const student = await Student.findByIdAndDelete(id);
 
     if (!student) {
-        return res.status(404).json({error: 'No such student'})
+        return res.status(404).json({ error: "No such student" });
     }
 
-    res.status(200).json(student)
+    res.status(200).json(student);
 }
 
 /**
