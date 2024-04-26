@@ -53,7 +53,7 @@ async function isUser(req, res, next) {
     if (req.user.role !== "student") {
         return res
             .status(403)
-            .json({ message: "Access denied, not a student user." });
+            .json({ message: "Access denied, not a student." });
     }
     next();
 }
@@ -66,8 +66,8 @@ async function isUser(req, res, next) {
  * @returns The response object with the message if the user is not an admin
  */
 async function isAdmin(req, res, next) {
-    if (req.user.role !== "admin") {
-        return res.status(403).json({ message: "Access denied, not a admin." });
+    if (req.user.role !== "advisor") {
+        return res.status(403).json({ message: "Access denied, not an advisor." });
     }
     next();
 }
