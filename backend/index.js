@@ -52,6 +52,7 @@ const { connectMongoDB } = require("./connection");
 
 const student_router = require("./routes/student");
 const course_router = require("./routes/course");
+const advisor_router = require("./routes/advisor");
 const { exit } = require("process");
 
 const app = express();
@@ -70,16 +71,15 @@ const advisorsList = require("./Mock_Data/advisors.json");
 
 app.get("/getAdvisorsList", (req, res) => {
     return res.json(advisorsList);
-  });
-
+});
 
 app.use((req, res, next) => {
-    console.log(req.path, req.method)
-    next()
+    console.log(req.path, req.method);
+    next();
 });
 app.use("/students", student_router);
 app.use("/courses", course_router);
-
+app.use("/advisors", advisor_router);
 
 app.use(express.static("../frontend/build"));
 app.get("*", (req, res) =>
@@ -97,11 +97,11 @@ app.listen(PORT, () => {
 // courses.forEach(async course => {
 //     const { code, name, credits, instructors, description, prerequisites } = course;
 //     const newCourse = await Course.create({
-//         code, 
-//         name, 
-//         credits, 
-//         instructors, 
-//         description, 
+//         code,
+//         name,
+//         credits,
+//         instructors,
+//         description,
 //         prerequisites});
 // });
 // console.log(courses.length);
