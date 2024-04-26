@@ -53,6 +53,7 @@ const { connectMongoDB } = require("./connection");
 const student_router = require("./routes/student");
 const course_router = require("./routes/course");
 const advisor_router = require("./routes/advisor");
+const { authenticate } = require("./middleware/auth");
 const { exit } = require("process");
 
 const app = express();
@@ -77,9 +78,9 @@ app.use((req, res, next) => {
     console.log(req.path, req.method);
     next();
 });
-app.use("/students", student_router);
+app.use("/students", authenticate, student_router);
 app.use("/courses", course_router);
-app.use("/advisors", advisor_router);
+app.use("/advisors", authenticate, advisor_router);
 
 app.use(express.static("../frontend/build"));
 app.get("*", (req, res) =>
