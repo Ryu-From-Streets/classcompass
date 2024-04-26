@@ -14,3 +14,5 @@ router.route("/signup").post(handleCreateAdvisor);
 router.route("/signin").post(handleSignIn);
 
 router.route("/").get(handleGetAllAdvisors);
+
+module.exports = router;
