@@ -25,7 +25,7 @@ async function generateToken(user) {
  * @returns The response object with the message if the token is invalid
  * @returns The next middleware function if the token is valid
  */
-function verifyToken(req, res, next) {
+function authenticate(req, res, next) {
     const token = req.header("Authorization").replace("Bearer ", "");
     if (!token) {
         return res
@@ -74,7 +74,7 @@ async function isAdmin(req, res, next) {
 
 module.exports = {
     generateToken,
-    verifyToken,
+    authenticate,
     isUser,
     isAdmin,
 };
