@@ -81,9 +81,9 @@ app.use((req, res, next) => {
 app.get("/getAdvisorsList", (req, res) => {
     return res.json(advisorsList);
 });
-app.use("/students", authenticate, student_router);
+app.use("/students", student_router);
 app.use("/courses", course_router);
-app.use("/advisors", authenticate, advisor_router);
+app.use("/advisors", advisor_router);
 
 
 // Serve the frontend build
