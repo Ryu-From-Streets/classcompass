@@ -1,4 +1,5 @@
 const express = require("express");
+const fs = require("fs");
 require("dotenv").config();
 
 // Get the required functions from other modules
@@ -72,8 +73,10 @@ connectMongoDB(url)
 // Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// Log all requests to a file log.txt
 app.use((req, res, next) => {
-    console.log(req.path, req.method);
+    fs.writeFileSync("log.txt", `${req.path} ${req.method}\n`, { flag: "a" });
     next();
 });
 
