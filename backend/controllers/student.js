@@ -6,7 +6,7 @@ const { generateToken } = require("../middleware/auth");
  * Handles the creation of a new student in the database if the required information is provided
  * @param {*} req - Request object
  * @param {*} res - Response object
- * @returns The response object indicating the success or failure of the operation
+ * @returns The response object indicating the success or failure of the operation and the token
  */
 async function handleCreateStudent(req, res) {
     const {
@@ -23,24 +23,49 @@ async function handleCreateStudent(req, res) {
             .status(400)
             .json({ message: "Missing required information" });
     }
-    const hashedPassword = await bcrypt.hash(password, 10);
-    const result = await Student.create({
-        first_name: first_name,
-        last_name: last_name || "",
-        email: email,
-        credits: credits,
-        courses_taken: Array.isArray(courses_taken) ? courses_taken : [],
-        password: hashedPassword,
-    });
 
-    return res.status(201).json({ msg: "Success", id: result._id });
+    try {
+        // Check if the student already exists
+        const existingStudent = await Student.findOne({ email });
+        if (existingStudent) {
+            return res
+                .status(409)
+                .json({ message: "User already exists with this email." });
+        }
+
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        const student = await Student.create({
+            first_name: first_name,
+            last_name: last_name || "",
+            email: email,
+            major: major,
+            credits: credits,
+            courses_taken: Array.isArray(courses_taken) ? courses_taken : [],
+            password: hashedPassword,
+        });
+
+        const token = await generateToken(student);
+
+        return res
+            .status(201)
+            .json({
+                msg: "Student created successfully",
+                id: student._id,
+                token,
+            });
+    } catch (error) {
+        return res
+            .status(500)
+            .json({ message: "Internal server error", error: error.message });
+    }
 }
 
 /**
- *
+ * Handles the sign-in request for a student
  * @param {*} req The request object
  * @param {*} res The response object
- * @returns Handles the sign-in request for a student
+ * @returns The response object with the status of the sign-in
  */
 async function handleSignIn(req, res) {
     const { email, password } = req.body;
@@ -74,9 +99,6 @@ async function handleSignIn(req, res) {
  * @returns A JSON response with the status of the update
  */
 async function handleUpdateStudentById(req, res) {
-    // await Student.findByIdAndUpdate(req.params.id, req.body);
-    // return res.json({ status: "Success" });
-
     const { id } = req.params;
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -101,10 +123,6 @@ async function handleUpdateStudentById(req, res) {
  * @returns A JSON response with the student information
  */
 async function handleGetStudentById(req, res) {
-    // const student = await Student.findById(req.params.id);
-    // if (!student) return res.status(404).json({ error: "Student not found" });
-    // return res.json(student);
-
     const { id } = req.params;
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -127,9 +145,6 @@ async function handleGetStudentById(req, res) {
  * @returns A JSON response with the status of the deletion
  */
 async function handleDeleteStudentById(req, res) {
-    // await Student.findByIdAndDelete(req.params.id);
-    // return res.json({ status: "Success" });
-
     const { id } = req.params;
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
