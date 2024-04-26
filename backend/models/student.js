@@ -23,19 +23,19 @@ const studentSchema = new mongoose.Schema(
         },
         last_name: {
             type: String,
-            required: false,
             trim: true,
+            default: "",
         },
         email: {
             type: String,
             required: true,
             trim: true,
             unique: true,
+            index: true,
         },
         major: {
-            type: Array,
+            type: [String],
             required: true,
-            trim: true,
         },
         credits: {
             type: Number,
@@ -43,19 +43,23 @@ const studentSchema = new mongoose.Schema(
             default: 0,
         },
         courses_taken: {
-            type: Array,
-            required: false,
+            type: [String],
             default: [],
         },
         advisor: {
-            type: String,
-            required: false,
-            default: "",
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Advisor",
         },
         password: {
             type: String,
-            required: false,
+            required: true,
             trim: true,
+        },
+        role: {
+            type: String,
+            required: true,
+            enum: ["student", "advisor"],
+            default: "student",
         },
     },
     { timestamps: true }

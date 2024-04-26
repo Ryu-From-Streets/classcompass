@@ -21,23 +21,29 @@ const advisorSchema = new mongoose.Schema(
         },
         last_name: {
             type: String,
-            required: false,
             trim: true,
+            default: "",
         },
         email: {
             type: String,
             required: true,
             trim: true,
             unique: true,
+            index: true,
         },
         password: {
             type: String,
-            required: false,
+            required: true,
             trim: true,
         },
         current_students: {
-            type: Array,
-            required: false,
+            type: [{ type: mongoose.Schema.Types.ObjectId, ref: "Student" }],
+        },
+        role: {
+            type: String,
+            required: true,
+            enum: ["student", "advisor"],
+            default: "advisor",
         },
     },
     { timestamps: true }
