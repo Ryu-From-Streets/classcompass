@@ -1,6 +1,7 @@
 const Student = require("../models/student");
 const bcrypt = require("bcrypt");
 const { generateToken } = require("../middleware/auth");
+const mongoose = require("mongoose");
 
 /**
  * Handles the creation of a new student in the database if the required information is provided

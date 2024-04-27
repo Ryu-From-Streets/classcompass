@@ -1,5 +1,6 @@
 const { default: mongoose } = require("mongoose");
 const Course = require("../models/course");
+const mongoose = require("mongoose");
 
 /**
  * Handles the creation of a new course in the database

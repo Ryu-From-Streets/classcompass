@@ -1,6 +1,7 @@
 const Advisor = require("../models/advisor");
 const bcrypt = require("bcrypt");
 const { generateToken } = require("../middleware/auth");
+const mongoose = require("mongoose");
 
 /**
  * This function handles the creation of a new advisor
