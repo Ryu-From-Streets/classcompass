@@ -1,4 +1,5 @@
 const express = require("express");
+const { authenticate } = require("../middleware/auth");
 
 const {
     handleCreateStudent,
@@ -15,6 +16,7 @@ const router = express.Router();
 router.route("/signup").post(handleCreateStudent);
 router.route("/signin").post(handleSignIn);
 
+router.use(authenticate);
 router
     .route("/:id")
     .get(handleGetStudentById)
