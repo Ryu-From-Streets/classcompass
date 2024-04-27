@@ -26,7 +26,14 @@ async function generateToken(user) {
  * @returns The next middleware function if the token is valid
  */
 function authenticate(req, res, next) {
-    const token = req.header("Authorization").replace("Bearer ", "");
+    const authHeader = req.header("Authorization");
+    if (!authHeader) {
+        return res
+            .status(401)
+            .json({ message: "Access denied, no token provided." });
+    }
+
+    const token = authHeader.replace("Bearer ", "");
     if (!token) {
         return res
             .status(401)
@@ -67,7 +74,9 @@ async function isUser(req, res, next) {
  */
 async function isAdmin(req, res, next) {
     if (req.user.role !== "advisor") {
-        return res.status(403).json({ message: "Access denied, not an advisor." });
+        return res
+            .status(403)
+            .json({ message: "Access denied, not an advisor." });
     }
     next();
 }
