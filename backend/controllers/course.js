@@ -1,4 +1,4 @@
-const { default: mongoose } = require("mongoose");
+// const { default: mongoose } = require("mongoose");
 const Course = require("../models/course");
 const mongoose = require("mongoose");
 
