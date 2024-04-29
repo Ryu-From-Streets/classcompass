@@ -72,11 +72,10 @@ async function processCourses() {
             prerequisites,
         });
     }
-    console.log(courses.length);
-    console.log(
-        "Done processing courses, Total courses in database: ",
-        Course.countDocuments()
-    );
+    console.log(`${courses.length} new courses processed`);
+
+    const totalCount = await Course.countDocuments({});
+    console.log("Total courses in database: ", totalCount);
 }
 
 module.exports = { connectMongoDB, runScrapper, processCourses };
