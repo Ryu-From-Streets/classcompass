@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { fetchAllCoursesJSON } from "../Utils/get_data";
 
 
 // COMPONENTS
@@ -8,28 +9,11 @@ import CourseButton from "../Components/CourseButton";
 
 const HomePage = () => {
     // state for search bar components
-    const [filteredCourses, setFilteredCourses] = useState([]);
-    const [error, setError] = useState("");
+    const [courses, setCourses] = useState([]);
+    const [feedback, setFeedback] = useState("");
 
     useEffect(() => {
-        const fetchAllCourses = async () => {
-            setError("");
-            const response = await fetch("/courses", { method: "GET" });
-            const jsonOfCourses = await response.json();
-
-            if (response.ok) {
-                setFilteredCourses(jsonOfCourses);
-                if (response.length === 0) {
-                    setError("No courses found");
-                }
-            }
-            if (!response.ok) {
-                console.log("ERROR FETCHING DATA");
-                setError("Error fetching courses");
-            }
-        };
-
-        fetchAllCourses();
+        fetchAllCoursesJSON(setCourses, setFeedback);
     }, []);
 
     
@@ -38,12 +22,12 @@ const HomePage = () => {
             <div className="Courses">
 
                 <div className = "search-bar-container">
-                    <SearchBar setFilteredCourses={setFilteredCourses} setError={setError} />
+                    <SearchBar setFilteredCourses={setCourses} setError={setFeedback} />
                 </div>
 
-                <p>{error}</p>
+                <p>{feedback}</p>
 
-                {filteredCourses && filteredCourses.map((course) => (
+                {courses && courses.map((course) => (
 
                     <CourseButton course={course}/>
 

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import NodeTree from '../Components/NodeTree';
+import { fetchAllCoursesJSON } from '../Utils/get_data';
 
 // Some parts of TreePage.js were adapted with the assistance of ChatGPT
 
@@ -9,21 +10,10 @@ const TreePage = () => {
   const { state } = location || {};
   const course = state ? state.course : null;
   const [courses, setCourses] = useState([]);
+  const [feedback, setFeedback] = useState("");
 
   useEffect(() => {
-    const fetchCourses = async () => {
-      try {
-        const response = await fetch('/courses');
-        if (!response.ok) {
-          throw new Error('Failed to fetch courses', { method: "GET" });
-        }
-        const data = await response.json();
-        setCourses(data);
-      } catch (error) {
-        console.error('Error fetching courses:', error);
-      }
-    };
-    fetchCourses();
+    fetchAllCoursesJSON(setCourses, setFeedback);
   }, []);
 
   if (!course) {
@@ -32,6 +22,7 @@ const TreePage = () => {
 
   return (
     <div className="TreePage">
+      <p>{feedback}</p>
       <h2>Prerequisite Tree for {course.code}</h2>
       <NodeTree node={course} courses={courses} />
     </div>
