@@ -12,61 +12,62 @@ const mongoose = require("mongoose");
  * @property {Number} rating - Accumulated rating score
  * @property {Number} totalRatings - Total number of ratings received
  */
-const courseSchema = new mongoose.Schema({
-    code: {
-        type: String,
-        required: true,
-        trim: true,
-        unique: true,
-    },
-    name: {
-        type: String,
-        required: true,
-        trim: true,
-    },
-    description: {
-        type: String,
-        trim: true,
-    },
-    instructors: {
-        type: Array,
-        required: true,
-        default: [],
-    },
-    credits: {
-        type: Number,
-        required: true,
-        default: 3,
-    },
-    prerequisites: [{
-        type: String,
-        trim: true,
-    }],
-    rating: {
-        type: Number,
-        default: 0,
-        validate: {
-            validator: function(value) {
-                return value >= 0;
+const courseSchema = new mongoose.Schema(
+    {
+        code: {
+            type: String,
+            required: true,
+            trim: true,
+            unique: true,
+        },
+        name: {
+            type: String,
+            required: true,
+            trim: true,
+        },
+        description: {
+            type: String,
+            trim: true,
+        },
+        instructors: {
+            type: Array,
+            required: true,
+            default: [],
+        },
+        credits: {
+            type: Number,
+            required: true,
+            default: 3,
+        },
+        prerequisites: {
+            type: Array,
+            required: true,
+            default: [],
+        },
+        rating: {
+            type: Number,
+            default: 0,
+            validate: {
+                validator: function (value) {
+                    return value >= 0;
+                },
+                message: "Rating must be non-negative",
             },
-            message: 'Rating must be non-negative',
-        }
+        },
+        totalRatings: {
+            type: Number,
+            default: 0,
+        },
+        averageRating: {
+            type: Number,
+            default: 0,
+        },
     },
-    totalRatings: {
-        type: Number,
-        default: 0,
-    },
-}, {
-    timestamps: true,
-    toJSON: { virtuals: true },
-});
-
-/**
- * Virtual property to calculate the average rating of the course
- */
-courseSchema.virtual("averageRating").get(function () {
-    return this.totalRatings > 0 ? this.rating / this.totalRatings : 0;
-});
+    {
+        timestamps: true,
+        toJSON: { virtuals: true },
+    }
+);
 
 /**
  * Adds a rating to the course
@@ -76,6 +77,9 @@ courseSchema.virtual("averageRating").get(function () {
 courseSchema.methods.addRating = function (rating) {
     this.rating += rating;
     this.totalRatings++;
+    // Calculate the average rating to 2 decimal places
+    this.averageRating =
+        this.totalRatings > 0 ? Math.round((this.rating / this.totalRatings) * 100) / 100 : 0;
     return this.save();
 };
 

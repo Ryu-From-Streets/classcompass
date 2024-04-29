@@ -157,7 +157,8 @@ async function handleGetAllCourses(req, res) {
  */
 async function handleCourseRating(req, res) {
     const { id } = req.params;
-    const { rating } = req.body;
+    let { rating } = req.body;
+    rating = parseFloat(rating);
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
         return res.status(404).json({ error: "No such course" });
