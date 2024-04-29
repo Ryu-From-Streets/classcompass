@@ -11,7 +11,7 @@ const mongoose = require("mongoose");
 async function handleCreateCourse(req, res) {
     const { code, name, credits, instructors, description, prerequisites } =
         req.body;
-        
+
     if (
         !code ||
         !name ||
@@ -148,6 +148,30 @@ async function handleGetAllCourses(req, res) {
     res.status(200).json(courses);
 }
 
+/**
+ * Handles the rating of a course by ID
+ * @param {*} req - Request object
+ * @param {*} res - Response object
+ * @returns A JSON response with the status of the rating
+ */
+async function handleCourseRating(req, res) {
+    const { id } = req.params;
+    const { rating } = req.body;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(404).json({ error: "No such course" });
+    }
+
+    const course = await Course.findById(id);
+
+    if (!course) {
+        return res.status(404).json({ error: "No such course" });
+    }
+
+    await course.addRating(rating);
+    res.status(200).json(course);
+}
+
 module.exports = {
     handleCreateCourse,
     handleUpdateCourseById,
@@ -155,4 +179,5 @@ module.exports = {
     handleDeleteCourseById,
     handleGetAllCourses,
     handleGetCourseByCode,
+    handleCourseRating,
 };

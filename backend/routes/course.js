@@ -7,6 +7,7 @@ const {
     handleDeleteCourseById,
     handleGetAllCourses,
     handleGetCourseByCode,
+    handleCourseRating,
 } = require("../controllers/course");
 
 const router = express.Router();
@@ -22,5 +23,7 @@ router
 
 // Use code to get a course
 router.route("/code/:code").get(handleGetCourseByCode);
+
+router.route("/code/:id").post(handleCourseRating);
 
 module.exports = router;
