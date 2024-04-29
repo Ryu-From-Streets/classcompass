@@ -48,13 +48,11 @@ async function handleCreateStudent(req, res) {
 
         const token = await generateToken(student);
 
-        return res
-            .status(201)
-            .json({
-                msg: "Student created successfully",
-                id: student._id,
-                token,
-            });
+        return res.status(201).json({
+            message: "Student created successfully",
+            id: student._id,
+            token,
+        });
     } catch (error) {
         return res
             .status(500)
@@ -83,9 +81,10 @@ async function handleSignIn(req, res) {
         }
 
         const token = await generateToken(user);
+
         return res
             .status(200)
-            .json({ message: "Sign-in successful", token, user });
+            .json({ message: "Sign-in successful", user, token });
     } catch (error) {
         return res
             .status(500)
@@ -103,15 +102,19 @@ async function handleUpdateStudentById(req, res) {
     const { id } = req.params;
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
-        return res.status(404).json({ error: "No such student" });
+        return res.status(404).json({ message: "No such student" });
     }
 
-    const student = await Student.findByIdAndUpdate(id, {
-        ...req.body,
-    });
+    const student = await Student.findByIdAndUpdate(
+        id,
+        {
+            ...req.body,
+        },
+        { new: true }
+    );
 
     if (!student) {
-        return res.status(404).json({ error: "No such student" });
+        return res.status(404).json({ message: "No such student" });
     }
 
     res.status(200).json(student);
@@ -127,13 +130,13 @@ async function handleGetStudentById(req, res) {
     const { id } = req.params;
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
-        return res.status(404).json({ error: "No such student" });
+        return res.status(404).json({ message: "No such student" });
     }
 
     const student = await Student.findById(id);
 
     if (!student) {
-        return res.status(404).json({ error: "No such student" });
+        return res.status(404).json({ message: "No such student" });
     }
 
     res.status(200).json(student);
@@ -168,8 +171,14 @@ async function handleDeleteStudentById(req, res) {
  * @returns A JSON response with all the students
  */
 async function handleGetAllStudents(req, res) {
-    const all_students = await Student.find({});
-    return res.status(200).json(all_students);
+    try {
+        const all_students = await Student.find({});
+        return res.status(200).json(all_students);
+    } catch (error) {
+        return res
+            .status(500)
+            .json({ message: "Internal server error", error: error.message });
+    }
 }
 
 module.exports = {
