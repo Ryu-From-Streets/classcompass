@@ -24,6 +24,6 @@ router
 // Use code to get a course
 router.route("/code/:code").get(handleGetCourseByCode);
 
-router.route("/code/:id").post(handleCourseRating);
+router.route("/rate/:id").post(handleCourseRating);
 
 module.exports = router;
