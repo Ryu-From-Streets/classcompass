@@ -3,58 +3,10 @@ const fs = require("fs");
 require("dotenv").config();
 
 // Get the required functions from other modules
-const { connectMongoDB } = require("./connection");
+const { connectMongoDB, runScrapper, processCourses } = require("./utils");
 const { authenticate } = require("./middleware/auth");
 const { exit } = require("process");
 const advisorsList = require("./Mock_Data/advisors.json");
-
-// const { spawn } = require("child_process");
-// // const { handleCreateCourse } = require("./controllers/course");
-// // const Course = require("./models/course");
-
-// /**
-//  * Run the Python web scrapper script
-//  * @returns None
-//  */
-// function runScrapper() {
-//     // Attempt to use 'python' first
-//     let pythonProcess = spawn("python", ["./webScrapper.py"]);
-
-//     pythonProcess.on("error", (err) => {
-//         if (err.code === "ENOENT") {
-//             console.log("'python' not found, trying 'python3' instead...");
-
-//             // If 'python' is not found - try 'python3'
-//             pythonProcess = spawn("python3", ["./webScrapper.py"]);
-
-//             setupProcessHandlers(pythonProcess);
-
-//             pythonProcess.on("error", (err) => {
-//                 if (err.code === "ENOENT") {
-//                     console.error("Neither 'python' nor 'python3' could be found - \nPlease install Python first.");
-//                     exit();
-//                 }
-//             });
-//         }
-//     });
-
-//     setupProcessHandlers(pythonProcess);
-// }
-
-// /**
-//  * Setup the event handlers for the Python process
-//  * @param {ChildProcess} pythonProcess - The Python process
-//  * @returns None
-//  */
-// function setupProcessHandlers(pythonProcess) {
-//     pythonProcess.stdout.on("data", (data) => {
-//         console.log("Done Scrapping");
-//     });
-
-//     pythonProcess.stderr.on("data", (data) => {
-//         console.error(`Python script error: ${data}`);
-//     });
-// }
 
 // Setup the routers
 const student_router = require("./routes/student");
@@ -101,17 +53,4 @@ app.listen(PORT, () => {
 });
 
 // runScrapper();
-
-// const courseData = require('./course.json');
-// const courses = courseData.courses;
-// courses.forEach(async course => {
-//     const { code, name, credits, instructors, description, prerequisites } = course;
-//     const newCourse = await Course.create({
-//         code,
-//         name,
-//         credits,
-//         instructors,
-//         description,
-//         prerequisites});
-// });
-// console.log(courses.length);
+// processCourses();
