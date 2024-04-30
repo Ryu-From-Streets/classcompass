@@ -163,8 +163,8 @@ async function handleCourseRating(req, res) {
     if (!mongoose.Types.ObjectId.isValid(id)) {
         return res.status(404).json({ error: "No such course" });
     }
-    if (typeof rating !== "number" || rating < 0 || rating > 5) {
-        // Assuming ratings are 0-5
+    if (typeof rating !== "number" || rating < 1 || rating > 5) {
+        // Assuming ratings are 1-5
         return res
             .status(400)
             .json({ error: "Invalid rating. Must be between 0 and 5." });
