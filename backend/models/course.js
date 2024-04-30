@@ -44,20 +44,15 @@ const courseSchema = new mongoose.Schema(
             required: true,
             default: [],
         },
-        rating: {
-            type: Number,
-            default: 0,
-            validate: {
-                validator: function (value) {
-                    return value >= 0;
+        rating: [
+            {
+                student: {
+                    type: mongoose.Schema.Types.ObjectId,
+                    ref: "Student",
                 },
-                message: "Rating must be non-negative",
+                value: Number,
             },
-        },
-        totalRatings: {
-            type: Number,
-            default: 0,
-        },
+        ],
         averageRating: {
             type: Number,
             default: 0,
@@ -74,12 +69,20 @@ const courseSchema = new mongoose.Schema(
  * @param {Number} rating The rating to be added
  * @returns {Promise<Document>} The course object with the updated rating
  */
-courseSchema.methods.addRating = function (rating) {
-    this.rating += rating;
-    this.totalRatings++;
-    // Calculate the average rating to 2 decimal places
+courseSchema.methods.addRating = function (studentID, rating) {
+    const existingRating = this.rating.find((r) => r.student.equals(studentID));
+    if (existingRating) {
+        // Update the existing rating
+        existingRating.value = rating;
+    } else {
+        // Add a new rating
+        this.rating.push({ student: studentID, value: rating });
+    }
+
     this.averageRating =
-        this.totalRatings > 0 ? Math.round((this.rating / this.totalRatings) * 100) / 100 : 0;
+        this.rating.reduce((acc, r) => acc + r.value, 0) / this.rating.length;
+    this.averageRating = Math.round(this.averageRating * 100) / 100;
+
     return this.save();
 };
 
