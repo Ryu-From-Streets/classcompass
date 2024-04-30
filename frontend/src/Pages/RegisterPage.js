@@ -46,15 +46,17 @@ const SignUpPage = ({ isShowLogin }) => {
     if (userType === "student") {
       try {
         const response = await axios.post("/students/signup", {
-          first_name,
-          last_name,
-          email,
-          password,
-          numCredits,
-          courses,
-          majors,
+          first_name: first_name,
+          last_name: last_name,
+          email: email,
+          major: majors,
+          credits: numCredits,
+          courses_taken: courses,
+          password: password
         });
-        console.log("Student signed up successfully", response.data);
+        document.cookie = `authToken=${response.data.token}; path=/;`;
+        // Redirect to home page
+        window.location.href = "/"; 
       } catch (error) {
         console.error("Failed to sign up student", error.response.data);
       }
@@ -88,11 +90,9 @@ const SignUpPage = ({ isShowLogin }) => {
   };
 
   const handleMajors = (e) => {
-    const majorList = e.target.value
-    .split(",")
-    .map((course) => course.trim());
-  setMajors(majorList);
- };
+    const majorList = e.target.value.split(",").map((major) => major.trim());
+    setMajors(majorList);
+  };
 
   return (
     <div className="login-page">
