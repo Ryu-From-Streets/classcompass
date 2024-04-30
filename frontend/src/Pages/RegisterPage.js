@@ -11,7 +11,6 @@ import "./login.css";
 
 import axios from "axios";
 
-
 const SignUpPage = ({ isShowLogin }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -22,7 +21,7 @@ const SignUpPage = ({ isShowLogin }) => {
   const [courses, setCourses] = useState([]);
   const [majors, setMajors] = useState([]);
 
-  const handleSignup= async (e) => {
+  const handleSignup = async (e) => {
     e.preventDefault();
     if (password !== rePassword) {
       alert("Passwords do not match");
@@ -52,16 +51,14 @@ const SignUpPage = ({ isShowLogin }) => {
           major: majors,
           credits: numCredits,
           courses_taken: courses,
-          password: password
+          password: password,
         });
         document.cookie = `authToken=${response.data.token}; path=/;`;
-        // Redirect to home page
-        window.location.href = "/"; 
+        window.location.href = "/";
       } catch (error) {
         console.error("Failed to sign up student", error.response.data);
       }
-    }
-    else {
+    } else {
       try {
         const response = await axios.post("/advisors/signup", {
           first_name,
@@ -69,14 +66,14 @@ const SignUpPage = ({ isShowLogin }) => {
           email,
           password,
         });
-        console.log("Advisor signed up successfully", response.data);
+        document.cookie = `authToken=${response.data.token}; path=/;`;
+        window.location.href = "/";
       } catch (error) {
         console.error("Failed to sign up advisor", error.response.data);
       }
     }
-
-
   };
+
   const handleNumCreditsChange = (e) => {
     const value = parseInt(e.target.value);
     setCredits(isNaN(value) ? "" : value); // Set numCredits to 0 if NaN is detected
@@ -98,94 +95,97 @@ const SignUpPage = ({ isShowLogin }) => {
     <div className="login-page">
       <h2>Sign Up</h2>
       <form onSubmit={handleSignup}>
-       <div className="input-container">
-        <div className="input-box">
-          <select
-            value={userType}
-            onChange={(e) => setUserType(e.target.value)}
-          >
-            <option value="student"> I am a student </option>
-            <option value="advisor"> I am an advisor </option>
-          </select>
+        <div className="input-container">
+          <div className="input-box">
+            <select
+              value={userType}
+              onChange={(e) => setUserType(e.target.value)}
+            >
+              <option value="student"> I am a student </option>
+              <option value="advisor"> I am an advisor </option>
+            </select>
+          </div>
+          <div className="input-box">
+            <input
+              type="text"
+              placeholder="Enter Your Name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+            />
+            <HiUser className="icon" />
+          </div>
+          <div className="input-box">
+            <input
+              type="email"
+              placeholder="Enter Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+            <HiMail className="icon" />
+          </div>
+          <div className="input-box">
+            <input
+              type="password"
+              placeholder="Enter Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+            <HiOutlineLockClosed className="icon" />
+          </div>
+          <div className="input-box">
+            <input
+              type="password"
+              placeholder="Re enter Password"
+              value={rePassword}
+              onChange={(e) => setRePassword(e.target.value)}
+              required
+            />
+            <HiOutlineLockClosed className="icon" />
+          </div>
+          {userType === "student" && (
+            <>
+              <div className="input-box">
+                <input
+                  type="text"
+                  placeholder="Enter number of credits"
+                  value={numCredits}
+                  onChange={(e) => {
+                    handleNumCreditsChange(e);
+                  }}
+                  required
+                />
+                <HiOutlineAcademicCap className="icon" />
+              </div>
+              <div className="input-box">
+                <input
+                  type="text"
+                  placeholder="Enter courses"
+                  value={courses.join(",")}
+                  onChange={handleCoursesChange}
+                  required
+                />
+                <HiBookOpen className="icon" />
+              </div>
+              <div className="input-box">
+                <input
+                  type="text"
+                  placeholder="Enter Majors"
+                  value={majors.join(",")}
+                  onChange={handleMajors}
+                  required
+                />
+                <HiOutlineGlobe className="icon" />
+              </div>
+            </>
+          )}
         </div>
-        <div className="input-box">
-          <input
-            type="text"
-            placeholder="Enter Your Name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            required
-          />
-          <HiUser className="icon" />
-        </div>
-        <div className="input-box">
-          <input
-            type="email"
-            placeholder="Enter Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-          <HiMail className="icon" />
-        </div>
-        <div className="input-box">
-          <input
-            type="password"
-            placeholder="Enter Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-          <HiOutlineLockClosed className="icon" />
-        </div>
-        <div className="input-box">
-          <input
-            type="password"
-            placeholder="Re enter Password"
-            value={rePassword}
-            onChange={(e) => setRePassword(e.target.value)}
-            required
-          />
-          <HiOutlineLockClosed className="icon" />
-        </div>
-        <div className="input-box">
-          <input
-            type="text"
-            placeholder="Enter number of credits"
-            value={numCredits}
-            onChange={(e) => {
-              handleNumCreditsChange(e);
-            }}
-            required
-          />
-          <HiOutlineAcademicCap className="icon" />
-        </div>
-        <div className="input-box">
-          <input
-            type="text"
-            placeholder="Enter courses"
-            value={courses.join(",")}
-            onChange={handleCoursesChange}
-            required
-          />
-          <HiBookOpen className="icon" />
-        </div>
-        <div className="input-box">
-          <input
-            type="text"
-            placeholder="Enter Majors"
-            value={majors.join(",")}
-            onChange={handleMajors}
-            required
-          />
-          <HiOutlineGlobe className="icon" />
-        </div>
-
         <button type="submit" className="button">
           {" "}
           Sign Up{" "}
         </button>
-      </div>
       </form>
     </div>
   );

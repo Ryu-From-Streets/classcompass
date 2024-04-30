@@ -2,14 +2,25 @@ import React, { useState } from "react";
 import { HiMail, HiOutlineLockClosed } from "react-icons/hi";
 import "./login.css";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 const LoginPage = ({ isShowLogin }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
   const [userType, setUserType] = useState("student");
-  const handleLogin = (e) => {
-    
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    const response = await axios.post(
+        `/${userType}s/signin`, 
+        {
+          email: email,
+          password: password,
+        }
+      );
+     console.log("success")
+     document.cookie = `authToken=${response.data.token}; path=/;`;
+     window.location.href = "/";  
   };
 
   return (
