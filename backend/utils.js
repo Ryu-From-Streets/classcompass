@@ -58,6 +58,10 @@ function setupProcessHandlers(pythonProcess) {
     });
 }
 
+/**
+ * Processes the course data and inserts it into the MongoDB database
+ * @returns None
+ */
 async function processCourses() {
     const courses = courseData.courses;
     for (const course of courses) {
