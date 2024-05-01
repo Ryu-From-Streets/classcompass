@@ -35,60 +35,62 @@ const LoginPage = ({ isShowLogin }) => {
 
   return (
     <div className="login-page">
-      <h2>Welcome!</h2>
-      <form onSubmit={handleLogin}>
-        <div className="input-container">
-          <div className="input-box">
-            <select
-              value={userType}
-              onChange={(e) => setUserType(e.target.value)}
-            >
-              <option value="student">I am a student</option>
-              <option value="advisor">I am an advisor</option>
-            </select>
+      <div className="form">
+        <h2>Welcome!</h2>
+        <form onSubmit={handleLogin}>
+          <div className="input-container">
+            <div className="input-box">
+              <select
+                value={userType}
+                onChange={(e) => setUserType(e.target.value)}
+              >
+                <option value="student">I am a student</option>
+                <option value="advisor">I am an advisor</option>
+              </select>
+            </div>
+            <div className="input-box">
+              <input
+                type="email"
+                placeholder="Enter Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+              <HiMail className="icon" />
+            </div>
+            <div className="input-box">
+              <input
+                type="password"
+                placeholder="Enter Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+              <HiOutlineLockClosed className="icon" />
+            </div>
           </div>
-          <div className="input-box">
-            <input
-              type="email"
-              placeholder="Enter Email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-            <HiMail className="icon" />
+          <div className="forgot">
+            <label>
+              <input
+                type="checkbox"
+                checked={rememberMe}
+                onChange={() => setRememberMe(!rememberMe)}
+              />
+              Remember me
+            </label>
+            <Link to="/forgot">Forgot Password?</Link>
           </div>
-          <div className="input-box">
-            <input
-              type="password"
-              placeholder="Enter Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-            <HiOutlineLockClosed className="icon" />
+          {error && <div className="error-message">{error}</div>}{" "}
+          <button type="submit" className="button">
+            Login
+          </button>
+          <div className="register">
+            <p>
+              Don't have an account? <Link to="/register">Register</Link>
+            </p>
           </div>
-        </div>
-        <div className="forgot">
-          <label>
-            <input
-              type="checkbox"
-              checked={rememberMe}
-              onChange={() => setRememberMe(!rememberMe)}
-            />
-            Remember me
-          </label>
-          <Link to="/forgot">Forgot Password?</Link>
-        </div>
-        {error && <div className="error-message">{error}</div>}{" "}
-        <button type="submit" className="button">
-          Login
-        </button>
-        <div className="register">
-          <p>
-            Don't have an account? <Link to="/register">Register</Link>
-          </p>
-        </div>
-      </form>
+        </form>
+      </div>
     </div>
   );
 };
