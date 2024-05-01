@@ -9,9 +9,7 @@ const Course = require("./models/course");
  * @returns The connection to the MongoDB database
  */
 async function connectMongoDB(url) {
-    return mongoose.connect(url, {
-        dbName: 'class_compass'
-    });
+    return mongoose.connect(url);
 }
 
 /**
