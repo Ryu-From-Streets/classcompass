@@ -1,5 +1,6 @@
 const { mongoose } = require("mongoose");
 const Rating = require("../models/rating");
+const Course = require("../models/course");
 
 async function handleCreateRating(req, res) {
     const { studentID, courseID, value, comment } = req.body;
@@ -14,6 +15,7 @@ async function handleCreateRating(req, res) {
             return res.status(400).json({ message: "Rating already exists" });
         }
 
+        const course = await Course.findById(courseID);
         const rating = await Rating.create({
             studentID: studentID,
             courseID: courseID,
@@ -21,12 +23,29 @@ async function handleCreateRating(req, res) {
             comment: comment || "",
         });
 
+        course.updateRating(value, 1);
+        await course.save();
+
         return res.status(201).json({
             message: "Successfully created rating",
             ratingID: rating._id,
             studentID: studentID,
             courseID: courseID,
         });
+    } catch (error) {
+        return res
+            .status(500)
+            .json({ message: "Internal server error", error: error.message });
+    }
+}
+
+async function handleGetRating(req, res) {
+    const { id } = req.params;
+
+    try {
+        const rating = await Rating.findOne({ _id: id });
+
+        return res.status(200).json({ message: "Success", rating });
     } catch (error) {
         return res
             .status(500)
@@ -42,9 +61,9 @@ async function handleGetCourseRating(req, res) {
     }
 
     try {
-        const ratings = await Rating.find({ courseID: id });
+        const rating = await Rating.find({ courseID: id });
 
-        return res.status(200).json({ message: "Success", ratings });
+        return res.status(200).json({ message: "Success", rating });
     } catch (error) {
         return res
             .status(500)
@@ -78,10 +97,20 @@ async function handleUpdateRating(req, res) {
     }
 
     try {
-        const rating = await Rating.findByIdAndUpdate(ratingID, {
-            value: value,
-            comment: comment || "",
-        });
+        const rating = await Rating.findById(ratingID);
+        if (!rating) {
+            return res.status(404).json({ message: "Rating not found" });
+        }
+        const course = await Course.findById(rating.courseID);
+        const diff = value - rating.value;
+
+        rating.value = value;
+        rating.comment = comment || "";
+
+        course.updateRating(diff, 0);
+
+        await rating.save();
+        await course.save();
 
         return res
             .status(200)
@@ -101,6 +130,17 @@ async function handleDeleteRating(req, res) {
     }
 
     try {
+        const rating = await Rating.findById(ratingID);
+        if (!rating) {
+            return res.status(404).json({ message: "Rating not found" });
+        }
+
+        const course = await Course.findById(rating.courseID);
+        if (course) {
+            course.updateRating(-rating.value, -1);
+            await course.save();
+        }
+
         await Rating.findByIdAndDelete(ratingID);
 
         return res
@@ -127,6 +167,7 @@ async function handleGetAllRatings(req, res) {
 
 module.exports = {
     handleCreateRating,
+    handleGetRating,
     handleGetCourseRating,
     handleGetStudentRating,
     handleUpdateRating,

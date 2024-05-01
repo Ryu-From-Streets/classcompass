@@ -48,11 +48,36 @@ const courseSchema = new mongoose.Schema(
             type: Number,
             default: 0,
         },
+        totalRatings: {
+            type: Number,
+            default: 0,
+        },
+        totalRatingValue: {
+            type: Number,
+            default: 0,
+        },
     },
     {
         timestamps: true,
     }
 );
+
+/**
+ * Updates the total rating value and count, then recalculates the average rating.
+ * @param {number} diff - The difference to add to the total rating value. This could be positive or negative.
+ * @param {number} increment - The number to add to the total ratings count. Typically 1 or -1.
+ */
+courseSchema.methods.updateRating = function (diff, increment) {
+    this.totalRatingValue += diff;
+    this.totalRatings += increment;
+
+    if (this.totalRatings > 0) {
+        this.averageRating =
+            Math.round((this.totalRatingValue / this.totalRatings) * 100) / 100;
+    } else {
+        this.averageRating = 0;
+    }
+};
 
 const Course = mongoose.model("Course", courseSchema);
 
