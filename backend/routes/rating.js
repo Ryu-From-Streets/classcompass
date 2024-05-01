@@ -12,11 +12,13 @@ const {
 const router = express.Router();
 
 router
-    .route("/ratings")
+    .route("/")
     .get(handleGetAllRatings)
     .put(handleUpdateRating)
     .post(handleCreateRating)
     .delete(handleDeleteRating);
 
-router.route("/ratings/:courseID").get(handleGetCourseRating);
-router.route("/ratings/:studentID").get(handleGetStudentRating);
+router.route("/:courseID").get(handleGetCourseRating);
+router.route("/:studentID").get(handleGetStudentRating);
+
+module.exports = router;
