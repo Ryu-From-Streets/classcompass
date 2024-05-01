@@ -47,7 +47,6 @@ const studentSchema = new mongoose.Schema(
         courses_taken: {
             type: [String],
             default: [],
-            length: 10,
         },
         advisor: {
             type: mongoose.Schema.Types.ObjectId,
@@ -56,6 +55,7 @@ const studentSchema = new mongoose.Schema(
         last_viewed_courses: {
             type: [String],
             default: [],
+            length: 10,
         },
         password: {
             type: String,
