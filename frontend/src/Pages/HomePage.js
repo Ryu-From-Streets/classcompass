@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { fetchAllCoursesJSON } from "../Utils/get_data";
+import { getAllCoursesJSON } from "../Utils/get_data";
 
 
 // COMPONENTS
@@ -8,12 +8,20 @@ import CourseButton from "../Components/CourseButton";
 
 
 const HomePage = () => {
-    // state for search bar components
-    const [courses, setCourses] = useState([]);
+    // states for
+    const [allCourses, setAllCourses] = useState([]);
+    const [filteredCourses, setFilteredCourses] = useState([]);
     const [feedback, setFeedback] = useState("");
 
+    // fetch all courses and store them in courses state every time the page is loaded
+    // also store a copy of all courses in filteredCourses state for use in search bar component
     useEffect(() => {
-        fetchAllCoursesJSON(setCourses, setFeedback);
+        async function setStates() {
+            const coursesJSON = await getAllCoursesJSON(setFeedback);
+            setAllCourses(coursesJSON);
+            setFilteredCourses(coursesJSON);
+        }
+        setStates();
     }, []);
 
     
@@ -21,15 +29,17 @@ const HomePage = () => {
         <div className="HomePage">
             <div className="Courses">
 
+                <h1>Search For a Course!</h1>
+
                 <div className = "search-bar-container">
-                    <SearchBar setFilteredCourses={setCourses} setError={setFeedback} />
+                    <SearchBar allCourses={allCourses} setFilteredCourses={setFilteredCourses} setFeedback={setFeedback} />
                 </div>
 
                 <p>{feedback}</p>
 
-                {courses && courses.map((course) => (
+                {filteredCourses && filteredCourses.map((filteredCourse) => (
 
-                    <CourseButton course={course}/>
+                    <CourseButton key={filteredCourse.code} course={filteredCourse}/>
 
                 ))}
 
