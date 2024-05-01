@@ -7,13 +7,12 @@ const {
     handleDeleteRating,
     handleGetAllRatings,
 } = require("../controllers/rating");
-const { handleGetAllCourses } = require("../controllers/course");
 
 const router = express.Router();
 
 router
     .route("/")
-    .get(handleGetAllCourses)
+    .get(handleGetAllRatings)
     .put(handleUpdateRating)
     .post(handleCreateRating)
     .delete(handleDeleteRating);
