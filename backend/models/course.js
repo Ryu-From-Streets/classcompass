@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const Student = require("./student");
 
 /**
  * Schema for the course collection
@@ -44,7 +45,7 @@ const courseSchema = new mongoose.Schema(
             required: true,
             default: [],
         },
-        rating: [
+        ratings: [
             {
                 student: {
                     type: mongoose.Schema.Types.ObjectId,
@@ -60,7 +61,6 @@ const courseSchema = new mongoose.Schema(
     },
     {
         timestamps: true,
-        toJSON: { virtuals: true },
     }
 );
 
@@ -71,12 +71,16 @@ const courseSchema = new mongoose.Schema(
  */
 courseSchema.methods.addRating = function (studentID, rating) {
     const existingRating = this.rating.find((r) => r.student.equals(studentID));
+    const student = Student.findById(studentID);
+
     if (existingRating) {
         // Update the existing rating
         existingRating.value = rating;
+        student.ratings.find((r) => r.course.equals(this._id)).value = rating;
     } else {
         // Add a new rating
         this.rating.push({ student: studentID, value: rating });
+        student.ratings.push({ course: this._id, value: rating });
     }
 
     this.averageRating =
