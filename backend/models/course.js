@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const Student = require("./student");
 
 /**
  * Schema for the course collection
@@ -45,15 +44,6 @@ const courseSchema = new mongoose.Schema(
             required: true,
             default: [],
         },
-        ratings: [
-            {
-                student: {
-                    type: mongoose.Schema.Types.ObjectId,
-                    ref: "Student",
-                },
-                value: Number,
-            },
-        ],
         averageRating: {
             type: Number,
             default: 0,
@@ -63,32 +53,6 @@ const courseSchema = new mongoose.Schema(
         timestamps: true,
     }
 );
-
-/**
- * Adds a rating to the course
- * @param {Number} rating The rating to be added
- * @returns {Promise<Document>} The course object with the updated rating
- */
-courseSchema.methods.addRating = function (studentID, rating) {
-    const existingRating = this.rating.find((r) => r.student.equals(studentID));
-    const student = Student.findById(studentID);
-
-    if (existingRating) {
-        // Update the existing rating
-        existingRating.value = rating;
-        student.ratings.find((r) => r.course.equals(this._id)).value = rating;
-    } else {
-        // Add a new rating
-        this.rating.push({ student: studentID, value: rating });
-        student.ratings.push({ course: this._id, value: rating });
-    }
-
-    this.averageRating =
-        this.rating.reduce((acc, r) => acc + r.value, 0) / this.rating.length;
-    this.averageRating = Math.round(this.averageRating * 100) / 100;
-
-    return this.save();
-};
 
 const Course = mongoose.model("Course", courseSchema);
 

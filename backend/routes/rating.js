@@ -1,5 +1,4 @@
 const express = require("express");
-const Rating = require("../models/rating");
 
 const {
     handleCreateRating,

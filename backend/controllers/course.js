@@ -149,47 +149,6 @@ async function handleGetAllCourses(req, res) {
     res.status(200).json(courses);
 }
 
-/**
- * Handles the rating of a course by ID
- * @param {*} req - Request object
- * @param {*} res - Response object
- * @returns A JSON response with the status of the rating
- */
-async function handleCourseRating(req, res) {
-    const { id } = req.params;
-    let { rating } = req.body;
-    rating = parseFloat(rating);
-
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-        return res.status(404).json({ error: "No such course" });
-    }
-    if (typeof rating !== "number" || rating < 1 || rating > 5) {
-        // Assuming ratings are 1-5
-        return res
-            .status(400)
-            .json({ error: "Invalid rating. Must be between 1 and 5." });
-    }
-
-    if (!req.user) {
-        return res.status(401).json({ message: "Authentication required" });
-    }
-
-    try {
-        const course = await Course.findById(id);
-        if (!course) {
-            return res.status(404).json({ error: "No such course" });
-        }
-
-        await course.addRating(req.user._id, rating);
-        res.status(200).json(course);
-    } catch (error) {
-        res.status(500).json({
-            message: "Internal server error",
-            error: error.message,
-        });
-    }
-}
-
 module.exports = {
     handleCreateCourse,
     handleUpdateCourseById,
@@ -197,5 +156,4 @@ module.exports = {
     handleDeleteCourseById,
     handleGetAllCourses,
     handleGetCourseByCode,
-    handleCourseRating,
 };

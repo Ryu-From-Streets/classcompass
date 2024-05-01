@@ -57,15 +57,6 @@ const studentSchema = new mongoose.Schema(
             default: [],
             length: 10,
         },
-        ratings: [
-            {
-                student: {
-                    type: mongoose.Schema.Types.ObjectId,
-                    ref: "Course",
-                },
-                value: Number,
-            },
-        ],
         password: {
             type: String,
             required: true,
