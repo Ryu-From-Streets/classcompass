@@ -2,38 +2,19 @@ import React, { useState } from "react";
 
 import { FaSearch } from "react-icons/fa";
 import "./SearchBar.css";
+import { getFilteredCourses } from "../Utils/get_data";
 
 // searchBar, SearchResult, and SearchResults lists adapted from https://www.youtube.com/watch?v=sWVgMcz8Q44&t=146s
 
-export const SearchBar = ({ setFilteredCourses, setError }) => {
+export const SearchBar = ({ allCourses, setFilteredCourses, setFeedback }) => {
     const [input, setInput] = useState("");
 
+
     const fetchData = (value) => {
-        fetch("/courses", { method: "GET" })
-            .then((response) => response.json())
-            .then(json => {
-                setError("");
-                let results;
-                if (value.trim() === "") {
-                    results = json;
-                } else {
-                    results = json.filter((course) => {
-                        return (
-                            (course && 
-                            course.code && 
-                            course.code.toLowerCase().includes(value.toLowerCase())) ||
-                            (course &&
-                            course.name &&
-                            course.name.toLowerCase().includes(value.toLowerCase()))
-                        );
-                    });
-                    if (results.length === 0) {
-                        setError("Course not found");
-                    }
-                }
-                setFilteredCourses(results);
-            });
+        const filteredCourses = getFilteredCourses(value, allCourses, setFeedback);
+        setFilteredCourses(filteredCourses);
     }
+
 
     const handleChange = (value) => {
         setInput(value);
@@ -44,6 +25,8 @@ export const SearchBar = ({ setFilteredCourses, setError }) => {
         <div className="input-wrapper">
             <FaSearch id="search-icon" />
             <input 
+                id="course-search"
+                name="course-search"
                 placeholder="Type to search..." 
                 value={input} 
                 onChange={(e) => handleChange(e.target.value)}
