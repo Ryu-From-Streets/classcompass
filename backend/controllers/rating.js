@@ -1,7 +1,7 @@
 const { mongoose } = require("mongoose");
 const Rating = require("../models/rating");
 
-async function handleCourseRating(req, res) {
+async function handleCreateRating(req, res) {
     const { studentID, courseID, value, comment } = req.body;
 
     if (!studentID || !courseID || !value) {
@@ -103,7 +103,21 @@ async function handleDeleteRating(req, res) {
     try {
         await Rating.findByIdAndDelete(ratingID);
 
-        return res.status(200).json({ message: "Successfully deleted rating", ratingID });
+        return res
+            .status(200)
+            .json({ message: "Successfully deleted rating", ratingID });
+    } catch (error) {
+        return res
+            .status(500)
+            .json({ message: "Internal server error", error: error.message });
+    }
+}
+
+async function handleGetAllRatings(req, res) {
+    try {
+        const ratings = await Rating.find();
+
+        return res.status(200).json({ message: "Success", ratings });
     } catch (error) {
         return res
             .status(500)
@@ -112,9 +126,10 @@ async function handleDeleteRating(req, res) {
 }
 
 module.exports = {
-    handleCourseRating,
+    handleCreateRating,
     handleGetCourseRating,
     handleGetStudentRating,
     handleUpdateRating,
     handleDeleteRating,
+    handleGetAllRatings,
 };
