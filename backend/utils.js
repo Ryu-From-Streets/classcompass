@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const { spawn } = require("child_process");
-const courseData = require("./course.json");
+const courseData = require("./parser/course.json");
 const Course = require("./models/course");
 
 /**
