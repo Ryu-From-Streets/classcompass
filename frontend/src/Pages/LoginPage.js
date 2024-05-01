@@ -9,18 +9,28 @@ const LoginPage = ({ isShowLogin }) => {
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
   const [userType, setUserType] = useState("student");
+  const [error, setError] = useState(""); 
+
   const handleLogin = async (e) => {
     e.preventDefault();
-    const response = await axios.post(
-        `/${userType}s/signin`, 
-        {
-          email: email,
-          password: password,
-        }
-      );
-     console.log("success")
-     document.cookie = `authToken=${response.data.token}; path=/;`;
-     window.location.href = "/";  
+    try {
+      const response = await axios.post(`/${userType}s/signin`, {
+        email: email,
+        password: password,
+      });
+      console.log(response.data);
+      document.cookie = `authToken=${response.data.token}; path=/;`;
+      document.cookie = `name=${response.data.name}; path=/;`;
+      window.location.href = "/";
+    } catch (error) {
+    if (error.response && error.response.status === 404) {
+      setError("Incorrect email or password.");
+    } else if (error.response && error.response.status === 401) {
+      setError("Incorrect email or password.");
+    } else {
+      setError("An error occurred. Please try again later.");
+    }
+  }
   };
 
   return (
@@ -31,7 +41,8 @@ const LoginPage = ({ isShowLogin }) => {
           <div className="input-box">
             <select
               value={userType}
-              onChange={(e) => setUserType(e.target.value)}>
+              onChange={(e) => setUserType(e.target.value)}
+            >
               <option value="student">I am a student</option>
               <option value="advisor">I am an advisor</option>
             </select>
@@ -68,6 +79,7 @@ const LoginPage = ({ isShowLogin }) => {
           </label>
           <Link to="/forgot">Forgot Password?</Link>
         </div>
+        {error && <div className="error-message">{error}</div>}{" "}
         <button type="submit" className="button">
           Login
         </button>

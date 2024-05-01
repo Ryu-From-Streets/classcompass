@@ -46,8 +46,15 @@ const NavigationBar = () => {
                 </button>
                 {showProfilePopup && (
                   <div className="ProfilePopup">
-                    <h3>Profile</h3>
-                    <button onClick={handleLogout}>Sign Out</button>
+                    <div className="ProfileHeader">
+                      <HiOutlineUserCircle className="profileIcon" />
+                      <h3>John Doe</h3>
+                    </div>
+                    <ul>
+                      <li>Profile</li>
+                      <li>Settings</li>
+                      <li onClick={handleLogout}>Sign Out</li>
+                    </ul>
                   </div>
                 )}
               </li>

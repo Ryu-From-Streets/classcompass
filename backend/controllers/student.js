@@ -83,8 +83,13 @@ async function handleSignIn(req, res) {
         const token = await generateToken(user);
 
         return res
-            .status(200)
-            .json({ message: "Sign-in successful", user, token });
+          .status(200)
+          .json({
+            message: "Sign-in successful",
+            name: user.first_name,
+            user,
+            token,
+          });
     } catch (error) {
         return res
             .status(500)
