@@ -1,10 +1,16 @@
 //import React from "react";
 
-export async function fetchAllCoursesJSON( setCourses, setFeedback ) {
+
+/**
+ * Fetches all courses from backend API and updates course and feedback states
+ * passed in as parameters
+ * 
+ */
+export async function getAllCoursesJSON( setFeedback ) {
     let response;
 
     // indicate to the user and console that courses are being fetched
-    setFeedback("Fetching all courses...");
+    setFeedback("Fetching courses...");
     console.log("Fetching all courses...");
 
 
@@ -21,22 +27,64 @@ export async function fetchAllCoursesJSON( setCourses, setFeedback ) {
         // if response is empty, indicate to the user that no courses were found
         if (response.length === 0) {
             setFeedback("No courses found");
-            setCourses([]);
         }
         // if response is not empty, convert response to json and set courses
         else {
             setFeedback("");
             const jsonOfCourses = await response.json();
-            setCourses(jsonOfCourses);
+            return jsonOfCourses;
         }
     }
     // if some error fetching data, indicate to the user that there was an error
     else {
         setFeedback("Error fetching data");
-        setCourses([]);
     }
+
+    return [];
 }
 
-export async function getFilteredCourses(  ) {
 
+/**
+ * Fetches all courses from backend API and updates course and feedback states
+ * passed in as parameters, filtered by a search input
+ * 
+ */
+export function getFilteredCourses( searchParameter, allCourses, setFeedback ) {
+    console.log("Searching for course with code or name that matches: \"" + searchParameter + "\"");
+
+    // if search is empty, return all courses
+    if (searchParameter.trim() === "") {
+        setFeedback("");
+        return allCourses;
+    } 
+
+    // if search isn't empty, filter courses by
+    // matching search parameter to course code or name
+    let filteredCourses;
+
+    filteredCourses = allCourses.filter((course) => {
+        return (
+            (course && 
+            course.code && 
+            course.code.toLowerCase().includes(searchParameter.trim().toLowerCase())) ||
+            (course &&
+            course.name &&
+            course.name.toLowerCase().includes(searchParameter.trim().toLowerCase()))
+        );
+    });
+
+    // if search parameter matched no courses, 
+    // set feedback that no course was found
+    let length = filteredCourses.length;
+    if (length === 0) {
+        setFeedback("No courses found");
+        console.log("No courses found");
+        filteredCourses = [];
+    }
+    else {
+        setFeedback(length + " course(s) found");
+        console.log(length + " course(s) found");
+    }
+
+    return filteredCourses;
 }
