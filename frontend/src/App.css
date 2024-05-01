@@ -13,23 +13,29 @@
   background-color: #eeeeee;
 }
 
-.AdvisorsPage {
-  background-color: #eeeeee;
-}
-
-.AdvisorsPage .advisor {
-  line-height: 5px;
-  margin-top: 50px;
-}
-
-.search-bar-container {
-  padding-top: 20vh;
+.HomePage .search-bar-container {
+  padding-top: 0%;
   width: 40%;
   margin: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
   min-width: 200px;
+}
+
+.AdvisorsPage {
+  background-color: #eeeeee;
+}
+
+.AdvisorsPage .Advisors {
+  margin-top: 50px;
+  background-color: #eeeeee;
+}
+
+.AdvisorsPage .advisor {
+  line-height: 5px;
+  height: 80px;
+  background-color: #eeeeee;
 }
 
 .App-logo {
