@@ -92,101 +92,103 @@ const SignUpPage = ({ isShowLogin }) => {
   };
 
   return (
-    <div className="login-page">
-      <h2>Sign Up</h2>
-      <form onSubmit={handleSignup}>
-        <div className="input-container">
-          <div className="input-box">
-            <select
-              value={userType}
-              onChange={(e) => setUserType(e.target.value)}
-            >
-              <option value="student"> I am a student </option>
-              <option value="advisor"> I am an advisor </option>
-            </select>
+    <div className="register-page">
+      <div className="form">
+        <h2>Sign Up</h2>
+        <form onSubmit={handleSignup}>
+          <div className="input-container">
+            <div className="input-box">
+              <select
+                value={userType}
+                onChange={(e) => setUserType(e.target.value)}
+              >
+                <option value="student"> I am a student </option>
+                <option value="advisor"> I am an advisor </option>
+              </select>
+            </div>
+            <div className="input-box">
+              <input
+                type="text"
+                placeholder="Enter Your Name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                required
+              />
+              <HiUser className="icon" />
+            </div>
+            <div className="input-box">
+              <input
+                type="email"
+                placeholder="Enter Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+              <HiMail className="icon" />
+            </div>
+            <div className="input-box">
+              <input
+                type="password"
+                placeholder="Enter Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+              <HiOutlineLockClosed className="icon" />
+            </div>
+            <div className="input-box">
+              <input
+                type="password"
+                placeholder="Re enter Password"
+                value={rePassword}
+                onChange={(e) => setRePassword(e.target.value)}
+                required
+              />
+              <HiOutlineLockClosed className="icon" />
+            </div>
+            {userType === "student" && (
+              <>
+                <div className="input-box">
+                  <input
+                    type="text"
+                    placeholder="Enter number of credits"
+                    value={numCredits}
+                    onChange={(e) => {
+                      handleNumCreditsChange(e);
+                    }}
+                    required
+                  />
+                  <HiOutlineAcademicCap className="icon" />
+                </div>
+                <div className="input-box">
+                  <input
+                    type="text"
+                    placeholder="Enter courses"
+                    value={courses.join(",")}
+                    onChange={handleCoursesChange}
+                    required
+                  />
+                  <HiBookOpen className="icon" />
+                </div>
+                <div className="input-box">
+                  <input
+                    type="text"
+                    placeholder="Enter Majors"
+                    value={majors.join(",")}
+                    onChange={handleMajors}
+                    required
+                  />
+                  <HiOutlineGlobe className="icon" />
+                </div>
+              </>
+            )}
           </div>
-          <div className="input-box">
-            <input
-              type="text"
-              placeholder="Enter Your Name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              required
-            />
-            <HiUser className="icon" />
-          </div>
-          <div className="input-box">
-            <input
-              type="email"
-              placeholder="Enter Email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-            <HiMail className="icon" />
-          </div>
-          <div className="input-box">
-            <input
-              type="password"
-              placeholder="Enter Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-            <HiOutlineLockClosed className="icon" />
-          </div>
-          <div className="input-box">
-            <input
-              type="password"
-              placeholder="Re enter Password"
-              value={rePassword}
-              onChange={(e) => setRePassword(e.target.value)}
-              required
-            />
-            <HiOutlineLockClosed className="icon" />
-          </div>
-          {userType === "student" && (
-            <>
-              <div className="input-box">
-                <input
-                  type="text"
-                  placeholder="Enter number of credits"
-                  value={numCredits}
-                  onChange={(e) => {
-                    handleNumCreditsChange(e);
-                  }}
-                  required
-                />
-                <HiOutlineAcademicCap className="icon" />
-              </div>
-              <div className="input-box">
-                <input
-                  type="text"
-                  placeholder="Enter courses"
-                  value={courses.join(",")}
-                  onChange={handleCoursesChange}
-                  required
-                />
-                <HiBookOpen className="icon" />
-              </div>
-              <div className="input-box">
-                <input
-                  type="text"
-                  placeholder="Enter Majors"
-                  value={majors.join(",")}
-                  onChange={handleMajors}
-                  required
-                />
-                <HiOutlineGlobe className="icon" />
-              </div>
-            </>
-          )}
-        </div>
-        <button type="submit" className="button">
-          {" "}
-          Sign Up{" "}
-        </button>
-      </form>
+          <button type="submit" className="button">
+            {" "}
+            Sign Up{" "}
+          </button>
+        </form>
+      </div>
     </div>
   );
 };
