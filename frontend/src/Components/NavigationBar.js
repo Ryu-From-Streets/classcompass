@@ -48,7 +48,7 @@ const NavigationBar = () => {
                   <div className="ProfilePopup">
                     <div className="ProfileHeader">
                       <HiOutlineUserCircle className="profileIcon" />
-                      <h3>John Doe</h3>
+                      <h3>{getCookie("name")}</h3>
                     </div>
                     <ul>
                       <li>Profile</li>

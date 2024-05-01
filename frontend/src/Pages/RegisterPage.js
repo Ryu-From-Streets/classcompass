@@ -61,10 +61,10 @@ const SignUpPage = ({ isShowLogin }) => {
     } else {
       try {
         const response = await axios.post("/advisors/signup", {
-          first_name,
-          last_name,
-          email,
-          password,
+          first_name: first_name,
+          last_name: last_name,
+          email: email,
+          password: password,
         });
         document.cookie = `authToken=${response.data.token}; path=/;`;
         window.location.href = "/";
@@ -76,7 +76,7 @@ const SignUpPage = ({ isShowLogin }) => {
 
   const handleNumCreditsChange = (e) => {
     const value = parseInt(e.target.value);
-    setCredits(isNaN(value) ? "" : value); // Set numCredits to 0 if NaN is detected
+    setCredits(isNaN(value) ? "" : value); 
   };
 
   const handleCoursesChange = (e) => {
