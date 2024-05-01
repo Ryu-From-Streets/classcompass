@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import NodeTree from '../Components/NodeTree';
-import { fetchAllCoursesJSON } from '../Utils/get_data';
+import { getAllCoursesJSON } from '../Utils/get_data';
 
 // Some parts of TreePage.js were adapted with the assistance of ChatGPT
 
@@ -13,7 +13,12 @@ const TreePage = () => {
   const [feedback, setFeedback] = useState("");
 
   useEffect(() => {
-    fetchAllCoursesJSON(setCourses, setFeedback);
+    async function setStates() {
+      const coursesJSON = await getAllCoursesJSON(setFeedback);
+      setCourses(coursesJSON);
+    }
+
+    setStates();
   }, []);
 
   if (!course) {
@@ -22,8 +27,8 @@ const TreePage = () => {
 
   return (
     <div className="TreePage">
-      <p>{feedback}</p>
       <h2>Prerequisite Tree for {course.code}</h2>
+      <p>{feedback}</p>
       <NodeTree node={course} courses={courses} />
     </div>
   );
