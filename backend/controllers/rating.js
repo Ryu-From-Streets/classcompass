@@ -35,14 +35,14 @@ async function handleCreateRating(req, res) {
 }
 
 async function handleGetCourseRating(req, res) {
-    const { courseID } = req.body;
+    const { id } = req.params;
 
-    if (!courseID) {
+    if (!id) {
         return res.status(400).json({ message: "Missing course ID" });
     }
 
     try {
-        const ratings = await Rating.find({ courseID });
+        const ratings = await Rating.find({ courseID: id });
 
         return res.status(200).json({ message: "Success", ratings });
     } catch (error) {
@@ -53,14 +53,14 @@ async function handleGetCourseRating(req, res) {
 }
 
 async function handleGetStudentRating(req, res) {
-    const { studentID } = req.body;
+    const { id } = req.params;
 
-    if (!studentID) {
+    if (!id) {
         return res.status(400).json({ message: "Missing student ID" });
     }
 
     try {
-        const ratings = await Rating.find({ studentID });
+        const ratings = await Rating.find({ studentID: id });
 
         return res.status(200).json({ message: "Success", ratings });
     } catch (error) {

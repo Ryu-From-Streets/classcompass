@@ -8,8 +8,9 @@ const {
     handleDeleteStudentById,
     handleGetAllStudents,
     handleSignIn,
-
 } = require("../controllers/student");
+
+const { handleGetStudentRating } = require("../controllers/rating");
 
 const router = express.Router();
 
@@ -22,6 +23,8 @@ router
     .get(handleGetStudentById)
     .put(handleUpdateStudentById)
     .delete(handleDeleteStudentById);
+
+router.route("/:id/ratings").get(handleGetStudentRating);
 
 router.route("/").get(handleGetAllStudents);
 
