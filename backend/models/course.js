@@ -44,46 +44,39 @@ const courseSchema = new mongoose.Schema(
             required: true,
             default: [],
         },
-        rating: [
-            {
-                student: {
-                    type: mongoose.Schema.Types.ObjectId,
-                    ref: "Student",
-                },
-                value: Number,
-            },
-        ],
         averageRating: {
+            type: Number,
+            default: 0,
+        },
+        totalRatings: {
+            type: Number,
+            default: 0,
+        },
+        totalRatingValue: {
             type: Number,
             default: 0,
         },
     },
     {
         timestamps: true,
-        toJSON: { virtuals: true },
     }
 );
 
 /**
- * Adds a rating to the course
- * @param {Number} rating The rating to be added
- * @returns {Promise<Document>} The course object with the updated rating
+ * Updates the total rating value and count, then recalculates the average rating.
+ * @param {number} diff - The difference to add to the total rating value. This could be positive or negative.
+ * @param {number} increment - The number to add to the total ratings count. Typically 1 or -1.
  */
-courseSchema.methods.addRating = function (studentID, rating) {
-    const existingRating = this.rating.find((r) => r.student.equals(studentID));
-    if (existingRating) {
-        // Update the existing rating
-        existingRating.value = rating;
+courseSchema.methods.updateRating = function (diff, increment) {
+    this.totalRatingValue += diff;
+    this.totalRatings += increment;
+
+    if (this.totalRatings > 0) {
+        this.averageRating =
+            Math.round((this.totalRatingValue / this.totalRatings) * 100) / 100;
     } else {
-        // Add a new rating
-        this.rating.push({ student: studentID, value: rating });
+        this.averageRating = 0;
     }
-
-    this.averageRating =
-        this.rating.reduce((acc, r) => acc + r.value, 0) / this.rating.length;
-    this.averageRating = Math.round(this.averageRating * 100) / 100;
-
-    return this.save();
 };
 
 const Course = mongoose.model("Course", courseSchema);

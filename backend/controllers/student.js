@@ -97,6 +97,27 @@ async function handleSignIn(req, res) {
     }
 }
 
+async function handleChangePassword(req, res) {
+  const { email, newPassword } = req.body;
+
+  try {
+    const user = await Student.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const hashedNewPassword = await bcrypt.hash(newPassword, 10);
+    user.password = hashedNewPassword;
+    await user.save();
+
+    return res.status(200).json({ message: "Password changed successfully" });
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ message: "Internal server error", error: error.message });
+  }
+}
+
 /**
  * Handles the request to update a student by ID
  * @param {*} req - Request object
@@ -193,4 +214,5 @@ module.exports = {
     handleDeleteStudentById,
     handleGetAllStudents,
     handleSignIn,
+    handleChangePassword,
 };

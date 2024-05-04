@@ -12,6 +12,7 @@ const advisorsList = require("./Mock_Data/advisors.json");
 const student_router = require("./routes/student");
 const course_router = require("./routes/course");
 const advisor_router = require("./routes/advisor");
+const rating_router = require("./routes/rating");
 
 const app = express();
 const PORT = 8080;
@@ -39,7 +40,7 @@ app.get("/getAdvisorsList", (req, res) => {
 app.use("/students", student_router);
 app.use("/courses", course_router);
 app.use("/advisors", advisor_router);
-
+app.use("/ratings", rating_router);
 
 // Serve the frontend build
 app.use(express.static("../frontend/build"));

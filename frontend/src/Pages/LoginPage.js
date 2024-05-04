@@ -32,6 +32,9 @@ const LoginPage = ({ isShowLogin }) => {
     }
   }
   };
+  const handleForgotPassword = () => {
+    document.cookie = `userType=${userType}; path=/;`;
+  };
 
   return (
     <div className="login-page">
@@ -78,7 +81,9 @@ const LoginPage = ({ isShowLogin }) => {
               />
               Remember me
             </label>
-            <Link to="/forgot">Forgot Password?</Link>
+            <Link onClick={handleForgotPassword} to="/forgot">
+              Forgot Password?
+            </Link>
           </div>
           {error && <div className="error-message">{error}</div>}{" "}
           <button type="submit" className="button">
