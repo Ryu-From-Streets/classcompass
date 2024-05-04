@@ -1,4 +1,10 @@
 {
+    "majors": [
+        "Computer Science(BS)"
+    ],
+    "minors": [
+        "Business"
+    ],
     "courses": [
         "MATH131",
         "CICS191CICS1",
@@ -27,5 +33,7 @@
         "COMPSCI445",
         "COMPSCI520",
         "COMPSCI589"
-    ]
+    ],
+    "gpa": "3.908",
+    "credits": "113.000"
 }

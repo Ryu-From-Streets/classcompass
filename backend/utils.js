@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const { spawn } = require("child_process");
-const courseData = require("./course.json");
+const courseData = require("./parser/course.json");
+const transcriptData = require("./parser/transcript.json");
 const Course = require("./models/course");
 
 /**
@@ -18,14 +19,14 @@ async function connectMongoDB(url) {
  */
 function runScrapper() {
     // Attempt to use 'python' first
-    let pythonProcess = spawn("python", ["./webScrapper.py"]);
+    let pythonProcess = spawn("python", ["./parser/webScrapper.py"]);
 
     pythonProcess.on("error", (err) => {
         if (err.code === "ENOENT") {
             console.log("'python' not found, trying 'python3' instead...");
 
             // If 'python' is not found - try 'python3'
-            pythonProcess = spawn("python3", ["./webScrapper.py"]);
+            pythonProcess = spawn("python3", ["./parser/webScrapper.py"]);
 
             setupProcessHandlers(pythonProcess);
 
@@ -80,6 +81,13 @@ async function processCourses() {
 
     const totalCount = await Course.countDocuments({});
     console.log("Total courses in database: ", totalCount);
+}
+
+async function processTranscript() {
+    const courses = transcriptData.courses;
+    for (const course of courses) {
+        
+    }
 }
 
 module.exports = { connectMongoDB, runScrapper, processCourses };
