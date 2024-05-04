@@ -17,16 +17,16 @@ async function connectMongoDB(url) {
  * Runs the Python web scrapper script
  * @returns None
  */
-function runScrapper() {
+function runScrapper(file_path) {
     // Attempt to use 'python' first
-    let pythonProcess = spawn("python", ["./parser/webScrapper.py"]);
+    let pythonProcess = spawn("python", [file_path]);
 
     pythonProcess.on("error", (err) => {
         if (err.code === "ENOENT") {
             console.log("'python' not found, trying 'python3' instead...");
 
             // If 'python' is not found - try 'python3'
-            pythonProcess = spawn("python3", ["./parser/webScrapper.py"]);
+            pythonProcess = spawn("python3", [file_path]);
 
             setupProcessHandlers(pythonProcess);
 
