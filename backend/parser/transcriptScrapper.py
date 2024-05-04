@@ -46,7 +46,7 @@ def store_result(major, minor, courses, gpa, credits):
         return
     
     filename = 'transcript.json'
-    folder_path = './backend/parser'
+    folder_path = './parser'
     file_path = os.path.join(folder_path, filename)
 
     with open(file_path, 'w', encoding='utf-8') as f:
