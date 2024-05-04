@@ -13,6 +13,9 @@ const { runScrapper } = require("../utils");
  */
 async function handleCreateStudent(req, res) {
     const { first_name, last_name, email, password } = req.body;
+    // Parse the boolean value from the string
+    const useTranscript =
+        req.body.useTranscript === "true" || req.body.useTranscript === true;
 
     if (!first_name || !email || !password) {
         return res
@@ -20,22 +23,30 @@ async function handleCreateStudent(req, res) {
             .json({ message: "Missing required information" });
     }
 
-    if (!req.file) {
-        return res.status(400).json({ message: "Transcript file is required" });
-    }
-    // Path to the transcript file
-    const transcriptPath = req.file.path;
+    // Check if the transcript file is provided and create a path to it
+    let transcriptPath = useTranscript && req.file ? req.file.path : null;
 
     try {
-        const transcriptData = await runScrapper(transcriptPath);
-        const { majors, minors, courses, gpa, credits } =
-            JSON.parse(transcriptData);
+        let majors, minors, courses, gpa, credits;
+        if (useTranscript) {
+            if (!transcriptPath) {
+                return res
+                    .status(400)
+                    .json({ message: "Transcript file is required" });
+            }
+            const transcriptData = await runScrapper(transcriptPath);
+            const parsedData = JSON.parse(transcriptData);
+            majors = parsedData.majors;
+            minors = parsedData.minors;
+            courses = parsedData.courses;
+            gpa = parsedData.gpa;
+            credits = parsedData.credits;
+        }
 
         // Check if the student already exists
         const existingStudent = await Student.findOne({ email });
         if (existingStudent) {
-            // Delete the transcript file
-            fs.unlinkSync(transcriptPath);
+            if (useTranscript) fs.unlinkSync(transcriptPath);
             return res
                 .status(409)
                 .json({ message: "User already exists with this email." });
@@ -43,6 +54,7 @@ async function handleCreateStudent(req, res) {
 
         const hashedPassword = await bcrypt.hash(password, 10);
 
+        // Create the student in the database
         const student = await Student.create({
             first_name: first_name,
             last_name: last_name || "",
@@ -63,7 +75,7 @@ async function handleCreateStudent(req, res) {
             token,
         });
     } catch (error) {
-        fs.unlinkSync(transcriptPath);
+        if (transcriptPath) fs.unlinkSync(transcriptPath);
         return res
             .status(500)
             .json({ message: "Internal server error", error: error.message });
