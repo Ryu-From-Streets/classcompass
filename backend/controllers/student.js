@@ -2,6 +2,8 @@ const Student = require("../models/student");
 const bcrypt = require("bcrypt");
 const { generateToken } = require("../middleware/auth");
 const mongoose = require("mongoose");
+const fs = require("fs");
+const { runScrapper } = require("../utils");
 
 /**
  * Handles the creation of a new student in the database if the required information is provided
@@ -10,25 +12,30 @@ const mongoose = require("mongoose");
  * @returns The response object indicating the success or failure of the operation and the token
  */
 async function handleCreateStudent(req, res) {
-    const {
-        first_name,
-        last_name,
-        email,
-        major,
-        credits,
-        courses_taken,
-        password,
-    } = req.body;
-    if (!first_name || !email || !credits || !password) {
+    const { first_name, last_name, email, password } = req.body;
+
+    if (!first_name || !email || !password) {
         return res
             .status(400)
             .json({ message: "Missing required information" });
     }
 
+    if (!req.file) {
+        return res.status(400).json({ message: "Transcript file is required" });
+    }
+    // Path to the transcript file
+    const transcriptPath = req.file.path;
+
     try {
+        const transcriptData = await runScrapper(transcriptPath);
+        const { majors, minors, courses, gpa, credits } =
+            JSON.parse(transcriptData);
+
         // Check if the student already exists
         const existingStudent = await Student.findOne({ email });
         if (existingStudent) {
+            // Delete the transcript file
+            fs.unlinkSync(transcriptPath);
             return res
                 .status(409)
                 .json({ message: "User already exists with this email." });
@@ -40,10 +47,12 @@ async function handleCreateStudent(req, res) {
             first_name: first_name,
             last_name: last_name || "",
             email: email,
-            major: major,
-            credits: credits,
-            courses_taken: Array.isArray(courses_taken) ? courses_taken : [],
             password: hashedPassword,
+            majors: majors || [],
+            minors: minors || [],
+            courses: courses || [],
+            gpa: parseFloat(gpa) || 0,
+            credits: parseInt(credits) || 0,
         });
 
         const token = await generateToken(student);
@@ -54,6 +63,7 @@ async function handleCreateStudent(req, res) {
             token,
         });
     } catch (error) {
+        fs.unlinkSync(transcriptPath);
         return res
             .status(500)
             .json({ message: "Internal server error", error: error.message });
@@ -82,14 +92,12 @@ async function handleSignIn(req, res) {
 
         const token = await generateToken(user);
 
-        return res
-          .status(200)
-          .json({
+        return res.status(200).json({
             message: "Sign-in successful",
             name: user.first_name,
             user,
             token,
-          });
+        });
     } catch (error) {
         return res
             .status(500)
@@ -98,24 +106,26 @@ async function handleSignIn(req, res) {
 }
 
 async function handleChangePassword(req, res) {
-  const { email, newPassword } = req.body;
+    const { email, newPassword } = req.body;
 
-  try {
-    const user = await Student.findOne({ email });
-    if (!user) {
-      return res.status(404).json({ message: "User not found" });
+    try {
+        const user = await Student.findOne({ email });
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        const hashedNewPassword = await bcrypt.hash(newPassword, 10);
+        user.password = hashedNewPassword;
+        await user.save();
+
+        return res
+            .status(200)
+            .json({ message: "Password changed successfully" });
+    } catch (error) {
+        return res
+            .status(500)
+            .json({ message: "Internal server error", error: error.message });
     }
-
-    const hashedNewPassword = await bcrypt.hash(newPassword, 10);
-    user.password = hashedNewPassword;
-    await user.save();
-
-    return res.status(200).json({ message: "Password changed successfully" });
-  } catch (error) {
-    return res
-      .status(500)
-      .json({ message: "Internal server error", error: error.message });
-  }
 }
 
 /**
