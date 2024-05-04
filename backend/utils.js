@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const { spawn } = require("child_process");
+const { exec, spawn } = require("child_process");
 const courseData = require("./parser/course.json");
 const transcriptData = require("./parser/transcript.json");
 const Course = require("./models/course");
@@ -14,34 +14,62 @@ async function connectMongoDB(url) {
 }
 
 /**
- * Runs the Python web scrapper script
- * @returns None
+ * Dynamically select the Python executable based on system configuration.
+ * @returns {Promise<string>} Resolves with the executable name or rejects if no suitable version is found.
+ */
+function findPythonExecutable() {
+    return new Promise((resolve, reject) => {
+        exec("python3 --version", (error, stdout, stderr) => {
+            if (!error && stdout.includes("Python 3")) {
+                resolve("python3");
+            } else {
+                exec("python --version", (error, stdout, stderr) => {
+                    if (!error && stdout.includes("Python 3")) {
+                        resolve("python");
+                    } else {
+                        reject("No valid Python 3 executable found.");
+                    }
+                });
+            }
+        });
+    });
+}
+
+/**
+ * Runs the Python web scraper script.
+ * @param {string} file_path The path to the Python script file along with necessary arguments.
+ * @returns {Promise<string>} Resolves with the output from the Python script or rejects with an error.
  */
 function runScrapper(file_path) {
-    // Attempt to use 'python' first
-    let pythonProcess = spawn("python", [file_path]);
+    return new Promise((resolve, reject) => {
+        findPythonExecutable()
+            .then((pythonExecutable) => {
+                const pythonProcess = spawn(pythonExecutable, [file_path]);
 
-    pythonProcess.on("error", (err) => {
-        if (err.code === "ENOENT") {
-            console.log("'python' not found, trying 'python3' instead...");
+                let dataBuffer = "";
+                pythonProcess.stdout.on(
+                    "data",
+                    (data) => (dataBuffer += data.toString())
+                );
+                pythonProcess.stderr.on("data", (data) =>
+                    reject(new Error(`Python script error: ${data}`))
+                );
 
-            // If 'python' is not found - try 'python3'
-            pythonProcess = spawn("python3", [file_path]);
-
-            setupProcessHandlers(pythonProcess);
-
-            pythonProcess.on("error", (err) => {
-                if (err.code === "ENOENT") {
-                    console.error(
-                        "Neither 'python' nor 'python3' could be found - \nPlease install Python first."
-                    );
-                    exit();
-                }
-            });
-        }
+                pythonProcess.on("error", (error) =>
+                    reject(
+                        new Error(`Failed to start Python process: ${error}`)
+                    )
+                );
+                pythonProcess.on("close", (code) => {
+                    if (code === 0) resolve(dataBuffer);
+                    else
+                        reject(
+                            new Error(`Python script exited with code ${code}`)
+                        );
+                });
+            })
+            .catch((error) => reject(new Error(error)));
     });
-
-    setupProcessHandlers(pythonProcess);
 }
 
 /**
@@ -86,7 +114,6 @@ async function processCourses() {
 async function processTranscript() {
     const courses = transcriptData.courses;
     for (const course of courses) {
-        
     }
 }
 
