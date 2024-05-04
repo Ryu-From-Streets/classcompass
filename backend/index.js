@@ -48,10 +48,20 @@ app.get("*", (req, res) =>
     res.sendFile(__dirname + "/../frontend/build/index.html")
 );
 
+/**
+ * Handles the scraping of the course catalog and processing of the courses.
+ */
+// const file_path = "./parser/webScrapper.py";
+// runScrapper(file_path).then(() => {
+//     console.log("Scraping complete, now processing courses...");
+//     return processCourses();
+// }).then(() => {
+//     console.log("Course processing complete.");
+// }).catch((err) => {
+//     console.error("Error processing courses:", err);
+// });
+
 // Start the server
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
-
-// runScrapper();
-// processCourses();
