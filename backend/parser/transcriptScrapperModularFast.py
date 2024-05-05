@@ -11,7 +11,7 @@ class TranscriptParser:
         self.file_path = file_path
         self.course_prefixes = [
             "COMPSCI", "MATH", "INFO", "STATISTIC", 
-            "RES-ECON", "ENGLWRIT", "SOCIOL", "CICS"
+            "RES-ECON", "ENGLWRIT", "SOCIAL", "CICS"
         ]
         self.data = {
             "major": [],
