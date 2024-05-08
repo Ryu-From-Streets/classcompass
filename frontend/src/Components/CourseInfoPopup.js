@@ -69,7 +69,7 @@ const CourseInfoPopup = ( { popupVisibility, setPopupVisibility, course, user, t
 
                 {student && !taken && <button className="take-course-button" onClick={handleTakeButtonClick}>Set Course as Taken</button>}
                 {student && taken && <button className="untake-course-button" onClick={handleUntakeButtonClick}>Set Course as Not Taken</button>}
-                {admin && <buton className="edit-course-button" onClick={handleEditButtonClick}>Edit Course</buton>}
+                {admin && <button className="edit-course-button" onClick={handleEditButtonClick}>Edit Course</button>}
             </div>
         </div>
     ) : "";
