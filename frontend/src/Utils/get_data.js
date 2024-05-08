@@ -108,17 +108,17 @@ export async function getUser(user_type, user_id, auth_token) {
             }
         });
     }
-    else if (user_type === "admin") {
-        // response = await fetch(`/advisors/${user_id}`, {
-        //     method: "GET",
-        //     headers: {
-        //         "Authorization": `Bearer ${auth_token}`
-        //     }
-        // });
+    else if (user_type === "advisor") {
+        response = await fetch(`/advisors/${user_id}`, {
+            method: "GET",
+            headers: {
+                "Authorization": `Bearer ${auth_token}`
+            }
+        });
     }
     let userJSON = [];
 
-    if (user_type === "student" && response.ok) {
+    if (response && response.ok) {
         userJSON = await response.json();
     }
 
