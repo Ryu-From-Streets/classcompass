@@ -88,3 +88,39 @@ export function getFilteredCourses( searchParameter, allCourses, setFeedback ) {
 
     return filteredCourses;
 }
+
+
+// function from https://stackoverflow.com/questions/51109559/get-cookie-with-react
+export function getCookie(key) {
+    var b = document.cookie.match("(^|;)\\s*" + key + "\\s*=\\s*([^;]+)");
+    return b ? b.pop() : "";
+}
+
+
+export async function getUser(user_type, user_id, auth_token) {
+    let response;
+
+    if (user_type === "student") {
+        response = await fetch(`/students/${user_id}`, {
+            method: "GET",
+            headers: {
+                "Authorization": `Bearer ${auth_token}`
+            }
+        });
+    }
+    else if (user_type === "admin") {
+        // response = await fetch(`/advisors/${user_id}`, {
+        //     method: "GET",
+        //     headers: {
+        //         "Authorization": `Bearer ${auth_token}`
+        //     }
+        // });
+    }
+    let userJSON = [];
+
+    if (user_type === "student" && response.ok) {
+        userJSON = await response.json();
+    }
+
+    return userJSON;
+}
