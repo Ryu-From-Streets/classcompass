@@ -38,7 +38,7 @@ const courseFunctions = {
   async getCourseByCode(courseCode){
     try{
       const courseResponse = await courseFunctions.findByCode({ code: courseCode})
-      return course;
+      return courseResponse.name;
     }catch(error){
       console.log('Unable to find course with code ${courseCode}, received error: ${error}')
       return null;
@@ -79,6 +79,14 @@ describe("Tests on course Routes", () => {
       useUnifiedTopology: true,
     })
   });
+
+  test("Get all courses", async () => {
+    const allCourses = await courseFunctions.getAllCourses();
+
+    expect(allCourses).not.toBeNull();
+    expect(Array.isArray(allCourses)).toBe(true);
+  });
+  
   test("Create course", async() => {
     const newCourse = {
         code: "COMPSCI 320",
@@ -162,46 +170,3 @@ describe("Tests on course Routes", () => {
 
 
 
-
-// code: {
-//     type: String,
-//     required: true,
-//     trim: true,
-//     unique: true,
-// },
-// name: {
-//     type: String,
-//     required: true,
-//     trim: true,
-// },
-// description: {
-//     type: String,
-//     trim: true,
-// },
-// instructors: {
-//     type: Array,
-//     required: true,
-//     default: [],
-// },
-// credits: {
-//     type: Number,
-//     required: true,
-//     default: 3,
-// },
-// prerequisites: {
-//     type: Array,
-//     required: true,
-//     default: [],
-// },
-// averageRating: {
-//     type: Number,
-//     default: 0,
-// },
-// totalRatings: {
-//     type: Number,
-//     default: 0,
-// },
-// totalRatingValue: {
-//     type: Number,
-//     default: 0,
-// },

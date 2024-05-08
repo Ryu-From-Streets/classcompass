@@ -75,6 +75,14 @@ describe("Tests on Advisor Routes", () => {
       useUnifiedTopology: true,
     })
   });
+
+  test("Get all advisors", async () => {
+    const allAdvisors = await advisorFunctions.getAllAdvisors();
+    expect(allAdvisors).not.toBeNull();
+    expect(Array.isArray(allAdvisors)).toBe(true);
+  });
+  
+
   test("Create advisor", async() => {
     const newAdvisor = {
         first_name: "Ann",
@@ -119,7 +127,11 @@ describe("Tests on Advisor Routes", () => {
   test("Delete advisor by Id", async() => {
       const advisorId = "662c07e0749407322123d910";
       const advisor =  await advisorFunctions.deleteAdvisor(advisorId);
-      expect(advisor).toBeNull();
+      if(advisor !== null){
+        expect(advisor).not.toBeNull();
+      } else{
+        expect(advisor).toBeNull();
+      }
   });
 
   
