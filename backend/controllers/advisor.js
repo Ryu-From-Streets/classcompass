@@ -19,7 +19,7 @@ async function handleCreateAdvisor(req, res) {
 
     try {
         // Check if the advisor already exists
-        const existingAdvisor = await Advisor.findOne({ email });
+        const existingAdvisor = await Advisor.findOne({ email: email });
         if (existingAdvisor) {
             return res
                 .status(409)
@@ -59,7 +59,7 @@ async function handleSignIn(req, res) {
     const { email, password } = req.body;
 
     try {
-        const user = await Advisor.findOne({ email });
+        const user = await Advisor.findOne({ email: email });
         if (!user) {
             return res.status(404).json({ message: "User not found" });
         }
@@ -73,7 +73,7 @@ async function handleSignIn(req, res) {
 
         return res
             .status(200)
-            .json({ message: "Sign-in successful", user, token });
+            .json({ message: "Sign-in successful", id: user._id, token });
     } catch (error) {
         return res
             .status(500)
@@ -113,7 +113,7 @@ async function handleChangePassword(req, res) {
   const { email, newPassword } = req.body;
 
   try {
-    const user = await Student.findOne({ email });
+    const user = await Student.findOne({ email: email });
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
@@ -198,10 +198,10 @@ async function handleGetAllAdvisors(req, res) {
  * @returns The response object with the list of current students for the advisor
  */
 async function handleGetAdvisorCurrentStudents(req, res) {
-    const { email } = req.params;
+    const { id } = req.params;
 
     try {
-        const advisor = await Advisor.findById(email);
+        const advisor = await Advisor.findById(id);
         if (!advisor) {
             return res.status(404).json({ message: "Advisor not found" });
         }
