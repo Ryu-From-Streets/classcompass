@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import NodeTree from '../Components/NodeTree';
 import { getAllCoursesJSON } from '../Utils/get_data';
 
@@ -27,6 +27,7 @@ const TreePage = () => {
 
   return (
     <div className="TreePage">
+      <Link className="back-link" to="/">&lt; Back to Search</Link>
       <h2>Prerequisite Tree for {course.code}</h2>
       <p>{feedback}</p>
       <NodeTree node={course} courses={courses} />
