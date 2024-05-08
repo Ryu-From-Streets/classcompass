@@ -107,7 +107,7 @@ async function handleSignIn(req, res) {
         return res.status(200).json({
             message: "Sign-in successful",
             name: user.first_name,
-            user,
+            id: user._id,
             token,
         });
     } catch (error) {
