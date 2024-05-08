@@ -6,6 +6,7 @@ const {
     handleGetAllAdvisors,
     handleGetAdvisorCurrentStudents,
     handleChangePassword,
+    handleGetAdvisorById,
 } = require("../controllers/advisor");
 
 const router = express.Router();
