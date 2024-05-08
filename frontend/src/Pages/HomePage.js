@@ -31,8 +31,8 @@ const HomePage = () => {
             setFilteredCourses(coursesJSON);
 
             // fetches user 
-            // const userJSON = await getUser(user_type, user_id, auth_token);
-            // setUser(userJSON);
+            const userJSON = await getUser(user_type, user_id, auth_token);
+            setUser(userJSON);
         }
         setStates();
 
