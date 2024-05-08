@@ -8,41 +8,131 @@ const NodeTree = ({ node, courses }) => {
 
   const renderNode = (courseNode) => {
     const { code, prerequisites } = courseNode;
-    return {
+  
+    // Render the root node with the course code
+    const rootNode = {
       name: code,
-      children: prerequisites.map((prerequisite) => {
-        const childNodes = Array.isArray(prerequisite)
-          ? prerequisite.map((prereq) => {
-              const prerequisiteCourse = courses.find((course) => course.code === prereq);
+      children: []
+    };
+  
+    // If there are prerequisites, render children nodes accordingly
+    if (prerequisites.length > 0) {
+      if (Array.isArray(prerequisites[0])) {
+        if (prerequisites.length === 1) {
+          const innerPrerequisites = prerequisites[0];
+          if (innerPrerequisites.length > 1) {
+            rootNode.children.push({
+              name: 'Any Of',
+              children: innerPrerequisites.map((prerequisite) => {
+                const prerequisiteCourse = courses.find((course) => course.code === prerequisite);
+                if (prerequisiteCourse) {
+                  return renderNode(prerequisiteCourse);
+                }
+                return {
+                  code: prerequisite,
+                  name: prerequisite,
+                  credits: null,
+                  instructors: [],
+                  description: "",
+                  prerequisites: []
+                };
+              })
+            });
+          } else {
+            // Otherwise, render the single course option directly
+            rootNode.children = innerPrerequisites.map((prerequisite) => {
+              const prerequisiteCourse = courses.find((course) => course.code === prerequisite);
               if (prerequisiteCourse) {
                 return renderNode(prerequisiteCourse);
               }
               return {
-                code: prereq,
-                name: prereq,
+                code: prerequisite,
+                name: prerequisite,
                 credits: null,
                 instructors: [],
                 description: "",
                 prerequisites: []
               };
-            })
-          : [prerequisite].map((prereq) => {
-              const prerequisiteCourse = courses.find((course) => course.code === prereq);
-              if (prerequisiteCourse) {
-                return renderNode(prerequisiteCourse);
-              }
-              return {
-                code: prereq,
-                name: prereq,
-                credits: null,
-                instructors: [],
-                description: "",
-                prerequisites: []
-              };;
             });
-        return childNodes.length > 1 ? { name: 'Any Of', children: childNodes } : childNodes[0];
-      }),
-    };
+          }
+        } else {
+          // Render 'options' nodes for each outer array
+          rootNode.children = prerequisites.map((option, index) => {
+            return {
+              name: `Option ${index + 1}`,
+              children: option.map((prerequisite) => {
+                if (Array.isArray(prerequisite)) {
+                  if (prerequisite.length > 1) {
+                    return {
+                      name: 'Any Of',
+                      children: prerequisite.map((innerPrerequisite) => {
+                        const innerPrerequisiteCourse = courses.find((course) => course.code === innerPrerequisite);
+                        if (innerPrerequisiteCourse) {
+                          return renderNode(innerPrerequisiteCourse);
+                        }
+                        return {
+                          code: innerPrerequisite,
+                          name: innerPrerequisite,
+                          credits: null,
+                          instructors: [],
+                          description: "",
+                          prerequisites: []
+                        };
+                      })
+                    };
+                  } else {
+                    // Render the single course option directly
+                    const innerPrerequisiteCourse = courses.find((course) => course.code === prerequisite[0]);
+                    if (innerPrerequisiteCourse) {
+                      return renderNode(innerPrerequisiteCourse);
+                    }
+                    return {
+                      code: prerequisite[0],
+                      name: prerequisite[0],
+                      credits: null,
+                      instructors: [],
+                      description: "",
+                      prerequisites: []
+                    };
+                  }
+                }
+                // Otherwise, render the single course option directly
+                const prerequisiteCourse = courses.find((course) => course.code === prerequisite);
+                if (prerequisiteCourse) {
+                  return renderNode(prerequisiteCourse);
+                }
+                return {
+                  code: prerequisite,
+                  name: prerequisite,
+                  credits: null,
+                  instructors: [],
+                  description: "",
+                  prerequisites: []
+                };
+              })
+            };
+          });
+        }
+      } else {
+        // If prerequisites is a simple array (no outer array)
+        rootNode.children = prerequisites.map((prerequisite) => {
+          const prerequisiteCourse = courses.find((course) => course.code === prerequisite);
+          if (prerequisiteCourse) {
+            return renderNode(prerequisiteCourse);
+          }
+          return {
+            code: prerequisite,
+            name: prerequisite,
+            credits: null,
+            instructors: [],
+            description: "",
+            prerequisites: []
+          };
+        });
+      }
+    }
+  
+    return rootNode;
   };
 
   useEffect(() => {
@@ -54,11 +144,10 @@ const NodeTree = ({ node, courses }) => {
     if (courses.length > 0) {
       renderTreeData();
     }
-  });
-
+  }, [courses, node]);
 
   return treeData ? (
-    <div className="course-tree" style={{ width: '100%', height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'flex-start' }}>
+    <div style={{ width: '100%', height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'flex-start' }}>
       <Tree
         data={treeData}
         orientation="vertical"
