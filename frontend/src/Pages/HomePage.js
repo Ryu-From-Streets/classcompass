@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getAllCoursesJSON } from "../Utils/get_data";
+import { getAllCoursesJSON, getUser, getCookie } from "../Utils/get_data";
 
 
 // COMPONENTS
@@ -8,20 +8,36 @@ import CourseButton from "../Components/CourseButton";
 
 
 const HomePage = () => {
-    // states for
+    // FEEDBACK STATES
+    const [courseFeedback, setCourseFeedback] = useState("");
+
+    // COURSES AND STUDENT STATES
     const [allCourses, setAllCourses] = useState([]);
     const [filteredCourses, setFilteredCourses] = useState([]);
-    const [feedback, setFeedback] = useState("");
+    const [user, setUser] = useState([]);
 
     // fetch all courses and store them in courses state every time the page is loaded
     // also store a copy of all courses in filteredCourses state for use in search bar component
     useEffect(() => {
+
+        let user_type = getCookie("type");
+        let user_id = getCookie("id");
+        let auth_token = getCookie("authToken");
+
         async function setStates() {
-            const coursesJSON = await getAllCoursesJSON(setFeedback);
+            // fetches all courses and creates a copy for search bar
+            const coursesJSON = await getAllCoursesJSON(setCourseFeedback);
             setAllCourses(coursesJSON);
             setFilteredCourses(coursesJSON);
+
+            // fetches user 
+            // const userJSON = await getUser(user_type, user_id, auth_token);
+            // setUser(userJSON);
         }
         setStates();
+
+        
+
     }, []);
 
     
@@ -32,14 +48,22 @@ const HomePage = () => {
                 <h1>Search For a Course!</h1>
 
                 <div className = "search-bar-container">
-                    <SearchBar allCourses={allCourses} setFilteredCourses={setFilteredCourses} setFeedback={setFeedback} />
+                    <SearchBar 
+                        allCourses={allCourses} 
+                        setFilteredCourses={setFilteredCourses} 
+                        setFeedback={setCourseFeedback} 
+                    />
                 </div>
 
-                <p>{feedback}</p>
+                <p>{courseFeedback}</p>
 
                 {filteredCourses && filteredCourses.map((filteredCourse) => (
 
-                    <CourseButton key={filteredCourse.code} course={filteredCourse}/>
+                    <CourseButton 
+                        key={filteredCourse.code} 
+                        course={filteredCourse} 
+                        user={user}
+                    />
 
                 ))}
 
