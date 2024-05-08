@@ -11,7 +11,7 @@ const CourseInfoPopup = ( { popupVisibility, setPopupVisibility, course, user, t
     if (user.role === "student") {
         student = true;
     }
-    else if (user.role === "admin") {
+    else if (user.role === "advisor") {
         admin = true;
     }
 
