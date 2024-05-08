@@ -38,6 +38,15 @@
   background-color: #eeeeee;
 }
 
+.back-link {
+  position: absolute;
+  left: 2%;
+}
+
+.TreePage .course-tree {
+  background-color: #dcdcdc;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;

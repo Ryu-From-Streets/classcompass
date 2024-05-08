@@ -58,7 +58,7 @@ const NodeTree = ({ node, courses }) => {
 
 
   return treeData ? (
-    <div style={{ width: '100%', height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'flex-start' }}>
+    <div className="course-tree" style={{ width: '100%', height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'flex-start' }}>
       <Tree
         data={treeData}
         orientation="vertical"

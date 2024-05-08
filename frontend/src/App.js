@@ -10,6 +10,8 @@ import LoginPage from "./Pages/LoginPage";
 import RegisterPage from "./Pages/RegisterPage";
 import TreePage from "./Pages/TreePage";
 import ForgotPage from "./Pages/ForgotPage";
+import EditCoursePage from './Pages/EditCoursePage';
+import AddCoursePage from './Pages/AddCoursePage';
 
 // COMPONENTS
 import NavigationBar from "./Components/NavigationBar";
@@ -29,6 +31,8 @@ function App() {
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/tree" element={<TreePage />} />
             <Route path="/forgot" element={<ForgotPage />} />
+            <Route path="/editCourse" element={<EditCoursePage />} />
+            <Route path="/addCourse" elemtn={<AddCoursePage />} />
           </Routes>
         </div>
       </BrowserRouter>

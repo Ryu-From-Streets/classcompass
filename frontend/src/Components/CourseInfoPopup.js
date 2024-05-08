@@ -1,22 +1,56 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./CourseInfoPopup.css"
 import { useNavigate } from "react-router-dom"; 
+import { addCourseToStudent, removeCourseFromStudent } from "../Utils/send_data";
 
-const CourseInfoPopup = (props) => {
-
-    const course = props.course;
-
+const CourseInfoPopup = ( { popupVisibility, setPopupVisibility, course, user, taken } ) => {
     const navigate = useNavigate(); 
+    let student = false;
+    let admin = false;
+
+    if (user.role === "student") {
+        student = true;
+    }
+    else if (user.role === "admin") {
+        admin = true;
+    }
+
+    // Takes user to tree page for corresponding course on click
+    // Always accessible
     const handleTreeButtonClick = () => {
         navigate("/tree", { state: { course }  });
     };
 
-    return (props.trigger) ? (
+    // Marks corresponding course as taken on click
+    // Only accessible if logged in as student and they have not taken the course
+    const handleTakeButtonClick = () => {
+        addCourseToStudent(user, course.code);
+        setPopupVisibility(false);
+    };
+
+    // Marks corresponding course as not taken on click
+    // Only accesible if logged in as student and they have taken the course
+    const handleUntakeButtonClick = () => {
+        removeCourseFromStudent(user, course.code);
+        setPopupVisibility(false);
+    };
+
+    // Takes user to course edit page
+    // Only accessible if logged in as admin
+    const handleEditButtonClick = () => {
+        navigate("/editCourse", { state: { user, course } });
+    };
+
+    useEffect(() => {
+
+    }, [taken]);
+
+    return (popupVisibility) ? (
         <div className="CourseInfoPopup">
             <div className="CourseInfoPopupInner">
                 <button 
                     className="close-popup-button"
-                    onClick={() => props.setTrigger(false)}
+                    onClick={() => setPopupVisibility(false)}
                 >
                     close
                 </button>
@@ -28,9 +62,14 @@ const CourseInfoPopup = (props) => {
                     <p><strong>Instructor(s):</strong> {course.instructors.join(", ")}</p>
                     <p><strong>Description:</strong> {course.description}</p>
                     <p><strong>Prerequisites:</strong> {course.prerequisites.flat().join(" ")}</p>
-
-                    <button onClick={handleTreeButtonClick}>See Prerequisite Tree</button>
+                    
                 </div>
+
+                <button className="tree-button" onClick={handleTreeButtonClick}>See Prerequisite Tree</button>
+
+                {student && !taken && <button className="take-course-button" onClick={handleTakeButtonClick}>Set Course as Taken</button>}
+                {student && taken && <button className="untake-course-button" onClick={handleUntakeButtonClick}>Set Course as Not Taken</button>}
+                {admin && <buton className="edit-course-button" onClick={handleEditButtonClick}>Edit Course</buton>}
             </div>
         </div>
     ) : "";
