@@ -21,6 +21,11 @@ const CourseInfoPopup = ( { popupVisibility, setPopupVisibility, course, user, t
         navigate("/tree", { state: { course }  });
     };
 
+
+    const handleSignInPromptButtonClick = () => {
+        navigate("/login");
+    };
+
     // Marks corresponding course as taken on click
     // Only accessible if logged in as student and they have not taken the course
     const handleTakeButtonClick = () => {
@@ -66,6 +71,8 @@ const CourseInfoPopup = ( { popupVisibility, setPopupVisibility, course, user, t
                 </div>
 
                 <button className="tree-button" onClick={handleTreeButtonClick}>See Prerequisite Tree</button>
+
+                {!student && !admin && <button className="sign-in-prompt-button" onClick={handleSignInPromptButtonClick}>Sign in to mark courses as taken!</button>}
 
                 {student && !taken && <button className="take-course-button" onClick={handleTakeButtonClick}>Set Course as Taken</button>}
                 {student && taken && <button className="untake-course-button" onClick={handleUntakeButtonClick}>Set Course as Not Taken</button>}

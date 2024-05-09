@@ -44,6 +44,12 @@
     right: 5%;
 }
 
+.sign-in-prompt-button {
+    position: absolute;
+    margin-top: 2%;
+    left: 5%;
+}
+
 .take-course-button {
     position: absolute;
     margin-top: 2%;
