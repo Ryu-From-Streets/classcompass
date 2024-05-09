@@ -8,10 +8,10 @@ const CourseInfoPopup = ( { popupVisibility, setPopupVisibility, course, user, t
     let student = false;
     let admin = false;
 
-    if (user.role === "student") {
+    if (user && user.role === "student") {
         student = true;
     }
-    else if (user.role === "advisor") {
+    else if (user && user.role === "advisor") {
         admin = true;
     }
 
@@ -21,7 +21,8 @@ const CourseInfoPopup = ( { popupVisibility, setPopupVisibility, course, user, t
         navigate("/tree", { state: { course }  });
     };
 
-
+    // Takes user to login page on click
+    // Accessible if user not logged in (has no user role)
     const handleSignInPromptButtonClick = () => {
         navigate("/login");
     };
