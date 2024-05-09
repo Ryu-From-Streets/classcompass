@@ -21,6 +21,7 @@ const LoginPage = ({ isShowLogin }) => {
       console.log(response.data);
       document.cookie = `authToken=${response.data.token}; path=/;`;
       document.cookie = `name=${response.data.name}; path=/;`;
+      document.cookie = `userType=${userType}; path=/;`;
       window.location.href = "/";
     } catch (error) {
     if (error.response && error.response.status === 404) {
@@ -31,9 +32,6 @@ const LoginPage = ({ isShowLogin }) => {
       setError("An error occurred. Please try again later.");
     }
   }
-  };
-  const handleForgotPassword = () => {
-    document.cookie = `userType=${userType}; path=/;`;
   };
 
   return (
@@ -81,7 +79,7 @@ const LoginPage = ({ isShowLogin }) => {
               />
               Remember me
             </label>
-            <Link onClick={handleForgotPassword} to="/forgot">
+            <Link to="/forgot">
               Forgot Password?
             </Link>
           </div>

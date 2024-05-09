@@ -3,10 +3,8 @@ import {
   HiUser,
   HiOutlineLockClosed,
   HiMail,
-  HiOutlineAcademicCap,
-  HiBookOpen,
-  HiOutlineGlobe,
 } from "react-icons/hi";
+import { MdSecurity } from "react-icons/md";
 import "./login.css";
 
 import axios from "axios";
@@ -17,18 +15,13 @@ const SignUpPage = ({ isShowLogin }) => {
   const [password, setPassword] = useState("");
   const [rePassword, setRePassword] = useState("");
   const [userType, setUserType] = useState("student");
-  const [numCredits, setCredits] = useState("");
-  const [courses, setCourses] = useState([]);
-  const [majors, setMajors] = useState([]);
+  const [securityQuestion, setSecurityQuestion] = useState("");
+  const [securityAnswer, setSecurityAnswer] = useState("");
 
   const handleSignup = async (e) => {
     e.preventDefault();
     if (password !== rePassword) {
       alert("Passwords do not match");
-      return;
-    }
-    if (isNaN(numCredits) || numCredits <= 0 || numCredits > 150) {
-      alert("Please enter a valid number of credits (1 to 150)");
       return;
     }
     const spaceIndex = name.indexOf(" ");
@@ -48,12 +41,17 @@ const SignUpPage = ({ isShowLogin }) => {
           first_name: first_name,
           last_name: last_name,
           email: email,
-          major: majors,
-          credits: numCredits,
-          courses_taken: courses,
+          majors: [],
+          minors: [],
+          courses: [],
+          gpa: 0,
+          credits: 0,
+          question: securityQuestion,
+          answer: securityAnswer,
           password: password,
         });
         document.cookie = `authToken=${response.data.token}; path=/;`;
+        document.cookie = `name=${response.data.name}; path=/;`;
         window.location.href = "/";
       } catch (error) {
         console.error("Failed to sign up student", error.response.data);
@@ -67,6 +65,8 @@ const SignUpPage = ({ isShowLogin }) => {
           password: password,
         });
         document.cookie = `authToken=${response.data.token}; path=/;`;
+        document.cookie = `name=${response.data.name}; path=/;`;
+        document.cookie = `userType=${userType}; path=/;`;
         window.location.href = "/";
       } catch (error) {
         console.error("Failed to sign up advisor", error.response.data);
@@ -74,22 +74,6 @@ const SignUpPage = ({ isShowLogin }) => {
     }
   };
 
-  const handleNumCreditsChange = (e) => {
-    const value = parseInt(e.target.value);
-    setCredits(isNaN(value) ? "" : value); 
-  };
-
-  const handleCoursesChange = (e) => {
-    const coursesList = e.target.value
-      .split(",")
-      .map((course) => course.trim());
-    setCourses(coursesList);
-  };
-
-  const handleMajors = (e) => {
-    const majorList = e.target.value.split(",").map((major) => major.trim());
-    setMajors(majorList);
-  };
 
   return (
     <div className="register-page">
@@ -146,42 +130,36 @@ const SignUpPage = ({ isShowLogin }) => {
               />
               <HiOutlineLockClosed className="icon" />
             </div>
-            {userType === "student" && (
-              <>
-                <div className="input-box">
-                  <input
-                    type="text"
-                    placeholder="Enter number of credits"
-                    value={numCredits}
-                    onChange={(e) => {
-                      handleNumCreditsChange(e);
-                    }}
-                    required
-                  />
-                  <HiOutlineAcademicCap className="icon" />
-                </div>
-                <div className="input-box">
-                  <input
-                    type="text"
-                    placeholder="Enter courses"
-                    value={courses.join(",")}
-                    onChange={handleCoursesChange}
-                    required
-                  />
-                  <HiBookOpen className="icon" />
-                </div>
-                <div className="input-box">
-                  <input
-                    type="text"
-                    placeholder="Enter Majors"
-                    value={majors.join(",")}
-                    onChange={handleMajors}
-                    required
-                  />
-                  <HiOutlineGlobe className="icon" />
-                </div>
-              </>
-            )}
+            <div className="input-box">
+              <select
+                value={securityQuestion}
+                onChange={(e) => setSecurityQuestion(e.target.value)}
+              >
+                <option value="">Select Security Question</option>
+                <option value="What is your pet's name?">
+                  What is your pet's name?
+                </option>
+                <option value="Where were you born?">
+                  Where were you born?
+                </option>
+                <option value="What is your mother's name?">
+                  What is your mother's name?
+                </option>
+                <option value="What is your father's name?">
+                  What is your father's name?
+                </option>
+              </select>
+            </div>
+            <div className="input-box">
+              <input
+                type="text"
+                placeholder="Enter Answer"
+                value={securityAnswer}
+                onChange={(e) => setSecurityAnswer(e.target.value)}
+                required
+              />
+              <MdSecurity className="icon" />
+            </div>
           </div>
           <button type="submit" className="button">
             {" "}
