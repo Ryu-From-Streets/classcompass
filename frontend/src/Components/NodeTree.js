@@ -159,7 +159,7 @@ const NodeTree = ({ node, courses }) => {
         data={treeData}
         orientation="vertical"
         translate={{ x: window.innerWidth / 2, y: window.innerHeight / 10 }}
-        collapsible={false}
+        collapsible={true}
         zoomable={true}
         separation={{ siblings: 2, nonSiblings: 2 }}
         rootNodeClassName="node__root"
