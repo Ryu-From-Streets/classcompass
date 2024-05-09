@@ -17,9 +17,12 @@ const NodeTree = ({ node, courses }) => {
   
     // If there are prerequisites, render children nodes accordingly
     if (prerequisites.length > 0) {
+      // If prerequisites is an array of arrays
       if (Array.isArray(prerequisites[0])) {
+        // If there's only one outer array, render 'any of' nodes directly
         if (prerequisites.length === 1) {
           const innerPrerequisites = prerequisites[0];
+          // If inner prerequisites contain multiple options, render 'any of' node
           if (innerPrerequisites.length > 1) {
             rootNode.children.push({
               name: 'Any Of',
@@ -38,9 +41,9 @@ const NodeTree = ({ node, courses }) => {
                 };
               })
             });
-          } else {
-            // Otherwise, render the single course option directly
-            rootNode.children = innerPrerequisites.map((prerequisite) => {
+          } else if (innerPrerequisites.length === 1 && Array.isArray(innerPrerequisites[0]) && innerPrerequisites[0].length > 0) {
+            // Render the single course option directly
+            rootNode.children = innerPrerequisites[0].map((prerequisite) => {
               const prerequisiteCourse = courses.find((course) => course.code === prerequisite);
               if (prerequisiteCourse) {
                 return renderNode(prerequisiteCourse);
@@ -58,10 +61,15 @@ const NodeTree = ({ node, courses }) => {
         } else {
           // Render 'options' nodes for each outer array
           rootNode.children = prerequisites.map((option, index) => {
+            // Skip rendering if the option array is empty
+            if (option.length === 0) return null;
+
             return {
               name: `Option ${index + 1}`,
               children: option.map((prerequisite) => {
+                // Render the single course option directly
                 if (Array.isArray(prerequisite)) {
+                  // Render an 'Any Of' node for inner prerequisites
                   if (prerequisite.length > 1) {
                     return {
                       name: 'Any Of',
@@ -96,7 +104,7 @@ const NodeTree = ({ node, courses }) => {
                     };
                   }
                 }
-                // Otherwise, render the single course option directly
+                // Render the single course option directly
                 const prerequisiteCourse = courses.find((course) => course.code === prerequisite);
                 if (prerequisiteCourse) {
                   return renderNode(prerequisiteCourse);
@@ -111,7 +119,7 @@ const NodeTree = ({ node, courses }) => {
                 };
               })
             };
-          });
+          }).filter(Boolean); // Remove any null entries from the array
         }
       } else {
         // If prerequisites is a simple array (no outer array)
