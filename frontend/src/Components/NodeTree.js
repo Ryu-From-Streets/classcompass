@@ -6,12 +6,13 @@ import Tree from 'react-d3-tree';
 const NodeTree = ({ node, courses }) => {
   const [treeData, setTreeData] = useState(null);
 
-  const renderNode = (courseNode) => {
+  const renderNode = (courseNode, depth) => {
     const { code, prerequisites } = courseNode;
   
     // Render the root node with the course code
     const rootNode = {
       name: code,
+      depth,
       children: []
     };
   
@@ -25,13 +26,15 @@ const NodeTree = ({ node, courses }) => {
           if (innerPrerequisites.length > 1) {
             rootNode.children.push({
               name: 'Any Of',
+              depth: depth + 1,
               children: innerPrerequisites.map((prerequisite) => {
                 const prerequisiteCourse = courses.find((course) => course.code === prerequisite);
                 if (prerequisiteCourse) {
-                  return renderNode(prerequisiteCourse);
+                  return renderNode(prerequisiteCourse, depth + 2);
                 }
                 return {
                   code: prerequisite,
+                  depth: depth + 2,
                   name: prerequisite,
                   credits: null,
                   instructors: [],
@@ -45,10 +48,11 @@ const NodeTree = ({ node, courses }) => {
             rootNode.children = innerPrerequisites[0].map((prerequisite) => {
               const prerequisiteCourse = courses.find((course) => course.code === prerequisite);
               if (prerequisiteCourse) {
-                return renderNode(prerequisiteCourse);
+                return renderNode(prerequisiteCourse, depth + 1);
               }
               return {
                 code: prerequisite,
+                depth: depth + 1,
                 name: prerequisite,
                 credits: null,
                 instructors: [],
@@ -65,6 +69,7 @@ const NodeTree = ({ node, courses }) => {
 
             return {
               name: `Option ${index + 1}`,
+              depth: depth + 1,
               children: option.map((prerequisite) => {
                 // Render the single course option directly
                 if (Array.isArray(prerequisite)) {
@@ -72,13 +77,15 @@ const NodeTree = ({ node, courses }) => {
                   if (prerequisite.length > 1) {
                     return {
                       name: 'Any Of',
+                      depth: depth + 2,
                       children: prerequisite.map((innerPrerequisite) => {
                         const innerPrerequisiteCourse = courses.find((course) => course.code === innerPrerequisite);
                         if (innerPrerequisiteCourse) {
-                          return renderNode(innerPrerequisiteCourse);
+                          return renderNode(innerPrerequisiteCourse, depth + 3);
                         }
                         return {
                           code: innerPrerequisite,
+                          depth: depth + 3,
                           name: innerPrerequisite,
                           credits: null,
                           instructors: [],
@@ -91,10 +98,11 @@ const NodeTree = ({ node, courses }) => {
                     // Render the single course option directly
                     const innerPrerequisiteCourse = courses.find((course) => course.code === prerequisite[0]);
                     if (innerPrerequisiteCourse) {
-                      return renderNode(innerPrerequisiteCourse);
+                      return renderNode(innerPrerequisiteCourse, depth + 2);
                     }
                     return {
                       code: prerequisite[0],
+                      depth: depth + 2,
                       name: prerequisite[0],
                       credits: null,
                       instructors: [],
@@ -106,10 +114,11 @@ const NodeTree = ({ node, courses }) => {
                 // Render the single course option directly
                 const prerequisiteCourse = courses.find((course) => course.code === prerequisite);
                 if (prerequisiteCourse) {
-                  return renderNode(prerequisiteCourse);
+                  return renderNode(prerequisiteCourse, depth + 1);
                 }
                 return {
                   code: prerequisite,
+                  depth: depth + 1,
                   name: prerequisite,
                   credits: null,
                   instructors: [],
@@ -125,10 +134,11 @@ const NodeTree = ({ node, courses }) => {
         rootNode.children = prerequisites.map((prerequisite) => {
           const prerequisiteCourse = courses.find((course) => course.code === prerequisite);
           if (prerequisiteCourse) {
-            return renderNode(prerequisiteCourse);
+            return renderNode(prerequisiteCourse, depth + 1);
           }
           return {
             code: prerequisite,
+            depth: depth + 1,
             name: prerequisite,
             credits: null,
             instructors: [],
@@ -144,7 +154,7 @@ const NodeTree = ({ node, courses }) => {
 
   useEffect(() => {
     const renderTreeData = () => {
-      const data = renderNode(node);
+      const data = renderNode(node, 0);
       setTreeData(data);
     };
 
@@ -161,6 +171,7 @@ const NodeTree = ({ node, courses }) => {
         translate={{ x: window.innerWidth / 2, y: window.innerHeight / 10 }}
         collapsible={true}
         zoomable={true}
+        initialDepth={3} // Specify the initial depth to collapse nodes
         separation={{ siblings: 2, nonSiblings: 2 }}
         rootNodeClassName="node__root"
         branchNodeClassName="node__branch"
