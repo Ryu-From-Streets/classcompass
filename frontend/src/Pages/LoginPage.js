@@ -47,7 +47,7 @@ const LoginPage = ({ isShowLogin }) => {
                 onChange={(e) => setUserType(e.target.value)}
               >
                 <option value="student">I am a student</option>
-                <option value="advisor">I am an advisor</option>
+                {/*<option value="advisor">I am an advisor</option>*/}
               </select>
             </div>
             <div className="input-box">
