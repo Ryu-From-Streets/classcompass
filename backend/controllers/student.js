@@ -91,18 +91,29 @@ async function handleSignIn(req, res) {
   const { email, password } = req.body;
 
   try {
+    console.log("Trying sign in");
+
+    console.log("checking if email exists");
     const user = await Student.findOne({ email });
     if (!user) {
+      console.log("email does not exist on database");
       return res.status(404).json({ message: "User not found" });
     }
+    console.log ("email match found");
+    console.log("checking if passwords match")
     const isPasswordMatch = await bcrypt.compare(password, user.password);
 
     if (!isPasswordMatch) {
+      console.log("password doesn't match")
       return res.status(401).json({ message: "Invalid password" });
     }
+    console.log("passwords matched")
 
+    console.log("generating user token");
     const token = await generateToken(user);
+    console.log("token generated");
 
+    console.log("success! sending back user")
     return res.status(200).json({
       message: "Sign-in successful",
       name: user.first_name,
@@ -110,6 +121,7 @@ async function handleSignIn(req, res) {
       token,
     });
   } catch (error) {
+    console.log("error signing up")
     return res
       .status(500)
       .json({ message: "Internal server error", error: error.message });

@@ -1,0 +1,22 @@
+[
+    {
+        "name": "Bob",
+        "title": "advisor",
+        "email": "bob@email.com"
+    },
+    {
+        "name": "Jim",
+        "title": "advisor",
+        "email": "jim@email.com"
+    },
+    {
+        "name": "Alice",
+        "title": "graduate advisor",
+        "email": "alice@email.com"
+    },
+    {
+        "name": "Eve",
+        "title": "undergraduate advisor",
+        "email": "eve@email.com"
+    }
+]
