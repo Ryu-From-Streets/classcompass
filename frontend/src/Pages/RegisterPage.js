@@ -52,6 +52,8 @@ const SignUpPage = ({ isShowLogin }) => {
         });
         document.cookie = `authToken=${response.data.token}; path=/;`;
         document.cookie = `name=${response.data.name}; path=/;`;
+        document.cookie = `userType=${userType}; path=/;`;
+        document.cookie = `userID=${response.data.id}; path=/;`;
         window.location.href = "/";
       } catch (error) {
         console.error("Failed to sign up student", error.response.data);
@@ -67,6 +69,7 @@ const SignUpPage = ({ isShowLogin }) => {
         document.cookie = `authToken=${response.data.token}; path=/;`;
         document.cookie = `name=${response.data.name}; path=/;`;
         document.cookie = `userType=${userType}; path=/;`;
+        document.cookie = `userID=${response.data.id}; path=/;`;
         window.location.href = "/";
       } catch (error) {
         console.error("Failed to sign up advisor", error.response.data);
