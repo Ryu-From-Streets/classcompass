@@ -1,42 +1,45 @@
 import { useState } from "react";
-
+import { splitCourseCode } from "../Utils/format_strings";
 import "./CourseButton.css";
 
-import { useNavigate } from "react-router-dom"; 
 
 /* Course Button and CourseInfoPopup adapted from https://www.youtube.com/watch?v=i8fAO_zyFAM */
 
 // COMPONENTS
 import CourseInfoPopup from "./CourseInfoPopup";
 
-const CourseButton = ({ course }) => {
+const CourseButton = ({ course, user }) => {
     const [popupVisibility, setPopupVisibility] = useState(false);
-    const navigate = useNavigate(); 
 
-    const handleTreeButtonClick = () => {
-        navigate("/tree", { state: { course } });
-    };
+    // gets course code as array where first item is the course type (ex: "COMPSCI")
+    // and the second item is the couse number (ex: "220")
+    let courseTokens = splitCourseCode(course.code);
+
+    let isTaken = "notTaken";
+    let taken = false;
+    if (user.courses_taken && user.courses_taken.includes(course.code)) {
+        isTaken = "taken";
+        taken = true;
+    }
 
     return (
         <>
-            <button 
+            <button
                 className="CourseButton"
+                id={isTaken}
                 onClick={() => setPopupVisibility(true)}
             >
-                <p className="class-code">{ course.code }</p>
+                <p className="class-code">{ courseTokens[0] + " " + courseTokens[1] }</p>
                 <p className="class-name">{ course.name }</p>
             </button>
 
-            <CourseInfoPopup trigger={popupVisibility} setTrigger={setPopupVisibility}>
-                <h1>{course.code}</h1>
-                <h2>{course.name}</h2>
-                <p><strong>Credits:</strong> {course.credits}</p>
-                <p><strong>Instructor(s):</strong> {course.instructors}</p>
-                <p><strong>Description:</strong> {course.description}</p>
-                <p><strong>Prerequisites:</strong> {course.prerequisites.flat().join(" ")}</p>
-
-                <button onClick={handleTreeButtonClick}>See Prerequisite Tree</button>
-            </CourseInfoPopup>
+            <CourseInfoPopup 
+                popupVisibility={popupVisibility} 
+                setPopupVisibility={setPopupVisibility} 
+                course={course}
+                user={user}
+                taken={taken}
+            />
         </>
     );
 }

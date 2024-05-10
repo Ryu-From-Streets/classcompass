@@ -1,11 +1,44 @@
-import "./NavigationBar.css";
-
+import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { HiOutlineUserCircle } from "react-icons/hi";
-
-/* Adapted from: https://www.codevertiser.com/reactjs-responsive-navbar/ */
+import "./NavigationBar.css";
 
 const NavigationBar = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [showProfilePopup, setShowProfilePopup] = useState(false);
+
+  useEffect(() => {
+    const authToken = getCookie("authToken");
+    setIsLoggedIn(!!authToken);
+  }, []);
+
+  const getCookie = (name) => {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(";").shift();
+  };
+
+  const toggleProfilePopup = () => {
+    setShowProfilePopup(!showProfilePopup);
+  };
+
+  const handleLogout = () => {
+    document.cookie =
+      "authToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    document.cookie =
+      "name=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    document.cookie =
+      "userID=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    document.cookie =
+      "userType=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+
+    setIsLoggedIn(false);
+    setShowProfilePopup(false);
+
+    window.location.reload();
+    return false;
+  };
+
   return (
     <nav className="NavigationBar">
       <div className="NavigationBarContainer">
@@ -17,13 +50,41 @@ const NavigationBar = () => {
         <div className="NavigationElements">
           <ul>
             <li>
-              <NavLink to="/advisors">Advisors</NavLink>
-            </li>
-            <li>
-              <NavLink to="/login">
-                <HiOutlineUserCircle className="icon" />
+              <NavLink to="/advisors" exact>
+                <p>Advisors</p>
               </NavLink>
             </li>
+          </ul>
+        </div>
+        <div className="NavigationElements">
+          <ul>
+            {isLoggedIn ? (
+              <li>
+                <button onClick={toggleProfilePopup}>
+                  <HiOutlineUserCircle className="icon" />
+                </button>
+                {showProfilePopup && (
+                  <div className="ProfilePopup">
+                    <div className="ProfileHeader">
+                      <HiOutlineUserCircle className="profileIcon" />
+                      <h3>{getCookie("name")}</h3>
+                    </div>
+                    <ul>
+                      <li></li>
+                      <li></li>
+                      <li></li>
+                      <li onClick={handleLogout}>Sign Out</li>
+                    </ul>
+                  </div>
+                )}
+              </li>
+            ) : (
+              <li>
+                <NavLink to="/login">
+                  <HiOutlineUserCircle className="icon" />
+                </NavLink>
+              </li>
+            )}
           </ul>
         </div>
       </div>

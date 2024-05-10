@@ -59,3 +59,39 @@ body {
 .icon {
   font-size: 25px;
 }
+
+.ProfilePopup {
+  position: absolute;
+  top: 40px;
+  right: 0;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  z-index: 999;
+}
+
+.ProfileHeader {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.profileIcon {
+  margin-right: 10px;
+}
+
+.ProfilePopup ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.ProfilePopup ul li {
+  cursor: pointer;
+  padding: 5px 0;
+}
+
+.ProfilePopup ul li:hover {
+  background-color: #f0f0f0;
+}

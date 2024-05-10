@@ -13,7 +13,7 @@ The backend is structured as follows:
 - `package.json`: Contains the dependencies and scripts for the backend
 - `.env`: Contains the environment variables for the backend
 
-To run the backend, you will need to have Node.js installed. You can install the dependencies by running `npm install` in the root directory of the backend. You can then run the backend by running `npm start`. The backend will run on port `3000` by default.
+To run the backend, you will need to have Node.js installed. You can install the dependencies by running `npm install` in the root directory of the backend. You can then run the backend by running `npm start`. The backend will run on port `8080` by default.
 
 ## API Documentation
 

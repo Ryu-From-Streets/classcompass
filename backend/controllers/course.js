@@ -1,8 +1,9 @@
-const { default: mongoose } = require("mongoose");
+// const { default: mongoose } = require("mongoose");
 const Course = require("../models/course");
+const mongoose = require("mongoose");
 
 /**
- * Handles the creation of a new course in the database if the required information is provided
+ * Handles the creation of a new course in the database
  * @param {*} req - Request object
  * @param {*} res - Response object
  * @returns The response object indicating the success or failure of the operation
@@ -10,6 +11,7 @@ const Course = require("../models/course");
 async function handleCreateCourse(req, res) {
     const { code, name, credits, instructors, description, prerequisites } =
         req.body;
+
     if (
         !code ||
         !name ||
@@ -23,16 +25,30 @@ async function handleCreateCourse(req, res) {
             .json({ message: "Missing required information" });
     }
 
-    const result = await Course.create({
-        code: code,
-        name: name,
-        credits: credits,
-        instructors: instructors,
-        description: description,
-        prerequisites: prerequisites,
-    });
+    try {
+        // Check if the course already exists
+        const existingCourse = await Course.findOne({ code });
+        if (existingCourse) {
+            return res
+                .status(409)
+                .json({ message: "Course already exists with this code." });
+        }
 
-    return res.status(201).json({ msg: "Success", id: result._id });
+        const course = await Course.create({
+            code: code,
+            name: name,
+            credits: credits,
+            instructors: instructors,
+            description: description,
+            prerequisites: prerequisites,
+        });
+
+        return res.status(201).json({ message: "Success", id: course._id });
+    } catch (error) {
+        return res
+            .status(500)
+            .json({ message: "Internal server error", error: error.message });
+    }
 }
 
 /**
@@ -57,21 +73,25 @@ async function handleGetCourseByCode(req, res) {
  * @returns A JSON response with the status of the update
  */
 async function handleUpdateCourseById(req, res) {
-    const { id } = req.params
+    const { id } = req.params;
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
-        return res.status(404).json({error: 'No such course'})
+        return res.status(404).json({ error: "No such course" });
     }
 
-    const course = await Course.findOneAndUpdate({_id: id}, {
-        ...req.body
-    })
+    const course = await Course.findOneAndUpdate(
+        { _id: id },
+        {
+            ...req.body,
+        },
+        { new: true }
+    );
 
     if (!course) {
-        return res.status(404).json({error: 'No such course'})
+        return res.status(404).json({ error: "No such course" });
     }
 
-    res.status(200).json(course)
+    res.status(200).json(course);
 }
 
 /**
@@ -81,19 +101,19 @@ async function handleUpdateCourseById(req, res) {
  * @returns A JSON response with the course information
  */
 async function handleGetCourseById(req, res) {
-    const { id } = req.params
+    const { id } = req.params;
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
-        return res.status(404).json({error: 'No such course'})
+        return res.status(404).json({ error: "No such course" });
     }
 
-    const course = await Course.findById(id)
+    const course = await Course.findById(id);
 
     if (!course) {
-        return res.status(404).json({error: 'No such course'})
+        return res.status(404).json({ error: "No such course" });
     }
 
-    res.status(200).json(course)
+    res.status(200).json(course);
 }
 
 /**
@@ -103,19 +123,19 @@ async function handleGetCourseById(req, res) {
  * @returns A JSON response with the status of the deletion
  */
 async function handleDeleteCourseById(req, res) {
-    const { id } = req.params
+    const { id } = req.params;
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
-        return res.status(404).json({error: 'No such course'})
+        return res.status(404).json({ error: "No such course" });
     }
 
-    const course = await Course.findOneAndDelete({_id: id})
+    const course = await Course.findOneAndDelete({ _id: id });
 
     if (!course) {
-        return res.status(404).json({error: 'No such course'})
+        return res.status(404).json({ error: "No such course" });
     }
 
-    res.status(200).json(course)
+    res.status(200).json(course);
 }
 
 /**

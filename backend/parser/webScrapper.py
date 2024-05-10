@@ -117,7 +117,7 @@ class Scrapper:
     
     def store_content(self, courses):
         filename = 'course.json'
-        folder_path = '../backend'
+        folder_path = '.'
         file_path = os.path.join(folder_path, filename)
 
         with open(file_path, 'w', encoding='utf-8') as f:

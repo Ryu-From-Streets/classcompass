@@ -26,14 +26,12 @@ const AdvisorsPage = () => {
         <div className="AdvisorsPage">
             <div className="Advisors">
                 {advisors && advisors.map((advisor) => (
-                    <div className="advisor">
+                    <div key={advisor.name} className="advisor">
                         <p><strong>{advisor.name}</strong></p>
                         <p>{advisor.title}</p>
                         <a href={"mailto:" + advisor.email}>{advisor.email}</a>
                         <b></b>
                     </div>
-                    
-                    
                 ))}
             </div>
         </div>

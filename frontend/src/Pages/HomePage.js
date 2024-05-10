@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { getAllCoursesJSON, getUser, getCookie } from "../Utils/get_data";
 
 
 // COMPONENTS
@@ -7,29 +8,36 @@ import CourseButton from "../Components/CourseButton";
 
 
 const HomePage = () => {
-    // state for search bar components
+    // FEEDBACK STATES
+    const [courseFeedback, setCourseFeedback] = useState("");
+
+    // COURSES AND STUDENT STATES
+    const [allCourses, setAllCourses] = useState([]);
     const [filteredCourses, setFilteredCourses] = useState([]);
-    const [error, setError] = useState("");
+    const [user, setUser] = useState([]);
 
+    // fetch all courses and store them in courses state every time the page is loaded
+    // also store a copy of all courses in filteredCourses state for use in search bar component
     useEffect(() => {
-        const fetchAllCourses = async () => {
-            setError("");
-            const response = await fetch("/courses", { method: "GET" });
-            const jsonOfCourses = await response.json();
 
-            if (response.ok) {
-                setFilteredCourses(jsonOfCourses);
-                if (response.length === 0) {
-                    setError("No courses found");
-                }
-            }
-            if (!response.ok) {
-                console.log("ERROR FETCHING DATA");
-                setError("Error fetching courses");
-            }
-        };
+        let user_type = getCookie("userType");
+        let user_id = getCookie("userID");
+        let auth_token = getCookie("authToken");
 
-        fetchAllCourses();
+        async function setStates() {
+            // fetches all courses and creates a copy for search bar
+            const coursesJSON = await getAllCoursesJSON(setCourseFeedback);
+            setAllCourses(coursesJSON);
+            setFilteredCourses(coursesJSON);
+
+            // fetches user 
+            const userJSON = await getUser(user_type, user_id, auth_token);
+            setUser(userJSON);
+        }
+        setStates();
+
+        
+
     }, []);
 
     
@@ -37,15 +45,25 @@ const HomePage = () => {
         <div className="HomePage">
             <div className="Courses">
 
+                <h1>Search For a Course!</h1>
+
                 <div className = "search-bar-container">
-                    <SearchBar setFilteredCourses={setFilteredCourses} setError={setError} />
+                    <SearchBar 
+                        allCourses={allCourses} 
+                        setFilteredCourses={setFilteredCourses} 
+                        setFeedback={setCourseFeedback} 
+                    />
                 </div>
 
-                <p>{error}</p>
+                <p>{courseFeedback}</p>
 
-                {filteredCourses && filteredCourses.map((course) => (
+                {filteredCourses && filteredCourses.map((filteredCourse) => (
 
-                    <CourseButton course={course}/>
+                    <CourseButton 
+                        key={filteredCourse.code} 
+                        course={filteredCourse} 
+                        user={user}
+                    />
 
                 ))}
 

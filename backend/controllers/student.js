@@ -1,57 +1,147 @@
 const Student = require("../models/student");
 const bcrypt = require("bcrypt");
+const { generateToken } = require("../middleware/auth");
+const mongoose = require("mongoose");
+const fs = require("fs");
+const { runScrapper } = require("../utils");
+
 /**
  * Handles the creation of a new student in the database if the required information is provided
  * @param {*} req - Request object
  * @param {*} res - Response object
- * @returns The response object indicating the success or failure of the operation
+ * @returns The response object indicating the success or failure of the operation and the token
  */
 async function handleCreateStudent(req, res) {
-    const { first_name, last_name, email, major, credits, courses_taken, password } = req.body;
-    if (!first_name || !email || !credits || !password) {
-        return res
-            .status(400)
-            .json({ message: "Missing required information" });
+  const { first_name, last_name, email, question, answer, password } = req.body;
+  // Parse the boolean value from the string
+  const useTranscript =
+    req.body.useTranscript === "true" || req.body.useTranscript === true;
+
+  if (!first_name || !email || !password) {
+    return res.status(400).json({ message: "Missing required information" });
+  }
+
+  // Check if the transcript file is provided and create a path to it
+  let transcriptPath = useTranscript && req.file ? req.file.path : null;
+
+  try {
+    let majors, minors, courses, gpa, credits;
+    if (useTranscript) {
+      if (!transcriptPath) {
+        return res.status(400).json({ message: "Transcript file is required" });
+      }
+      const transcriptData = await runScrapper(transcriptPath);
+      const parsedData = JSON.parse(transcriptData);
+      majors = parsedData.majors;
+      minors = parsedData.minors;
+      courses = parsedData.courses;
+      gpa = parsedData.gpa;
+      credits = parsedData.credits;
     }
+
+    // Check if the student already exists
+    const existingStudent = await Student.findOne({ email });
+    if (existingStudent) {
+      if (useTranscript) fs.unlinkSync(transcriptPath);
+      return res
+        .status(409)
+        .json({ message: "User already exists with this email." });
+    }
+
     const hashedPassword = await bcrypt.hash(password, 10);
-    const result = await Student.create({
-        first_name: first_name,
-        last_name: last_name || "",
-        email: email,
-        credits: credits,
-        courses_taken: Array.isArray(courses_taken) ? courses_taken : [],
-        password: hashedPassword,
+
+    // Create the student in the database
+    const student = await Student.create({
+      first_name: first_name,
+      last_name: last_name || "",
+      email: email,
+      password: hashedPassword,
+      question: question,
+      answer: answer,
+      majors: majors || [],
+      minors: minors || [],
+      courses: courses || [],
+      gpa: parseFloat(gpa) || 0,
+      credits: parseInt(credits) || 0,
     });
 
-    return res.status(201).json({ msg: "Success", id: result._id });
+    const token = await generateToken(student);
+
+    return res.status(201).json({
+      message: "Student created successfully",
+      name: student.first_name,
+      id: student._id,
+      token,
+    });
+  } catch (error) {
+    if (transcriptPath) fs.unlinkSync(transcriptPath);
+    return res
+      .status(500)
+      .json({ message: "Internal server error", error: error });
+  }
 }
 
 /**
- * 
+ * Handles the sign-in request for a student
  * @param {*} req The request object
  * @param {*} res The response object
- * @returns Handles the sign-in request for a student
+ * @returns The response object with the status of the sign-in
  */
 async function handleSignIn(req, res) {
-    const { email, password } = req.body;
+  const { email, password } = req.body;
 
-    try {
-        const user = await Student.findOne({ email });
-        if (!user) {
-            return res.status(404).json({ message: "User not found" });
-        }
-        const isPasswordMatch = await bcrypt.compare(password, user.password);
-
-        if (!isPasswordMatch) {
-            return res.status(401).json({ message: "Invalid password" });
-        }
-        return res.status(200).json({ message: "Sign-in successful", user });
-    } catch (error) {
-        return res
-            .status(500)
-            .json({ message: "Internal server error", error: error.message });
+  try {
+    const user = await Student.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
     }
+    const isPasswordMatch = await bcrypt.compare(password, user.password);
+
+    if (!isPasswordMatch) {
+      return res.status(401).json({ message: "Invalid password" });
+    }
+
+    const token = await generateToken(user);
+
+    return res.status(200).json({
+      message: "Sign-in successful",
+      name: user.first_name,
+      id: user._id,
+      token,
+    });
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ message: "Internal server error", error: error.message });
+  }
 }
+
+async function handleChangePassword(req, res) {
+  const { email, newPassword, question, answer } = req.body;
+
+  try {
+    const user = await Student.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    if (user.question !== question || user.answer !== answer) {
+      return res
+        .status(401)
+        .json({ message: "Security question or answer is incorrect" });
+    }
+
+    const hashedNewPassword = await bcrypt.hash(newPassword, 10);
+    user.password = hashedNewPassword;
+    await user.save();
+
+    return res.status(200).json({ message: "Password changed successfully" });
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ message: "Internal server error", error: error.message });
+  }
+}
+
 
 /**
  * Handles the request to update a student by ID
@@ -60,24 +150,25 @@ async function handleSignIn(req, res) {
  * @returns A JSON response with the status of the update
  */
 async function handleUpdateStudentById(req, res) {
-    // await Student.findByIdAndUpdate(req.params.id, req.body);
-    // return res.json({ status: "Success" });
+  const { id } = req.params;
 
-    const {id} = req.params;
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(404).json({ message: "No such student" });
+  }
 
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-        return res.status(404).json({error: 'No such student'})
-    }
+  const student = await Student.findByIdAndUpdate(
+    id,
+    {
+      ...req.body,
+    },
+    { new: true }
+  );
 
-    const student = await Student.findByIdAndUpdate(id, {
-        ...req.body
-    })
+  if (!student) {
+    return res.status(404).json({ message: "No such student" });
+  }
 
-    if (!student) {
-        return res.status(404).json({error: 'No such student'})
-    }
-
-    res.status(200).json(student)
+  res.status(200).json(student);
 }
 
 /**
@@ -87,23 +178,19 @@ async function handleUpdateStudentById(req, res) {
  * @returns A JSON response with the student information
  */
 async function handleGetStudentById(req, res) {
-    // const student = await Student.findById(req.params.id);
-    // if (!student) return res.status(404).json({ error: "Student not found" });
-    // return res.json(student);
+  const { id } = req.params;
 
-    const {id} = req.params;
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(404).json({ message: "No such student" });
+  }
 
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-        return res.status(404).json({error: 'No such student'})
-    }
+  const student = await Student.findById(id);
 
-    const student = await Student.findById(id)
+  if (!student) {
+    return res.status(404).json({ message: "No such student" });
+  }
 
-    if (!student) {
-        return res.status(404).json({error: 'No such student'})
-    }
-
-    res.status(200).json(student)
+  res.status(200).json(student);
 }
 
 /**
@@ -113,22 +200,19 @@ async function handleGetStudentById(req, res) {
  * @returns A JSON response with the status of the deletion
  */
 async function handleDeleteStudentById(req, res) {
-    // await Student.findByIdAndDelete(req.params.id);
-    // return res.json({ status: "Success" });
+  const { id } = req.params;
 
-    const {id} = req.params;
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(404).json({ error: "No such student" });
+  }
 
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-        return res.status(404).json({error: 'No such student'})
-    }
+  const student = await Student.findByIdAndDelete(id);
 
-    const student = await Student.findByIdAndDelete(id)
+  if (!student) {
+    return res.status(404).json({ error: "No such student" });
+  }
 
-    if (!student) {
-        return res.status(404).json({error: 'No such student'})
-    }
-
-    res.status(200).json(student)
+  res.status(200).json(student);
 }
 
 /**
@@ -138,15 +222,22 @@ async function handleDeleteStudentById(req, res) {
  * @returns A JSON response with all the students
  */
 async function handleGetAllStudents(req, res) {
+  try {
     const all_students = await Student.find({});
     return res.status(200).json(all_students);
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ message: "Internal server error", error: error.message });
+  }
 }
 
 module.exports = {
-    handleCreateStudent,
-    handleUpdateStudentById,
-    handleGetStudentById,
-    handleDeleteStudentById,
-    handleGetAllStudents,
-    handleSignIn,
+  handleCreateStudent,
+  handleUpdateStudentById,
+  handleGetStudentById,
+  handleDeleteStudentById,
+  handleGetAllStudents,
+  handleSignIn,
+  handleChangePassword,
 };

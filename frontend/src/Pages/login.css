@@ -1,4 +1,12 @@
 .login-page {
+  background-color: #eeeeee;
+}
+
+.register-page {
+  background-color: #eeeeee;
+}
+
+.form {
     margin: auto;
     width: 400px;
     padding: 30px;
@@ -10,12 +18,12 @@
     padding: 10px;
   }
   
-  .login-page h1 {
+  .form h1 {
     font-size: 36px;
     text-align: center;
   }
   
-  .login-page .input-box {
+  .form .input-box {
     position: relative;
     width: 100%;
     height: 50px;
@@ -54,7 +62,7 @@
     font-size: 20px;
   }
   
-  .login-page .forgot {
+  .form .forgot {
     display: flex;
     justify-content: space-between;
     font-size: 14px;
@@ -83,7 +91,7 @@
     text-decoration: underline;
   }
   
-  .login-page .button {
+  .form .button {
     margin-top: 10px;
     width: 100%;
     height: 45px;
@@ -98,7 +106,7 @@
     font-weight: 700;
   }
   
-  .login-page .register {
+  .form .register {
     font-size: 14px;
     text-align: center;
     margin-top: 20px;

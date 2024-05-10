@@ -7,6 +7,12 @@ module.exports = {
         version: '4.0.2', // Version of MongoDB
         skipMD5: true
       },
-      autoStart: false
+      autoStart: false,
+
+      
+      testEnvironment: 'node',
+      preset: "@shelf/jest-mongodb",
+      
+
     }
   };

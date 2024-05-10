@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "cross-env NODE_ENV=test jest --testTimeout=5000",
+    "test": "jest",
     "start": "node index.js",
     "dev": "nodemon --ignore course.JSON --watch index.js",
     "build": "npm install --prefix ../frontend && npm run build --prefix ../frontend && npm install && pip install beautifulsoup4 && pip install requests",
@@ -20,9 +20,16 @@
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "jest": "^29.7.0",
+    "JSON": "^1.0.0",
+    "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.5.0",
     "mongoose": "^8.3.0",
     "nodemon": "^3.1.0",
-    "supertest": "^6.3.4"
+    "supertest": "^6.3.4",
+    "token": "^0.1.0",
+    "web": "^0.0.2"
+  },
+  "devDependencies": {
+    "@shelf/jest-mongodb": "^4.3.1"
   }
 }
