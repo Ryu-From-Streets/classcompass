@@ -97,6 +97,37 @@ export function getCookie(key) {
 }
 
 
+export async function getCourseByCode( courseCode ) {
+    let response;
+
+    // try fetching all courses and log error to console if error
+    try {
+        response = await fetch(`/courses/${courseCode}`, { method: "GET" });
+    } catch (error) {
+        console.log("Fetch error: " + error);
+    }
+
+    if (response.ok) {
+        // if response is empty, indicate to the user that no courses were found
+        if (response.length === 0) {
+            console.log("Course not found");
+        }
+        // if response is not empty, convert response to json and set courses
+        else {
+            const jsonOfCourse = await response.json();
+            return jsonOfCourse;
+        }
+    }
+    // if some error fetching data, indicate to the user that there was an error
+    else {
+        console.log("Error fetching data");
+    }
+
+    return [];
+}
+
+
+
 export async function getUser(user_type, user_id, auth_token) {
     let response;
 
