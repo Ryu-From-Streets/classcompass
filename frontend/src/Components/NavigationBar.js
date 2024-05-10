@@ -70,8 +70,9 @@ const NavigationBar = () => {
                       <h3>{getCookie("name")}</h3>
                     </div>
                     <ul>
-                      <li>Profile</li>
-                      <li>Settings</li>
+                      <li></li>
+                      <li></li>
+                      <li></li>
                       <li onClick={handleLogout}>Sign Out</li>
                     </ul>
                   </div>
