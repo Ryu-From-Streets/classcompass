@@ -6,6 +6,7 @@ import "./NavigationBar.css";
 const NavigationBar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [showProfilePopup, setShowProfilePopup] = useState(false);
+  const [showSettings, setShowSettings] = useState(false);
 
   useEffect(() => {
     const authToken = getCookie("authToken");
@@ -20,6 +21,23 @@ const NavigationBar = () => {
 
   const toggleProfilePopup = () => {
     setShowProfilePopup(!showProfilePopup);
+    setShowSettings(false); // Close settings when opening profile popup
+  };
+
+  const toggleSettings = () => {
+    setShowSettings(!showSettings);
+    setShowProfilePopup(false); // Close profile popup when opening settings
+  };
+
+
+  const handlePDFUpload = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader(); 
+      reader.onload = (e) => {
+        const pdfContent = e.target.result; // confusion: how to handle???
+      };
+    }
   };
 
   const handleLogout = () => {
@@ -44,16 +62,32 @@ const NavigationBar = () => {
                 <button onClick={toggleProfilePopup}>
                   <HiOutlineUserCircle className="icon" />
                 </button>
-                {showProfilePopup && (
+                {showProfilePopup && !showSettings && (
                   <div className="ProfilePopup">
                     <div className="ProfileHeader">
                       <HiOutlineUserCircle className="profileIcon" />
                       <h3>{getCookie("name")}</h3>
                     </div>
                     <ul>
-                      <li>Profile</li>
-                      <li>Settings</li>
+                      <li onClick={toggleSettings}>Settings</li>
                       <li onClick={handleLogout}>Sign Out</li>
+                    </ul>
+                  </div>
+                )}
+                {showSettings && (
+                  <div className="SettingsPopup">
+                    <ul>
+                      {/* Input element for uploading PDF */}
+                      <li>
+                        <label htmlFor="pdfUpload">Upload PDF</label>
+                        <input
+                          type="file"
+                          id="pdfUpload"
+                          accept=".pdf"
+                          onChange={handlePDFUpload}
+                        />
+                      </li>
+                      <li onClick={toggleProfilePopup}>Close Settings</li>
                     </ul>
                   </div>
                 )}

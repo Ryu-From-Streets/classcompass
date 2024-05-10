@@ -62,8 +62,9 @@ body {
 
 .ProfilePopup {
   position: absolute;
-  top: 40px;
-  right: 0;
+  top: 50%;
+  right: 20;
+  padding: 20px;
   background-color: #fff;
   border: 1px solid #ccc;
   border-radius: 4px;
@@ -93,5 +94,56 @@ body {
 }
 
 .ProfilePopup ul li:hover {
+  background-color: #f0f0f0;
+}
+
+.SettingsPopup {
+  position: absolute;
+  top: 50%;
+  right: 20px;
+  /* Added 'px' unit */
+  padding: 20px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  z-index: 999;
+}
+
+.SettingsHeader {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.settingsIcon {
+  margin-right: 10px;
+}
+
+.SettingsPopup ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.SettingsPopup ul li {
+  cursor: pointer;
+  padding: 5px 0;
+}
+
+.SettingsPopup ul li:hover {
+  background-color: #f0f0f0;
+}
+
+.SettingsPopup input[type="file"] {
+  display: none;
+}
+
+.SettingsPopup label {
+  cursor: pointer;
+  padding: 5px 0;
+}
+
+.SettingsPopup label:hover {
   background-color: #f0f0f0;
 }
