@@ -11,6 +11,7 @@ const TreePage = () => {
   const course = state ? state.course : null;
   const [courses, setCourses] = useState([]);
   const [feedback, setFeedback] = useState("");
+  // eslint-disable-next-line
   const [user, setUser] = useState([]); // don't remove user, causes errors
   const [takenCourses, setTakenCourses] = useState([]);
 

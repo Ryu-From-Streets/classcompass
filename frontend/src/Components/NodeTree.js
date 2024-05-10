@@ -169,6 +169,7 @@ const NodeTree = ({ node, courses, takenCourses }) => {
     if (courses.length > 0) {
       renderTreeData();
     }
+    // eslint-disable-next-line
   }, [courses, node, takenCourses]);
 
   return treeData ? (
