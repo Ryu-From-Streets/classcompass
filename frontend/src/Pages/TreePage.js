@@ -11,24 +11,25 @@ const TreePage = () => {
   const course = state ? state.course : null;
   const [courses, setCourses] = useState([]);
   const [feedback, setFeedback] = useState("");
-  const [user, setUser] = useState([]);
+  const [user, setUser] = useState([]); // don't remove user, causes errors
+  const [takenCourses, setTakenCourses] = useState([]);
 
   useEffect(() => {
-
+    
     let user_type = getCookie("userType");
     let user_id = getCookie("userID");
     let auth_token = getCookie("authToken");
 
-    async function setStates() {
+    async function fetchData() {
       const coursesJSON = await getAllCoursesJSON(setFeedback);
       setCourses(coursesJSON);
 
-      // fetches user 
       const userJSON = await getUser(user_type, user_id, auth_token);
       setUser(userJSON);
+      setTakenCourses(userJSON.courses_taken || []);
     }
 
-    setStates();
+    fetchData();
   }, []);
 
   if (!course) {
@@ -40,7 +41,7 @@ const TreePage = () => {
       <Link className="back-link" to="/">&lt; Back to Search</Link>
       <h2>Prerequisite Tree for {course.code}</h2>
       <p>{feedback}</p>
-      <NodeTree node={course} courses={courses} takenCourses={user.courses_taken}/>
+      <NodeTree node={course} courses={courses} takenCourses={takenCourses} />
     </div>
   );
 };

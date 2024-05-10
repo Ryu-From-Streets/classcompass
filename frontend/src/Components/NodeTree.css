@@ -1,10 +1,8 @@
 .node__root > circle {
-    fill: #881c1c;
-  }
-  
-  .node__branch > circle {
-    fill: rgb(116, 116, 116);
-  }
-  
- 
-  
+  fill: #881c1c;
+}
+
+.node__branch > circle {
+  fill: rgb(116, 116, 116);
+}
+

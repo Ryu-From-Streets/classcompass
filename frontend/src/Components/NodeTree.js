@@ -8,14 +8,22 @@ const NodeTree = ({ node, courses, takenCourses }) => {
 
   const renderNode = (courseNode, depth) => {
     const { code, prerequisites } = courseNode;
+    const isTaken = takenCourses.includes(code);
+    const nodeText = isTaken ? '( Taken )' : '';
   
     // Render the root node with the course code
     const rootNode = {
-      name: code,
+      name: `${code} ${nodeText}`, // Append "taken" text to the name if the course is taken
       depth,
-      children: []
+      nodeSvgShape: {
+        shapeProps: {
+          stroke: 'black',
+          strokeWidth: '2px',
+        },
+      },
+      children: [],
     };
-  
+
     // If there are prerequisites, render children nodes accordingly
     if (prerequisites.length > 0) {
       if (Array.isArray(prerequisites[0])) {
@@ -148,7 +156,7 @@ const NodeTree = ({ node, courses, takenCourses }) => {
         });
       }
     }
-  
+
     return rootNode;
   };
 
@@ -161,8 +169,7 @@ const NodeTree = ({ node, courses, takenCourses }) => {
     if (courses.length > 0) {
       renderTreeData();
     }
-    // eslint-disable-next-line
-  }, [courses, node]);
+  }, [courses, node, takenCourses]);
 
   return treeData ? (
     <div style={{ width: '100%', height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'flex-start' }}>
