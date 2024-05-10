@@ -43,8 +43,18 @@ const NavigationBar = () => {
   const handleLogout = () => {
     document.cookie =
       "authToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    document.cookie =
+      "name=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    document.cookie =
+      "userID=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    document.cookie =
+      "userType=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+
     setIsLoggedIn(false);
     setShowProfilePopup(false);
+
+    window.location.reload();
+    return false;
   };
 
   return (
@@ -54,6 +64,15 @@ const NavigationBar = () => {
           <NavLink to="/" exact>
             <h1>Class Compass</h1>
           </NavLink>
+        </div>
+        <div className="NavigationElements">
+          <ul>
+            <li>
+              <NavLink to="/advisors" exact>
+                <p>Advisors</p>
+              </NavLink>
+            </li>
+          </ul>
         </div>
         <div className="NavigationElements">
           <ul>
