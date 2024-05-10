@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import NodeTree from '../Components/NodeTree';
-import { getAllCoursesJSON } from '../Utils/get_data';
+import { getAllCoursesJSON, getUser, getCookie } from '../Utils/get_data';
 
 // Some parts of TreePage.js were adapted with the assistance of ChatGPT
 
@@ -11,11 +11,21 @@ const TreePage = () => {
   const course = state ? state.course : null;
   const [courses, setCourses] = useState([]);
   const [feedback, setFeedback] = useState("");
+  const [user, setUser] = useState([]);
 
   useEffect(() => {
+
+    let user_type = getCookie("userType");
+    let user_id = getCookie("userID");
+    let auth_token = getCookie("authToken");
+
     async function setStates() {
       const coursesJSON = await getAllCoursesJSON(setFeedback);
       setCourses(coursesJSON);
+
+      // fetches user 
+      const userJSON = await getUser(user_type, user_id, auth_token);
+      setUser(userJSON);
     }
 
     setStates();
@@ -30,7 +40,7 @@ const TreePage = () => {
       <Link className="back-link" to="/">&lt; Back to Search</Link>
       <h2>Prerequisite Tree for {course.code}</h2>
       <p>{feedback}</p>
-      <NodeTree node={course} courses={courses} />
+      <NodeTree node={course} courses={courses} takenCourses={user.courses_taken}/>
     </div>
   );
 };
