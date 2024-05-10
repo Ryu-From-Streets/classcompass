@@ -13,7 +13,7 @@ const advisorFunctions = {
     }
   },
 
-  //CREATE
+  //CREATE an advisor with all required fields
   async createAdvisor(advisor){
     try{
       const newAdvisor = {
@@ -31,7 +31,7 @@ const advisorFunctions = {
     }
   },
 
-  //READ
+  //READ an advisor using their ID 
   async getAdvisorById(advisorId){
     try{
       const advisorResponse = await advisorFunctions.findById({_id: advisorId})
@@ -41,7 +41,7 @@ const advisorFunctions = {
     }
   },
 
-  //UPDATE
+  //UPDATE an advisor in the database
   async updateAdvisor(advisor){
     try{
       const updateResponse = await advisorInstance.updateOne(
@@ -55,7 +55,7 @@ const advisorFunctions = {
     }
   },
 
-  //DELETE
+  //DELETE an advisor from the database using their ID
   async deleteAdvisor(advisorId){
     try{
       const deletedResponse = await advisorInstance.findOneAndDelete(advisorId);
@@ -68,10 +68,10 @@ const advisorFunctions = {
 
 //Run Tests on CRUD Instances
 describe("Tests on Advisor Routes", () => {
+  //Establish a connection to the database before testing
   beforeAll(async() => {
     await mongoose.connect(process.env.MONGODB_URL, {
       useNewUrlParser: true,
-      //useCreateIndex: true,
       useUnifiedTopology: true,
     })
   });
@@ -135,7 +135,7 @@ describe("Tests on Advisor Routes", () => {
   });
 
   
-
+  //close the database after running tests
   afterAll(async () => {
     try {
       await mongoose.disconnect();

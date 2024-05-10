@@ -138,8 +138,7 @@ describe("Tests on course Routes", () => {
       }
   });
 
-  
-
+  //Disconnect from database
   afterAll(async () => {
     try {
       await mongoose.disconnect();

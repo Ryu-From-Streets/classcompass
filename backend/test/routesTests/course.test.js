@@ -13,7 +13,7 @@ const courseFunctions = {
     }
   },
 
-  //CREATE
+  //CREATE a course with the required fields
   async createCourse(course){
     try{
       const newCourse = {
@@ -34,7 +34,7 @@ const courseFunctions = {
     }
   },
 
-  //READ
+  //READ a course using its code 
   async getCourseByCode(courseCode){
     try{
       const courseResponse = await courseFunctions.findByCode({ code: courseCode})
@@ -45,7 +45,7 @@ const courseFunctions = {
     }
   },
 
-  //UPDATE
+  //UPDATE a course in the database
   async updateCourse(course){
     try{
       const updateResponse = await courseInstance.updateOne(
@@ -59,7 +59,7 @@ const courseFunctions = {
     }
   },
 
-  //DELETE
+  //DELETE a course using its code
   async deleteCourse(courseCode){
     try{
       const deletedResponse = await courseInstance.findOneAndDelete({ code: courseCode });
@@ -73,6 +73,7 @@ const courseFunctions = {
 
 //Run Tests on CRUD Instances
 describe("Tests on course Routes", () => {
+  //Establish a connection to the database
   beforeAll(async() => {
     await mongoose.connect(process.env.MONGODB_URL, {
       useNewUrlParser: true,
@@ -143,8 +144,7 @@ describe("Tests on course Routes", () => {
       expect(course).toBeNull();
   });
 
-  
-
+  //Disconnect from database
   afterAll(async () => {
     try {
       await mongoose.disconnect();
