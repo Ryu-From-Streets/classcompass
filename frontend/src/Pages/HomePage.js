@@ -20,8 +20,8 @@ const HomePage = () => {
     // also store a copy of all courses in filteredCourses state for use in search bar component
     useEffect(() => {
 
-        let user_type = getCookie("type");
-        let user_id = getCookie("id");
+        let user_type = getCookie("userType");
+        let user_id = getCookie("userID");
         let auth_token = getCookie("authToken");
 
         async function setStates() {
