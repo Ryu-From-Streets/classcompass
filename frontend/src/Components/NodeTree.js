@@ -3,7 +3,7 @@ import Tree from 'react-d3-tree';
 
 // Some parts of NodeTree.js were adapted with the assistance of ChatGPT
 
-const NodeTree = ({ node, courses }) => {
+const NodeTree = ({ node, courses, takenCourses }) => {
   const [treeData, setTreeData] = useState(null);
 
   const renderNode = (courseNode) => {
@@ -151,6 +151,7 @@ const NodeTree = ({ node, courses }) => {
     if (courses.length > 0) {
       renderTreeData();
     }
+    // eslint-disable-next-line
   }, [courses, node]);
 
   return treeData ? (
