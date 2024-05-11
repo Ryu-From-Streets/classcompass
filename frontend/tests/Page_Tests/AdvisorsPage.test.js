@@ -2,10 +2,11 @@
 
 import React from "react";
 import { render, unmountComponentAtNode } from "react-dom";
-import { act } from "react-dom/test-utils";
+import { act } from "@testing-library/react"; // Import act from @testing-library/react
 import * as fakeAdvisorsEmpty from "../Mock_Data/advisor_data/advisor_list_empty.json";
 import * as fakeAdvisorsOne from "../Mock_Data/advisor_data/advisor_list_one.json";
 import * as fakeAdvisorsMany from "../Mock_Data/advisor_data/advisor_list_one.json";
+import { createRoot } from "react-dom/client";
 
 import AdvisorsPage from "../../src/Pages/AdvisorsPage";
 
@@ -18,7 +19,6 @@ beforeEach(() => {
 
 afterEach(() => {
     // cleanup on exiting
-    unmountComponentAtNode(container);
     container.remove();
     container = null;
 });
@@ -34,17 +34,17 @@ it("renders user data", async () => {
     }));
 
     await act(async () => {
-        render(<AdvisorsPage />, container);
+        createRoot(container).render(<AdvisorsPage />);
     });
 
     const feedback = container.querySelector("p.feedback").textContent;
-    //expect(feedback.toBe("Error fetching advisors"))
+    expect(feedback).toBe("Error fetching advisors");
     console.log(feedback)
 
     const advisors = container.querySelectorAll("div.advisor");
-
-
+    
 
     // remove the mock to ensure tests are completely isolated
     global.fetch.mockRestore();
 });
+  
